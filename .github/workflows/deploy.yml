@@ -58,9 +58,11 @@ jobs:
             dotnet build -c Release -o ../build/backend
             cd ..
 
-            # Start backend, scrape API endpoints, stop backend
-            dotnet build/backend/backend.dll --urls "http://localhost:5099" &
+            # Start backend from backend/ dir so ContentRootPath resolves ../node_modules correctly
+            cd backend
+            dotnet ../build/backend/backend.dll --urls "http://localhost:5099" &
             BACKEND_PID=$!
+            cd ..
             sleep 3
 
             # Create static site output

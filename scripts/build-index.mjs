@@ -57,4 +57,27 @@ ${projects.map(p => `    <div class="card">
 </html>`;
 
 writeFileSync(join(outputDir, 'index.html'), html);
-console.log(`Generated root index.html with ${projects.length} prototypes`);
+
+// Generate root 404.html for SPA routing across prototypes
+const html404 = `<!doctype html>
+<html>
+<head><meta charset="utf-8" /></head>
+<body>
+  <script>
+    // SPA redirect for GitHub Pages
+    // Determines which prototype the user wants and redirects to its index.html
+    var segments = window.location.pathname.split('/').filter(Boolean);
+    // segments[0] = 'prototype-profit' (repo name)
+    // segments[1] = prototype name (rpt00692, rpt00701, rfi00731)
+    // segments[2+] = SPA route
+    if (segments.length >= 2) {
+      var route = '/' + segments.slice(2).join('/');
+      sessionStorage.setItem('spa-redirect', route + window.location.search);
+      window.location.replace('/' + segments.slice(0, 2).join('/') + '/');
+    }
+  </script>
+</body>
+</html>`;
+writeFileSync(join(outputDir, '404.html'), html404);
+
+console.log(`Generated root index.html and 404.html with ${projects.length} prototypes`);

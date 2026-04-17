@@ -33,6 +33,16 @@ const html = `<!doctype html>
     <link type="image/png" rel="icon" sizes="48x48" href="podium-js/favicon.png" />
   </head>
   <body>
+    <script>
+      // Pick up SPA route from 404.html redirect
+      (function() {
+        var redirect = sessionStorage.getItem('spa-redirect');
+        if (redirect) {
+          sessionStorage.removeItem('spa-redirect');
+          window.history.replaceState(null, null, '.' + redirect);
+        }
+      })();
+    </script>
     <div id="loading">Loading...</div>
     <script type="module">
       // Intercept fetch calls to /api/* and serve static JSON files instead
