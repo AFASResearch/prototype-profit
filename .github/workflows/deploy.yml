@@ -63,7 +63,12 @@ jobs:
             dotnet ../build/backend/backend.dll --urls "http://localhost:5099" &
             BACKEND_PID=$!
             cd ..
-            sleep 3
+
+            # Wait for backend to be ready (up to 15 seconds)
+            for i in $(seq 1 15); do
+              curl -s -o /dev/null http://localhost:5099 && break
+              sleep 1
+            done
 
             # Create static site output
             OUTDIR="../$SITE_DIR/$dir"
