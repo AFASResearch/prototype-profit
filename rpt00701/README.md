@@ -1,6 +1,6 @@
 # RPT00701 — Abonnementsprijzen
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/AFASResearch/prototype-profit?devcontainer_path=.devcontainer/rpt00701/devcontainer.json)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/AFASResearch/prototype-profit/tree/master/rpt00701)
 
 Interactive Podium JS mockup for project RPT00701.
 

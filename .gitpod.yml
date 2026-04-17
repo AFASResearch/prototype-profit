@@ -1,0 +1,33 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - name: Start Prototype
+    init: |
+      PROJECT=""
+      if [ -n "$GITPOD_WORKSPACE_CONTEXT_URL" ]; then
+        PROJECT=$(echo "$GITPOD_WORKSPACE_CONTEXT_URL" | sed -n 's|.*/tree/[^/]*/\([^/]*\).*|\1|p')
+      fi
+      if [ -d "$PROJECT" ] && [ -f "$PROJECT/package.json" ]; then
+        cd "$PROJECT"
+        npm install
+      else
+        echo "No project detected from context. Available projects:"
+        ls -d */
+      fi
+    command: |
+      PROJECT=""
+      if [ -n "$GITPOD_WORKSPACE_CONTEXT_URL" ]; then
+        PROJECT=$(echo "$GITPOD_WORKSPACE_CONTEXT_URL" | sed -n 's|.*/tree/[^/]*/\([^/]*\).*|\1|p')
+      fi
+      if [ -d "$PROJECT" ] && [ -f "$PROJECT/package.json" ]; then
+        cd "$PROJECT"
+        npm start
+      else
+        echo "Usage: cd <project> && npm start"
+      fi
+
+ports:
+  - port: 5000
+    onOpen: open-browser
+    visibility: private
