@@ -39,11 +39,12 @@ const html = `<!doctype html>
       const originalFetch = window.fetch;
       window.fetch = function(input, init) {
         let url = typeof input === 'string' ? input : input instanceof URL ? input.href : input.url;
-        if (url.startsWith('/api/') || url.match(/^\\.?\\/api\\//)) {
-          // Normalize to relative path and append .json
-          const apiPath = url.replace(/^\\.?\\//, '');
-          const jsonUrl = apiPath + '.json';
-          return originalFetch(jsonUrl, { ...init, method: 'GET' }).then(resp => {
+        // Extract API path from absolute or relative URLs containing /api/
+        const apiMatch = url.match(/\\/api\\/(.+)/);
+        if (apiMatch) {
+          // Strip query parameters and append .json
+          const apiPath = 'api/' + apiMatch[1].split('?')[0] + '.json';
+          return originalFetch(apiPath, { ...init, method: 'GET' }).then(resp => {
             if (resp.ok) return resp;
             // If .json not found, return empty ok response for PATCH/POST
             return new Response('{}', { status: 200, headers: { 'Content-Type': 'application/json' } });
