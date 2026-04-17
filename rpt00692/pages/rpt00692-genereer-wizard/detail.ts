@@ -70,16 +70,26 @@ export default function (services: BlueprintFactories): WizardPage {
         content: [
           ({
             id: 'preview',
-            type: 'list',
+            type: 'multiSelectList',
             title: constant('Toekenbare abonnementsregels'),
+            selectAllOnByDefault: true,
             languageInfo: { itemNamePlural: 'regels' },
             columns: [
               { key: 'abonnementsregel', header: 'Abonnementsregel', dataType: dataType.text(), sortable: true },
               { key: 'abonnement', header: 'Abonnement', dataType: dataType.text(), sortable: true },
               { key: 'omschrijving', header: 'Omschrijving', dataType: dataType.text(), sortable: true },
               { key: 'bedrag', header: 'Bedrag', dataType: dataType.currencyAmount(), sortable: true },
+              { key: 'factuurmoment', header: 'Factuurmoment', dataType: dataType.text(), sortable: true },
+              { key: 'geparkeerd', header: 'Geparkeerd', dataType: dataType.yesNo(), sortable: true },
             ],
-            actions: [],
+            actions: [
+              {
+                id: 'genereer',
+                name: 'Genereer',
+                isMultiselect: true,
+                async execute() { return true; }
+              }
+            ],
             itemsLoader: rest.createItemsLoader({
               url: '/api/rpt00692-genereer-wizard/preview',
               idFieldKeys: ['abonnementsregel']

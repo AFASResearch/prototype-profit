@@ -15,10 +15,7 @@ Then open [http://localhost:5000](http://localhost:5000) in your browser.
 
 ## Pages
 
-- `rpt00692-abonnement-boeking`
 - `rpt00692-abonnement-cyclus`
-- `rpt00692-abonnement-kpi`
-- `rpt00692-artikelgroep`
 - `rpt00692-facturering-voorraad`
 - `rpt00692-genereer-wizard`
 - `rpt00692-journaliseer-wizard`
