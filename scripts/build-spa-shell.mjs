@@ -56,8 +56,8 @@ const html = `<!doctype html>
         applicationName: 'Podium Application',
         podiumJsUrl: 'podium-js/',
         pagesUrl: '../pages/',
-        menuServiceUrl: 'pages/_services/menu',
-        spotlightServiceUrl: 'pages/_services/spotlight'
+        menuServiceUrl: '_services/menu',
+        spotlightServiceUrl: '_services/spotlight'
       };
 
       import('./podium-js/${entrypoint}').then(module => {
