@@ -24,6 +24,7 @@
     "isolatedModules": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "strictFunctionTypes": false,
     "skipLibCheck": true
   },
   "include": [
