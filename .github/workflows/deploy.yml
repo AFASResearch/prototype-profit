@@ -31,7 +31,7 @@ jobs:
 
       - name: Build all prototypes
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           SITE_DIR="_site"
           mkdir -p "$SITE_DIR"
