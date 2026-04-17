@@ -1,0 +1,31 @@
+{
+  "page": "rpt00701-collectief-wijzigen",
+  "type": "detail",
+  "title": "Wijzigen afwijkende prijzen abonnementsregels",
+  "sections": [
+    {
+      "id": "algemeen",
+      "name": "Algemeen",
+      "fieldGroups": [
+        {
+          "title": "Algemeen",
+          "fields": [
+            { "property": "Percentage", "label": "Percentage", "dataType": "number", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "bestaand" },
+            { "property": "VastBedrag", "label": "Vast bedrag", "dataType": "currencyAmount", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "bestaand" },
+            { "property": "OverNemenVanArtikel", "label": "Overnemen van artikel", "dataType": "yesNo", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "bestaand" },
+            { "property": "Peildatum", "label": "Peildatum", "dataType": "text", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "bestaand" },
+            { "property": "OokOverNemenAlsLeeg", "label": "Ook overnemen als afwijkende prijs leeg is", "dataType": "yesNo", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "bestaand" },
+            { "property": "MetBegindatum", "label": "Met begindatum", "dataType": "yesNo", "mandatory": false, "locked": false, "active": null, "placeholder": "Maak een Abonnementsprijs per regel aan met een begindatum in plaats van de afwijkende prijs direct te wijzigen", "choiceValues": null, "defaultValue": "Nee", "status": "nieuw" },
+            { "property": "Begindatum", "label": "Begindatum", "dataType": "text", "mandatory": true, "locked": false, "active": "MetBegindatum", "placeholder": "Datum waarop de nieuwe prijs ingaat", "choiceValues": null, "defaultValue": null, "status": "nieuw" }
+          ]
+        },
+        {
+          "title": "Afronding",
+          "fields": [
+            { "property": "Afronding", "label": "Afronding", "dataType": "text", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": ["Geen", "5 cent", "10 cent", "50 cent", "hele euro", "Vijf euro"], "defaultValue": "Geen", "status": "bestaand" }
+          ]
+        }
+      ]
+    }
+  ]
+}

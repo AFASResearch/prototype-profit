@@ -1,0 +1,29 @@
+{
+  "page": "rpt00701-te-corrigeren",
+  "type": "list",
+  "title": "Te corrigeren factuurregels",
+  "sections": [
+    {
+      "id": "main",
+      "name": "Te corrigeren factuurregels",
+      "fieldGroups": [
+        {
+          "title": null,
+          "fields": [
+            { "property": "bronfactuur", "label": "Bronfactuur", "dataType": "text", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "abonr", "label": "Abo.nr.", "dataType": "text", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "abonregel", "label": "Abonnementsregel", "dataType": "text", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "periodevn", "label": "Periode van", "dataType": "text", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "periodetm", "label": "Periode t/m", "dataType": "text", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "oudeprijs", "label": "Oude prijs", "dataType": "currencyAmount", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "oudbedrag", "label": "Oud bedrag", "dataType": "currencyAmount", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "nieuweprijs", "label": "Nieuwe prijs", "dataType": "currencyAmount", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "corrbedrag", "label": "Correctiebedrag", "dataType": "currencyAmount", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "status", "label": "Status", "dataType": "text", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "meenemen", "label": "Meenemen", "dataType": "yesNo", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" }
+          ]
+        }
+      ]
+    }
+  ]
+}

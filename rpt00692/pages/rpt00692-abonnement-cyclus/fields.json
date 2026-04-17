@@ -1,0 +1,58 @@
+{
+  "page": "rpt00692-abonnement-cyclus",
+  "type": "detail",
+  "title": "Periodeafsluiting 2026 – April (1)",
+  "sections": [
+    {
+      "id": "algemeen",
+      "name": "Algemeen",
+      "fieldGroups": [
+        {
+          "title": "Algemeen",
+          "fields": [
+            { "property": "status", "label": "Status", "dataType": "text", "status": "bestaand" },
+            { "property": "administratie", "label": "Administratie", "dataType": "text", "status": "bestaand" },
+            { "property": "periodeafsluitingsplan", "label": "Periodeafsluitingsplan", "dataType": "text", "status": "bestaand" }
+          ]
+        },
+        {
+          "title": "Periode",
+          "fields": [
+            { "property": "boekjaar", "label": "Boekjaar", "dataType": "text", "status": "bestaand" },
+            { "property": "periode", "label": "Periode", "dataType": "text", "status": "bestaand" },
+            { "property": "begindatumPeriode", "label": "Begindatum periode", "dataType": "text", "status": "bestaand" },
+            { "property": "einddatumPeriode", "label": "Einddatum periode", "dataType": "text", "status": "bestaand" }
+          ]
+        }
+      ]
+    },
+    { "id": "overlopende-posten", "name": "Overlopende posten", "fieldGroups": [] },
+    { "id": "financiele-mutaties", "name": "Financiële mutaties", "fieldGroups": [] },
+    { "id": "finance-audit-regels", "name": "Finance audit-regels", "fieldGroups": [] },
+    { "id": "finance-audit-resultaat", "name": "Finance audit-resultaat", "fieldGroups": [] },
+    { "id": "genegeerd-auditresultaat", "name": "Genegeerd auditresultaat", "fieldGroups": [] },
+    { "id": "draaiboekregels", "name": "Draaiboekregels", "fieldGroups": [] },
+    {
+      "id": "periodetoekenningsregels",
+      "name": "Periodetoekenningsregels",
+      "fieldGroups": [],
+      "listContent": true,
+      "columns": [
+        { "key": "abonnementsregel", "header": "Abonnementsregel", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "abonnement", "header": "Abonnement", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "omschrijving", "header": "Omschrijving", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "bedrag", "header": "Bedrag", "dataType": "currencyAmount", "sortable": true, "status": "nieuw" },
+        { "key": "status", "header": "Status", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "redencode", "header": "Redencode", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "aangemaakt", "header": "Aangemaakt op", "dataType": "date", "sortable": true, "status": "nieuw" },
+        { "key": "aanmakerNaam", "header": "Aangemaakt door", "dataType": "text", "sortable": true, "status": "nieuw" }
+      ],
+      "actions": [
+        { "id": "genereer", "label": "Genereer periodetoekenningsregels", "type": "toolbar", "isPrimary": true },
+        { "id": "journaliseer", "label": "Journaliseer toekenningsregels", "type": "toolbar", "isMultiselect": true, "isPrimary": true },
+        { "id": "terugdraaien", "label": "Journaliseren ongedaan maken", "type": "toolbar", "isMultiselect": true, "isPrimary": true }
+      ]
+    },
+    { "id": "dossier", "name": "Dossier", "fieldGroups": [] }
+  ]
+}

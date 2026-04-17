@@ -1,0 +1,166 @@
+{
+  "page": "rpt00692-facturering-voorraad",
+  "type": "detail",
+  "title": "Facturering/voorraad",
+  "sections": [
+    {
+      "id": "algemeen",
+      "name": "Algemeen",
+      "fieldGroups": []
+    },
+    {
+      "id": "abonnementen",
+      "name": "Abonnementen",
+      "fieldGroups": [
+        {
+          "title": "Abonnementen",
+          "fields": [
+            {
+              "property": "begindatumFactCyclus",
+              "label": "Begindatum fact cyclus",
+              "dataType": "enumeration",
+              "mandatory": false,
+              "locked": false,
+              "active": null,
+              "placeholder": null,
+              "choiceValues": [
+                { "key": "01", "name": "Volgens cyclus" },
+                { "key": "02", "name": "Volgens contract" }
+              ],
+              "defaultValue": "01",
+              "status": "bestaand"
+            },
+            {
+              "property": "cyclus",
+              "label": "Cyclus",
+              "dataType": "enumeration",
+              "mandatory": false,
+              "locked": false,
+              "active": null,
+              "placeholder": null,
+              "choiceValues": [
+                { "key": "M1", "name": "Maand" },
+                { "key": "K1", "name": "Kwartaal" },
+                { "key": "H1", "name": "Halfjaar" },
+                { "key": "J1", "name": "Jaar" }
+              ],
+              "defaultValue": "M1",
+              "status": "bestaand"
+            },
+            {
+              "property": "voorstelDatumVerlenging",
+              "label": "Voorstel datum verlenging",
+              "dataType": "enumeration",
+              "mandatory": false,
+              "locked": false,
+              "active": null,
+              "placeholder": null,
+              "choiceValues": [
+                { "key": "01", "name": "Volgens cyclus" },
+                { "key": "02", "name": "Handmatig" }
+              ],
+              "defaultValue": "01",
+              "status": "bestaand"
+            },
+            {
+              "property": "cyclusVerlenging",
+              "label": "Cyclus",
+              "dataType": "enumeration",
+              "mandatory": false,
+              "locked": false,
+              "active": null,
+              "placeholder": null,
+              "choiceValues": [
+                { "key": "M1", "name": "Maand" },
+                { "key": "K1", "name": "Kwartaal" },
+                { "key": "H1", "name": "Halfjaar" },
+                { "key": "J1", "name": "Jaar" }
+              ],
+              "defaultValue": "J1",
+              "status": "bestaand"
+            }
+          ]
+        },
+        {
+          "title": "Transitorische boeking",
+          "fields": [
+            {
+              "property": "methodeVerdeling",
+              "label": "Methode verdeling",
+              "dataType": "enumeration",
+              "mandatory": false,
+              "locked": false,
+              "active": null,
+              "placeholder": null,
+              "choiceValues": [
+                { "key": "G", "name": "Geen" },
+                { "key": "P", "name": "Pro-rata" },
+                { "key": "E", "name": "Evenredig" },
+                { "key": "4", "name": "4-weken" }
+              ],
+              "defaultValue": "P",
+              "status": "bestaand"
+            }
+          ]
+        },
+        {
+          "title": "Periodetoekenning",
+          "fields": [
+            {
+              "property": "teFacturerenOmzetRekening",
+              "label": "Te factureren abonnementen omzet",
+              "dataType": "text",
+              "mandatory": true,
+              "locked": false,
+              "active": null,
+              "placeholder": null,
+              "choiceValues": null,
+              "defaultValue": "1500 - Te factureren abonnementen omzet",
+              "status": "nieuw"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ordermanagement",
+      "name": "Ordermanagement",
+      "fieldGroups": []
+    },
+    {
+      "id": "concepten",
+      "name": "Concepten",
+      "fieldGroups": []
+    },
+    {
+      "id": "voorraad",
+      "name": "Voorraad",
+      "fieldGroups": []
+    },
+    {
+      "id": "confrontatie",
+      "name": "Confrontatie",
+      "fieldGroups": []
+    },
+    {
+      "id": "beoordelen-inkoop",
+      "name": "Beoordelen inkoop",
+      "fieldGroups": []
+    },
+    {
+      "id": "bestelportal-outsite",
+      "name": "Bestelportal OutSite",
+      "fieldGroups": []
+    },
+    {
+      "id": "inkoopaanvraag",
+      "name": "Inkoopaanvraag",
+      "fieldGroups": []
+    },
+    {
+      "id": "projecten",
+      "name": "Projecten",
+      "fieldGroups": []
+    }
+  ]
+}

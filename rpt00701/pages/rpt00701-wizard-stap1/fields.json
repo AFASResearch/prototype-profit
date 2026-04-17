@@ -1,0 +1,29 @@
+{
+  "page": "rpt00701-wizard-stap1",
+  "type": "detail",
+  "title": "Abonnementen factureren – Stap 1",
+  "sections": [
+    {
+      "id": "parameters",
+      "name": "Parameters",
+      "fieldGroups": [
+        {
+          "title": "Facturering",
+          "fields": [
+            { "property": "Debiteur", "label": "Debiteur", "dataType": "text", "mandatory": true, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "bestaand" },
+            { "property": "Factuurdatum", "label": "Factuurdatum", "dataType": "text", "mandatory": true, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "bestaand" },
+            { "property": "Peildatum", "label": "Peildatum", "dataType": "text", "mandatory": true, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "bestaand" },
+            { "property": "Boekingsperiode", "label": "Boekingsperiode", "dataType": "text", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "bestaand" }
+          ]
+        },
+        {
+          "title": "Indexcorrecties",
+          "fields": [
+            { "property": "IndexcorrectiesMeenemen", "label": "Indexcorrecties meenemen", "dataType": "yesNo", "mandatory": false, "locked": false, "active": null, "placeholder": "Neem correcties met terugwerkende kracht op in de analyse", "choiceValues": null, "defaultValue": "Nee", "status": "nieuw" },
+            { "property": "StartdatumIndexering", "label": "Startdatum indexering", "dataType": "text", "mandatory": true, "locked": false, "active": "IndexcorrectiesMeenemen", "placeholder": "Bepaal vanaf welke datum perioden worden beoordeeld", "choiceValues": null, "defaultValue": null, "status": "nieuw" }
+          ]
+        }
+      ]
+    }
+  ]
+}

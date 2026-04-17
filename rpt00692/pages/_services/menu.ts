@@ -1,0 +1,49 @@
+import type { ApplicationMenuGroup, ApplicationMenuService } from '@afas/blueprint/services/application-menu-service-interfaces';
+
+export const groups: ApplicationMenuGroup[] = [
+  {
+    id: 'home',
+    description: 'Home',
+    entries: [
+      {
+        id: 'home',
+        description: 'Home',
+        link: 'home'
+      }
+    ]
+  },
+  {
+    id: 'rpt00692',
+    description: 'RPT00692 — Periodetoekenning omzet',
+    entries: [
+      { id: 'rpt00692-abonnement-boeking', description: 'Abonnement — Boekingslayout (na einddatum)', link: 'rpt00692-abonnement-boeking/1' },
+      { id: 'rpt00692-toekenningsregels', description: 'Periodetoekenningsregels', link: 'rpt00692-toekenningsregels' },
+      { id: 'rpt00692-abonnement-cyclus', description: 'Periodeafsluiting', link: 'rpt00692-abonnement-cyclus/1' },
+      { id: 'rpt00692-genereer-wizard', description: 'Genereer periodetoekenningsregels (wizard)', link: 'rpt00692-genereer-wizard/1?inEditMode=true' },
+      { id: 'rpt00692-journaliseer-wizard', description: 'Journaliseer toekenningsregels (wizard)', link: 'rpt00692-journaliseer-wizard/1?inEditMode=true' },
+      { id: 'rpt00692-terugdraaien-wizard', description: 'Journaliseren ongedaan maken (wizard)', link: 'rpt00692-terugdraaien-wizard/1?inEditMode=true' },
+      { id: 'rpt00692-artikelgroep', description: 'Artikelgroep — Periodetoekenning', link: 'rpt00692-artikelgroep/1' },
+      { id: 'rpt00692-facturering-voorraad', description: 'Facturering/voorraad — Periodetoekenning', link: 'rpt00692-facturering-voorraad/1' },
+      { id: 'rpt00692-saldoverklaring', description: 'Saldoverklaring Te factureren omzet', link: 'rpt00692-saldoverklaring/1?inEditMode=true' },
+      { id: 'rpt00692-abonnement-kpi', description: 'Abonnement — KPI Dagen tot facturering', link: 'rpt00692-abonnement-kpi/1' },
+    ]
+  }
+];
+
+export default async function (): Promise<ApplicationMenuService> {
+  return {
+    getAllEntries() {
+      return groups;
+    },
+    getFavoriteMenuEntries() {
+      return groups;
+    },
+    updateFavoriteMenuEntries() {
+      return;
+    },
+    wait(): Promise<void> {
+      return Promise.resolve();
+    },
+    hasMainMenu: true
+  };
+}

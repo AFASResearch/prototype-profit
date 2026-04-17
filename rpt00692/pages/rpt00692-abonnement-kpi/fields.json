@@ -1,0 +1,33 @@
+{
+  "page": "rpt00692-abonnement-kpi",
+  "type": "detail",
+  "title": "Abonnement — AB-1001 Facilicom BV",
+  "sections": [
+    {
+      "id": "algemeen",
+      "name": "Algemeen",
+      "fieldGroups": [
+        {
+          "title": "Abonnement",
+          "fields": [
+            { "property": "abonnement", "label": "Abonnement", "dataType": "text", "locked": true, "status": "bestaand" },
+            { "property": "debiteur", "label": "Debiteur", "dataType": "text", "locked": true, "status": "bestaand" },
+            { "property": "artikelgroep", "label": "Artikelgroep", "dataType": "text", "locked": true, "status": "bestaand" },
+            { "property": "facturatiemethode", "label": "Facturatiemethode", "dataType": "text", "locked": true, "status": "bestaand" },
+            { "property": "begindatum", "label": "Begindatum", "dataType": "text", "locked": true, "status": "bestaand" },
+            { "property": "einddatum", "label": "Einddatum", "dataType": "text", "locked": true, "status": "bestaand" }
+          ]
+        },
+        {
+          "title": "Cyclus",
+          "fields": [
+            { "property": "cyclus", "label": "Cyclus", "dataType": "text", "locked": true, "status": "bestaand" },
+            { "property": "begindatumCyclus", "label": "Begindatum cyclus", "dataType": "text", "locked": true, "status": "bestaand" },
+            { "property": "einddatumCyclus", "label": "Einddatum cyclus", "dataType": "text", "locked": true, "status": "bestaand" },
+            { "property": "aantalDagenAchteraf", "label": "Aantal dagen achteraf", "dataType": "number", "locked": true, "status": "bestaand" }
+          ]
+        }
+      ]
+    }
+  ]
+}

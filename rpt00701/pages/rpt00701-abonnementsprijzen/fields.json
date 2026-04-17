@@ -1,0 +1,24 @@
+{
+  "page": "rpt00701-abonnementsprijzen",
+  "type": "list",
+  "title": "Verkoopprijzen abonnementen",
+  "sections": [
+    {
+      "id": "main",
+      "name": "Verkoopprijzen abonnementen",
+      "fieldGroups": [
+        {
+          "title": null,
+          "fields": [
+            { "property": "abonr", "label": "Abo.nr.", "dataType": "text", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "naam", "label": "Naam", "dataType": "text", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "abonregel", "label": "Abonnementsregel", "dataType": "text", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "begindatum", "label": "Begindatum", "dataType": "text", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "einddatum", "label": "Einddatum", "dataType": "text", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "prijs", "label": "Prijs", "dataType": "currencyAmount", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" }
+          ]
+        }
+      ]
+    }
+  ]
+}

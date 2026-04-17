@@ -1,0 +1,39 @@
+{
+  "page": "rpt00692-genereer-wizard",
+  "type": "wizard",
+  "title": "Genereer periodetoekenningsregels",
+  "sections": [
+    {
+      "id": "periode",
+      "name": "Periode",
+      "fieldGroups": [
+        {
+          "title": "Periode",
+          "fields": [
+            { "property": "Boekjaar", "label": "Boekjaar", "dataType": "number", "mandatory": false, "locked": true, "status": "nieuw" },
+            { "property": "Periode", "label": "Periode", "dataType": "text", "mandatory": false, "locked": true, "status": "nieuw" },
+            { "property": "BegindatumPeriode", "label": "Begindatum periode", "dataType": "date", "mandatory": false, "locked": true, "status": "nieuw" },
+            { "property": "EinddatumPeriode", "label": "Einddatum periode", "dataType": "date", "mandatory": false, "locked": true, "status": "nieuw" }
+          ]
+        },
+        {
+          "title": "Opties",
+          "fields": [
+            { "property": "DirectJournaliseren", "label": "Direct journaliseren", "dataType": "yesNo", "mandatory": false, "locked": false, "defaultValue": false, "status": "nieuw" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "preview",
+      "name": "Toekenbare regels",
+      "type": "list",
+      "columns": [
+        { "key": "abonnementsregel", "header": "Abonnementsregel", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "abonnement", "header": "Abonnement", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "omschrijving", "header": "Omschrijving", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "bedrag", "header": "Bedrag", "dataType": "currencyAmount", "sortable": true, "status": "nieuw" }
+      ]
+    }
+  ]
+}

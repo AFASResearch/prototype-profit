@@ -1,0 +1,45 @@
+{
+  "page": "rpt00701-wizard",
+  "type": "wizard",
+  "title": "Abonnementen factureren",
+  "sections": [
+    {
+      "id": "instellingen",
+      "name": "Instellingen",
+      "fieldGroups": [
+        {
+          "title": "Facturering",
+          "fields": [
+            { "property": "Administratie", "label": "Administratie", "dataType": "text", "mandatory": true, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "bestaand" },
+            { "property": "Peildatum", "label": "Peildatum", "dataType": "text", "mandatory": true, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "bestaand" },
+            { "property": "Factuurdatum", "label": "Factuurdatum", "dataType": "text", "mandatory": true, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "bestaand" }
+          ]
+        },
+        {
+          "title": "Indexcorrecties",
+          "fields": [
+            { "property": "IndexcorrectiesMeenemen", "label": "Indexcorrecties meenemen", "dataType": "yesNo", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": "Nee", "status": "nieuw" },
+            { "property": "StartdatumIndexering", "label": "Startdatum indexering", "dataType": "text", "mandatory": true, "locked": false, "active": "IndexcorrectiesMeenemen", "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" }
+          ]
+        },
+        {
+          "title": "Opties",
+          "fields": [
+            { "property": "MeenemenTeCrediterenRegels", "label": "Meenemen te crediteren regels", "dataType": "yesNo", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": "Nee", "status": "bestaand" },
+            { "property": "AutomatischVerstrekken", "label": "Automatisch verstrekken", "dataType": "yesNo", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": "Nee", "status": "bestaand" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "abonnementenselectie",
+      "name": "Abonnementenselectie",
+      "fieldGroups": []
+    },
+    {
+      "id": "overzichten",
+      "name": "Overzichten",
+      "fieldGroups": []
+    }
+  ]
+}

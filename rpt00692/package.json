@@ -1,0 +1,18 @@
+{
+  "name": "prototype-rpt00692",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Prototype mockup for RPT00692",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "backend:start": "node scripts/backend.mjs start",
+    "backend:stop": "node scripts/backend.mjs stop",
+    "backend:restart": "node scripts/backend.mjs restart",
+    "start": "npm run backend:start && npm run watch"
+  },
+  "devDependencies": {
+    "@afassoftware/podium-js": "3.1.0-next.5",
+    "typescript": "^5.0.0"
+  }
+}

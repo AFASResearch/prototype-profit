@@ -1,0 +1,59 @@
+{
+  "page": "rpt00692-toekenningsregels",
+  "type": "list",
+  "title": "Periodetoekenningsregels",
+  "sections": [
+    {
+      "id": "alle",
+      "name": "Alle periodetoekenningsregels",
+      "filter": null,
+      "columns": [
+        { "key": "abonnementsregel", "header": "Abonnementsregel", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "abonnement", "header": "Abonnement", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "omschrijving", "header": "Omschrijving", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "bedrag", "header": "Bedrag", "dataType": "currencyAmount", "sortable": true, "status": "nieuw" },
+        { "key": "status", "header": "Status", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "redencode", "header": "Redencode", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "aangemaakt", "header": "Aangemaakt op", "dataType": "date", "sortable": true, "status": "nieuw" },
+        { "key": "aanmakerNaam", "header": "Aangemaakt door", "dataType": "text", "sortable": true, "status": "nieuw" }
+      ],
+      "actions": []
+    },
+    {
+      "id": "te-journaliseren",
+      "name": "Te journaliseren periodetoekenningsregels",
+      "filter": "status = Te journaliseren",
+      "columns": [
+        { "key": "abonnementsregel", "header": "Abonnementsregel", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "abonnement", "header": "Abonnement", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "omschrijving", "header": "Omschrijving", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "bedrag", "header": "Bedrag", "dataType": "currencyAmount", "sortable": true, "status": "nieuw" },
+        { "key": "status", "header": "Status", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "redencode", "header": "Redencode", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "aangemaakt", "header": "Aangemaakt op", "dataType": "date", "sortable": true, "status": "nieuw" },
+        { "key": "aanmakerNaam", "header": "Aangemaakt door", "dataType": "text", "sortable": true, "status": "nieuw" }
+      ],
+      "actions": [
+        { "id": "journaliseren", "label": "Journaliseren", "type": "toolbar", "isMultiselect": true, "isPrimary": true }
+      ]
+    },
+    {
+      "id": "gejournaliseerd",
+      "name": "Gejournaliseerde periodetoekenningsregels",
+      "filter": "status = Gejournaliseerd",
+      "columns": [
+        { "key": "abonnementsregel", "header": "Abonnementsregel", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "abonnement", "header": "Abonnement", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "omschrijving", "header": "Omschrijving", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "bedrag", "header": "Bedrag", "dataType": "currencyAmount", "sortable": true, "status": "nieuw" },
+        { "key": "status", "header": "Status", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "redencode", "header": "Redencode", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "aangemaakt", "header": "Aangemaakt op", "dataType": "date", "sortable": true, "status": "nieuw" },
+        { "key": "aanmakerNaam", "header": "Aangemaakt door", "dataType": "text", "sortable": true, "status": "nieuw" }
+      ],
+      "actions": [
+        { "id": "terugdraaien", "label": "Journaliseren ongedaan maken", "type": "toolbar", "isMultiselect": true, "isPrimary": true }
+      ]
+    }
+  ]
+}

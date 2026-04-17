@@ -1,0 +1,22 @@
+{
+  "page": "rpt00692-saldoverklaring",
+  "type": "list",
+  "title": "Saldoverklaring Te factureren abonnementen omzet",
+  "sections": [
+    {
+      "id": "saldoverklaring",
+      "name": "Saldoverklaring",
+      "columns": [
+        { "key": "administratie", "header": "Administratie", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "abonnementsregel", "header": "Abonnementsregel", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "abonnement", "header": "Abonnement", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "datumVan", "header": "Datum van", "dataType": "date", "sortable": true, "status": "nieuw" },
+        { "key": "datumTot", "header": "Datum tot", "dataType": "date", "sortable": true, "status": "nieuw" },
+        { "key": "gefactureerd", "header": "Gefactureerd", "dataType": "currencyAmount", "sortable": true, "status": "nieuw" },
+        { "key": "toegerekend", "header": "Toegerekend", "dataType": "currencyAmount", "sortable": true, "status": "nieuw" },
+        { "key": "teruggedraaid", "header": "Teruggedraaid", "dataType": "currencyAmount", "sortable": true, "status": "nieuw" },
+        { "key": "openstaand", "header": "Openstaand saldo", "dataType": "currencyAmount", "sortable": true, "status": "nieuw" }
+      ]
+    }
+  ]
+}
