@@ -76,7 +76,7 @@ jobs:
 
             # Scrape all API endpoints to static JSON
             mkdir -p "$OUTDIR/api"
-            node ../scripts/scrape-api.mjs "http://localhost:5099" "$OUTDIR/api" "$dir"
+            node ../scripts/scrape-api.mjs "http://localhost:5099" "$OUTDIR/api" "."
 
             # Stop backend
             kill $BACKEND_PID 2>/dev/null || true
