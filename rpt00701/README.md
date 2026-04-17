@@ -1,6 +1,6 @@
 # RPT00701 — Abonnementsprijzen
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/AFASResearch/prototype-profit/tree/master/rpt00701)
+[**Open demo**](https://afasresearch.github.io/prototype-profit/rpt00701/)
 
 Interactive Podium JS mockup for project RPT00701.
 

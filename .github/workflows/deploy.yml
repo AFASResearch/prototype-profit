@@ -1,0 +1,107 @@
+name: Deploy Prototypes to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://npm.pkg.github.com
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0
+
+      - name: Build all prototypes
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          SITE_DIR="_site"
+          mkdir -p "$SITE_DIR"
+
+          # Generate root index.html with links to all prototypes
+          node scripts/build-index.mjs "$SITE_DIR"
+
+          for dir in */; do
+            dir="${dir%/}"
+            [ -f "$dir/package.json" ] || continue
+            [ "$dir" = "_site" ] && continue
+
+            echo "=== Building $dir ==="
+            cd "$dir"
+
+            # Install dependencies
+            npm install
+
+            # Build TypeScript
+            npm run build
+
+            # Build .NET backend
+            cd backend
+            dotnet build -c Release -o ../build/backend
+            cd ..
+
+            # Start backend, scrape API endpoints, stop backend
+            dotnet build/backend/backend.dll --urls "http://localhost:5099" &
+            BACKEND_PID=$!
+            sleep 3
+
+            # Create static site output
+            OUTDIR="../$SITE_DIR/$dir"
+            mkdir -p "$OUTDIR"
+
+            # Copy PodiumJS files
+            cp -r node_modules/@afassoftware/podium-js/dist/browser/* "$OUTDIR/podium-js/" 2>/dev/null || mkdir -p "$OUTDIR/podium-js"
+            cp -r node_modules/@afassoftware/podium-js/dist/browser/. "$OUTDIR/podium-js/"
+
+            # Copy compiled pages
+            cp -r wwwroot/pages "$OUTDIR/pages"
+
+            # Scrape all API endpoints to static JSON
+            mkdir -p "$OUTDIR/api"
+            node ../scripts/scrape-api.mjs "http://localhost:5099" "$OUTDIR/api" "$dir"
+
+            # Stop backend
+            kill $BACKEND_PID 2>/dev/null || true
+            wait $BACKEND_PID 2>/dev/null || true
+
+            # Generate index.html (SPA shell)
+            node ../scripts/build-spa-shell.mjs "$OUTDIR"
+
+            # 404.html = index.html for SPA routing
+            cp "$OUTDIR/index.html" "$OUTDIR/404.html"
+
+            cd ..
+            echo "=== Done: $dir ==="
+          done
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

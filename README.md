@@ -4,13 +4,17 @@ Standalone Podium JS prototypes per project. Elke submap bevat een zelfstandig d
 
 ## Prototypes
 
-| Project | Omschrijving | |
+| Project | Omschrijving | Demo |
 |---|---|---|
-| [rpt00692](rpt00692/) | Periodetoekenning omzet | [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/AFASResearch/prototype-profit/tree/master/rpt00692) |
-| [rpt00701](rpt00701/) | Abonnementsprijzen | [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/AFASResearch/prototype-profit/tree/master/rpt00701) |
-| [rfi00731](rfi00731/) | Inhoudingsplicht België | [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/AFASResearch/prototype-profit/tree/master/rfi00731) |
+| [rpt00692](rpt00692/) | Periodetoekenning omzet | [Open demo](https://afasresearch.github.io/prototype-profit/rpt00692/) |
+| [rpt00701](rpt00701/) | Abonnementsprijzen | [Open demo](https://afasresearch.github.io/prototype-profit/rpt00701/) |
+| [rfi00731](rfi00731/) | Inhoudingsplicht België | [Open demo](https://afasresearch.github.io/prototype-profit/rfi00731/) |
 
 ## Quick Start
+
+### Online
+
+Klik op een **Open demo**-link hierboven. De mockup draait direct in je browser, geen installatie nodig.
 
 ### Lokaal
 
@@ -22,11 +26,7 @@ npm start
 
 Open [http://localhost:5000](http://localhost:5000) in je browser.
 
-### Gitpod
-
-Klik op de **Open in Gitpod**-knop bij een project hierboven, of open een project-README en klik daar op de knop. Gitpod installeert dependencies en start de backend automatisch.
-
-## Requirements
+## Requirements (lokaal)
 
 - [Node.js](https://nodejs.org/) 18+
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)

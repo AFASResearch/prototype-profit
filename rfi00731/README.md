@@ -1,6 +1,6 @@
 # RFI00731 — Inhoudingsplicht België
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/AFASResearch/prototype-profit/tree/master/rfi00731)
+[**Open demo**](https://afasresearch.github.io/prototype-profit/rfi00731/)
 
 Interactive Podium JS mockup for project RFI00731.
 
