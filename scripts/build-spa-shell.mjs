@@ -59,7 +59,7 @@ const html = `<!doctype html>
         spotlightServiceUrl: 'pages/_services/spotlight'
       };
 
-      import('podium-js/${entrypoint}').then(module => {
+      import('./podium-js/${entrypoint}').then(module => {
         if (module && typeof module.default === 'function') {
           module.default(window, afasAppConfig).then(() => {
             const el = document.getElementById('loading');
