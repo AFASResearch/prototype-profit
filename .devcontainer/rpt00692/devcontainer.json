@@ -1,0 +1,21 @@
+{
+  "name": "RPT00692 — Periodetoekenning omzet",
+  "image": "mcr.microsoft.com/devcontainers/dotnet:8.0",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    }
+  },
+  "workspaceFolder": "/workspaces/prototype-profit/rpt00692",
+  "postCreateCommand": "npm install",
+  "postStartCommand": "npm start",
+  "forwardPorts": [
+    5000
+  ],
+  "portsAttributes": {
+    "5000": {
+      "label": "Prototype",
+      "onAutoForward": "openBrowser"
+    }
+  }
+}

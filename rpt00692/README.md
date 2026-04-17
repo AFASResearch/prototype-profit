@@ -1,4 +1,6 @@
-# Prototype: RPT00692
+# RPT00692 — Periodetoekenning omzet
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/AFASResearch/prototype-profit?devcontainer_path=.devcontainer/rpt00692/devcontainer.json)
 
 Interactive Podium JS mockup for project RPT00692.
 

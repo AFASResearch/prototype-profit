@@ -1,4 +1,6 @@
-# Prototype: RFI00731
+# RFI00731 — Inhoudingsplicht België
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/AFASResearch/prototype-profit?devcontainer_path=.devcontainer/rfi00731/devcontainer.json)
 
 Interactive Podium JS mockup for project RFI00731.
 
