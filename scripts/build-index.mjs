@@ -34,7 +34,10 @@ const html = `<!doctype html>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; color: #333; padding: 2rem; }
     h1 { margin-bottom: 0.5rem; }
-    p.subtitle { color: #666; margin-bottom: 2rem; }
+    p.subtitle { color: #666; margin-bottom: 1.5rem; }
+    .search-box { margin-bottom: 1.5rem; }
+    .search-box input { width: 100%; max-width: 480px; padding: .75rem 1rem; font-size: 1rem; border: 1px solid #ccc; border-radius: 6px; outline: none; }
+    .search-box input:focus { border-color: #0366d6; box-shadow: 0 0 0 3px rgba(3,102,214,.15); }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
     .card { background: #fff; border-radius: 8px; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,.1); transition: box-shadow .2s; }
     .card:hover { box-shadow: 0 4px 12px rgba(0,0,0,.15); }
@@ -42,17 +45,29 @@ const html = `<!doctype html>
     .card h2 a { color: #0366d6; text-decoration: none; }
     .card h2 a:hover { text-decoration: underline; }
     .card p { color: #666; font-size: .9rem; }
+    .card.hidden { display: none; }
   </style>
 </head>
 <body>
   <h1>Prototype Profit</h1>
   <p class="subtitle">Interactieve Podium JS mockups per project</p>
-  <div class="grid">
-${projects.map(p => `    <div class="card">
-      <h2><a href="${p.id}/">${p.id.toUpperCase()}</a></h2>
+  <div class="search-box">
+    <input type="search" id="search" placeholder="Zoek op projectnummer of omschrijving\u2026" autocomplete="off" />
+  </div>
+  <div class="grid" id="grid">
+${projects.map(p => `    <div class="card" data-search="${p.id.toUpperCase()} ${p.description.toLowerCase()}">
+      <h2><a href="${p.id}/menu">${p.id.toUpperCase()}</a></h2>
       <p>${p.description}</p>
     </div>`).join('\n')}
   </div>
+  <script>
+    document.getElementById('search').addEventListener('input', function() {
+      var q = this.value.toLowerCase();
+      document.querySelectorAll('.card').forEach(function(card) {
+        card.classList.toggle('hidden', q && card.dataset.search.toLowerCase().indexOf(q) === -1);
+      });
+    });
+  </script>
 </body>
 </html>`;
 

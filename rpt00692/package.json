@@ -2,7 +2,7 @@
   "name": "prototype-rpt00692",
   "version": "1.0.0",
   "private": true,
-  "description": "Prototype mockup for RPT00692",
+  "description": "RPT00692 \u2014 Periodetoekenning omzet",
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",

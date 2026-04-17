@@ -2,7 +2,7 @@
   "name": "prototype-rpt00701",
   "version": "1.0.0",
   "private": true,
-  "description": "Prototype mockup for RPT00701",
+  "description": "RPT00701 \u2014 Abonnementsprijzen",
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
