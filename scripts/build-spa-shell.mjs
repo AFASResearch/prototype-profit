@@ -55,7 +55,7 @@ const html = `<!doctype html>
       const afasAppConfig = {
         applicationName: 'Podium Application',
         podiumJsUrl: 'podium-js/',
-        pagesUrl: 'pages/',
+        pagesUrl: './pages/',
         menuServiceUrl: 'pages/_services/menu',
         spotlightServiceUrl: 'pages/_services/spotlight'
       };
