@@ -92,7 +92,8 @@ jobs:
             # Generate index.html (SPA shell)
             node ../scripts/build-spa-shell.mjs "$OUTDIR"
 
-            # Copy ontwerp and presentatie HTML if they exist
+            # Copy ontwerp and presentatie files if they exist
+            [ -f "ontwerp.md" ] && cp "ontwerp.md" "$OUTDIR/ontwerp.md" && echo "  Copied ontwerp.md"
             [ -f "ontwerp.html" ] && cp "ontwerp.html" "$OUTDIR/ontwerp.html" && echo "  Copied ontwerp.html"
             [ -f "presentatie.html" ] && cp "presentatie.html" "$OUTDIR/presentatie.html" && echo "  Copied presentatie.html"
 

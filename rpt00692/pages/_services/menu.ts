@@ -13,16 +13,6 @@ export const groups: ApplicationMenuGroup[] = [
     ]
   },
   {
-    id: 'rpt00701',
-    description: 'RPT00701 — Abonnementsprijzen',
-    entries: [
-      { id: 'rpt00701-abonnementsprijzen', description: 'Abonnementsprijzen', link: 'rpt00701-abonnementsprijzen' },
-      { id: 'rpt00701-collectief-wijzigen', description: 'Collectief wijzigen', link: 'rpt00701-collectief-wijzigen/1' },
-      { id: 'rpt00701-wizard', description: 'Abonnementen factureren (wizard)', link: 'rpt00701-wizard/1?inEditMode=true' },
-      { id: 'rpt00701-te-corrigeren', description: 'Te corrigeren factuurregels', link: 'rpt00701-te-corrigeren' },
-    ]
-  },
-  {
     id: 'rpt00692',
     description: 'RPT00692 — Periodetoekenning omzet',
     entries: [

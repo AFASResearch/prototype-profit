@@ -44,7 +44,6 @@ app.UseStaticFiles(new StaticFileOptions
         Path.Combine(builder.Environment.ContentRootPath, "..", "wwwroot")),
     RequestPath = "" // Serve files from the root of the web server
 });
-
 // RPT00692 — Mock endpoints voor Periodetoekenning omzet abonnement
 app.MapGet("/api/rpt00692-toekenningsregels", () => new[] {
     new { abonnementsregel = "AR-0001", abonnement = "AB-1001 Facilicom BV", omschrijving = "Schoonmaak kantoor Q1", bedrag = 3750.00m, status = "Te journaliseren", redencode = "", aangemaakt = "2026-04-01T00:00:00Z", aanmakerNaam = "P. Jansen" },
