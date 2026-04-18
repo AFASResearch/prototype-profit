@@ -12,16 +12,11 @@ export default function (services: BlueprintFactories): WizardPage {
       Id: createProperty(dataType.text()),
       Boekjaar: createProperty(dataType.number({ digitGrouping: false })),
       Periode: createProperty(dataType.text()),
-      BegindatumPeriode: createProperty(dataType.date()),
-      EinddatumPeriode: createProperty(dataType.date()),
-      DirectJournaliseren: createProperty(dataType.yesNo()),
     }
   });
 
   mainModel.properties.Boekjaar.config.locked = constant(true);
   mainModel.properties.Periode.config.locked = constant(true);
-  mainModel.properties.BegindatumPeriode.config.locked = constant(true);
-  mainModel.properties.EinddatumPeriode.config.locked = constant(true);
 
   return {
     id: 'rpt00692-genereer-wizard',
@@ -33,18 +28,16 @@ export default function (services: BlueprintFactories): WizardPage {
     },
     async initialize(context) {
       let response = await rest.executeGetQuery<Record<string, unknown>>({ url: '/api/rpt00692-genereer-wizard' });
-      let dateProps = new Set(['BegindatumPeriode', 'EinddatumPeriode']);
       for (let [key, value] of Object.entries(response)) {
         let prop = (mainModel.properties as Record<string, any>)[key];
         if (prop) {
-          let v = dateProps.has(key) && typeof value === 'string' ? new Date(value) : value;
-          prop.setUserValue(v, true);
+          prop.setUserValue(value, true);
         }
       }
     },
     steps: [
       {
-        title: 'Periode',
+        title: 'Toekenbare regels',
         content: [
           {
             type: 'fieldGroup',
@@ -52,22 +45,8 @@ export default function (services: BlueprintFactories): WizardPage {
             fields: [
               { labelText: constant('Boekjaar'), property: mainModel.properties.Boekjaar },
               { labelText: constant('Periode'), property: mainModel.properties.Periode },
-              { labelText: constant('Begindatum periode'), property: mainModel.properties.BegindatumPeriode },
-              { labelText: constant('Einddatum periode'), property: mainModel.properties.EinddatumPeriode },
             ]
           },
-          {
-            type: 'fieldGroup',
-            title: 'Opties',
-            fields: [
-              { labelText: constant('Direct journaliseren'), property: mainModel.properties.DirectJournaliseren, controlInfo: { yesNo: { showFalseValue: true } } } as any,
-            ]
-          }
-        ]
-      },
-      {
-        title: 'Toekenbare regels',
-        content: [
           ({
             id: 'preview',
             type: 'multiSelectList',

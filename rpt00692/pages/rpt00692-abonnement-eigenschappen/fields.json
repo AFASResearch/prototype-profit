@@ -1,0 +1,39 @@
+{
+  "page": "rpt00692-abonnement-eigenschappen",
+  "type": "detail",
+  "title": "Eigenschappen abonnement – EnYoi Glasvezel internet",
+  "sections": [
+    {
+      "id": "periodetoekenningsregels",
+      "name": "Periodetoekenningsregels",
+      "fieldGroups": [],
+      "listContent": true,
+      "columns": [
+        { "key": "abonnementsregel", "header": "Abonnementsregel", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "item", "header": "Item", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "boekjaar", "header": "Boekjaar", "dataType": "number", "sortable": true, "status": "nieuw" },
+        { "key": "periode", "header": "Periode", "dataType": "number", "sortable": true, "status": "nieuw" },
+        { "key": "bedrag", "header": "Bedrag", "dataType": "currencyAmount", "sortable": true, "status": "nieuw" },
+        { "key": "status", "header": "Status", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "aangemaakt", "header": "Aangemaakt op", "dataType": "date", "sortable": true, "status": "nieuw" },
+        { "key": "aanmakerNaam", "header": "Aangemaakt door", "dataType": "text", "sortable": true, "status": "nieuw" }
+      ]
+    },
+    {
+      "id": "transitorische-journaalposten",
+      "name": "Transitorische journaalposten",
+      "fieldGroups": [],
+      "listContent": true,
+      "columns": [
+        { "key": "boekstuknummer", "header": "Boekstuknummer", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "boekdatum", "header": "Boekdatum", "dataType": "date", "sortable": true, "status": "nieuw" },
+        { "key": "boekjaar", "header": "Boekjaar", "dataType": "number", "sortable": true, "status": "nieuw" },
+        { "key": "periode", "header": "Periode", "dataType": "number", "sortable": true, "status": "nieuw" },
+        { "key": "grootboekrekening", "header": "Grootboekrekening", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "omschrijving", "header": "Omschrijving", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "debet", "header": "Debet", "dataType": "currencyAmount", "sortable": true, "status": "nieuw" },
+        { "key": "credit", "header": "Credit", "dataType": "currencyAmount", "sortable": true, "status": "nieuw" }
+      ]
+    }
+  ]
+}

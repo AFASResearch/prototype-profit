@@ -66,7 +66,7 @@ export default function (services: BlueprintFactories): DetailPage {
         { id: 'genegeerd-auditresultaat', sectionName: 'Genegeerd auditresultaat', elements: [{ type: 'text', text: constant('Geen gegevens beschikbaar in mockup.') }] },
         // --- Bestaand tabblad: Draaiboekregels ---
         { id: 'draaiboekregels', sectionName: 'Draaiboekregels', elements: [{ type: 'text', text: constant('Geen gegevens beschikbaar in mockup.') }] },
-        // --- NIEUW tabblad: Periodetoekenningsregels (weergave met acties) ---
+        // --- NIEUW tabblad: Periodetoekenningsregels (weergave met acties) --- // gewijzigd
         ({
           id: 'periodetoekenningsregels',
           sectionName: 'Periodetoekenningsregels',
@@ -74,7 +74,7 @@ export default function (services: BlueprintFactories): DetailPage {
             {
               id: 'toekenningsregels',
               type: 'list',
-              title: constant('Periodetoekenningsregels'),
+              title: constant('Periodetoekenningsregels abonnementen'),
               languageInfo: {
                 itemNamePlural: 'toekenningsregels'
               },
@@ -83,8 +83,6 @@ export default function (services: BlueprintFactories): DetailPage {
                 { key: 'abonnement', header: 'Abonnement', dataType: dataType.text(), sortable: true },
                 { key: 'omschrijving', header: 'Omschrijving', dataType: dataType.text(), sortable: true },
                 { key: 'bedrag', header: 'Bedrag', dataType: dataType.currencyAmount(), sortable: true },
-                { key: 'status', header: 'Status', dataType: dataType.text(), sortable: true },
-                { key: 'redencode', header: 'Redencode', dataType: dataType.text(), sortable: true },
                 { key: 'aangemaakt', header: 'Aangemaakt op', dataType: dataType.date(), sortable: true },
                 { key: 'aanmakerNaam', header: 'Aangemaakt door', dataType: dataType.text(), sortable: true },
               ],
@@ -93,38 +91,26 @@ export default function (services: BlueprintFactories): DetailPage {
                   id: 'genereer',
                   name: 'Genereer periodetoekenningsregels',
                   isPrimary: true,
-                  getMicroCopyText() { return 'Maak regels aan voor deze periode; er wordt nog niet geboekt.'; },
+                  getMicroCopyText() { return 'Maak regels aan en journaliseer ze direct voor deze periode.'; },
                   async execute(context: any) {
-                    let result = await context.startDialog({ routePattern: 'rpt00692-genereer-wizard/:id', routeParameters: { id: '1' } }, {}, { editMode: 'Add' });
+                    let result = await context.startDialog('rpt00692-genereer-wizard/1', {}, { editMode: 'Add' });
                     return !!result;
                   },
                   scheduleListRefresh: [1000, 3000, 8000, 15000]
                 },
                 {
-                  id: 'journaliseer',
-                  name: 'Journaliseer toekenningsregels',
+                  id: 'verwijder',
+                  name: 'Verwijder toekenningsregels',
                   isPrimary: true,
                   isMultiselect: true,
-                  isActiveForItem: (item: any) => item['status'] === 'Te journaliseren',
-                  getMicroCopyText() { return 'Boek geselecteerde regels en zet ze op Gejournaliseerd.'; },
+                  getMicroCopyText() { return 'Verwijder geselecteerde regels en draai de journaalpost terug.'; },
                   async execute(context: any) {
-                    let result = await context.startDialog({ routePattern: 'rpt00692-journaliseer-wizard/:id', routeParameters: { id: '1' } }, {}, { editMode: 'Add' });
-                    return !!result;
-                  },
-                  scheduleListRefresh: [1000, 5000]
-                },
-                {
-                  id: 'terugdraaien',
-                  name: 'Journaliseren ongedaan maken',
-                  isPrimary: true,
-                  isMultiselect: true,
-                  isActiveForItem: (item: any) => item['status'] === 'Gejournaliseerd',
-                  getMicroCopyText() { return 'Maak tegenboeking voor gejournaliseerde regels; audit trail blijft behouden.'; },
-                  async execute(context: any) {
-                    let confirmed = await context.confirm({ title: 'Bevestiging', message: 'Weet je zeker dat je de geselecteerde toekenningen wilt terugdraaien?' });
+                    let confirmed = await context.confirm({
+                      title: 'Bevestiging',
+                      message: 'Weet je zeker dat je de geselecteerde toekenningen wilt verwijderen? De bijbehorende journaalposten worden teruggedraaid.'
+                    });
                     if (!confirmed) return false;
-                    let result = await context.startDialog({ routePattern: 'rpt00692-terugdraaien-wizard/:id', routeParameters: { id: '1' } }, {}, { editMode: 'Add' });
-                    return !!result;
+                    return true;
                   },
                   scheduleListRefresh: [1000, 5000]
                 },

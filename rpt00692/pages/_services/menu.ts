@@ -16,13 +16,12 @@ export const groups: ApplicationMenuGroup[] = [
     id: 'rpt00692',
     description: 'RPT00692 — Periodetoekenning omzet',
     entries: [
-      { id: 'rpt00692-toekenningsregels', description: 'Periodetoekenningsregels', link: 'rpt00692-toekenningsregels' },
+      { id: 'rpt00692-toekenningsregels', description: 'Alle periodetoekenningsregels', link: 'rpt00692-toekenningsregels' },
       { id: 'rpt00692-abonnement-cyclus', description: 'Periodeafsluiting', link: 'rpt00692-abonnement-cyclus/1' },
       { id: 'rpt00692-genereer-wizard', description: 'Genereer periodetoekenningsregels (wizard)', link: 'rpt00692-genereer-wizard/1?inEditMode=true' },
-      { id: 'rpt00692-journaliseer-wizard', description: 'Journaliseer toekenningsregels (wizard)', link: 'rpt00692-journaliseer-wizard/1?inEditMode=true' },
-      { id: 'rpt00692-terugdraaien-wizard', description: 'Journaliseren ongedaan maken (wizard)', link: 'rpt00692-terugdraaien-wizard/1?inEditMode=true' },
       { id: 'rpt00692-facturering-voorraad', description: 'Facturering/voorraad — Periodetoekenning', link: 'rpt00692-facturering-voorraad/1' },
       { id: 'rpt00692-saldoverklaring', description: 'Saldoverklaring Te factureren omzet', link: 'rpt00692-saldoverklaring' },
+      { id: 'rpt00692-abonnement-eigenschappen', description: 'Eigenschappen abonnement (US09)', link: 'rpt00692-abonnement-eigenschappen/1' },
     ]
   }
 ];

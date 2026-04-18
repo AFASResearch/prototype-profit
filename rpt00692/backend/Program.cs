@@ -46,23 +46,11 @@ app.UseStaticFiles(new StaticFileOptions
 });
 // RPT00692 — Mock endpoints voor Periodetoekenning omzet abonnement
 app.MapGet("/api/rpt00692-toekenningsregels", () => new[] {
-    new { abonnementsregel = "AR-0001", abonnement = "AB-1001 Facilicom BV", omschrijving = "Schoonmaak kantoor Q1", bedrag = 3750.00m, status = "Te journaliseren", redencode = "", aangemaakt = "2026-04-01T00:00:00Z", aanmakerNaam = "P. Jansen" },
-    new { abonnementsregel = "AR-0002", abonnement = "AB-1001 Facilicom BV", omschrijving = "Schoonmaak kantoor Q2", bedrag = 3750.00m, status = "Gejournaliseerd", redencode = "", aangemaakt = "2026-04-01T00:00:00Z", aanmakerNaam = "P. Jansen" },
-    new { abonnementsregel = "AR-0003", abonnement = "AB-1001 Facilicom BV", omschrijving = "Beveiliging Q1", bedrag = 6000.00m, status = "Gejournaliseerd", redencode = "", aangemaakt = "2026-04-01T00:00:00Z", aanmakerNaam = "M. Bakker" },
-    new { abonnementsregel = "AR-0004", abonnement = "AB-1002 Bakker BV", omschrijving = "Catering januari", bedrag = 89.25m, status = "Te journaliseren", redencode = "", aangemaakt = "2026-03-15T00:00:00Z", aanmakerNaam = "J. de Vries" },
-    new { abonnementsregel = "AR-0005", abonnement = "AB-1003 Groen & Co", omschrijving = "Onderhoud tuin maart", bedrag = 525.00m, status = "Gejournaliseerd", redencode = "", aangemaakt = "2026-03-01T00:00:00Z", aanmakerNaam = "S. de Groot" },
-    new { abonnementsregel = "AR-0005", abonnement = "AB-1003 Groen & Co", omschrijving = "Onderhoud tuin maart", bedrag = -525.00m, status = "Tegengeboekt", redencode = "Beeindiging", aangemaakt = "2026-03-01T00:00:00Z", aanmakerNaam = "S. de Groot" },
-});
-
-app.MapGet("/api/rpt00692-toekenningsregels/te-journaliseren", () => new[] {
-    new { abonnementsregel = "AR-0001", abonnement = "AB-1001 Facilicom BV", omschrijving = "Schoonmaak kantoor Q1", bedrag = 3750.00m, status = "Te journaliseren", redencode = "", aangemaakt = "2026-04-01T00:00:00Z", aanmakerNaam = "P. Jansen" },
-    new { abonnementsregel = "AR-0004", abonnement = "AB-1002 Bakker BV", omschrijving = "Catering januari", bedrag = 89.25m, status = "Te journaliseren", redencode = "", aangemaakt = "2026-03-15T00:00:00Z", aanmakerNaam = "J. de Vries" },
-});
-
-app.MapGet("/api/rpt00692-toekenningsregels/gejournaliseerd", () => new[] {
-    new { abonnementsregel = "AR-0002", abonnement = "AB-1001 Facilicom BV", omschrijving = "Schoonmaak kantoor Q2", bedrag = 3750.00m, status = "Gejournaliseerd", redencode = "", aangemaakt = "2026-04-01T00:00:00Z", aanmakerNaam = "P. Jansen" },
-    new { abonnementsregel = "AR-0003", abonnement = "AB-1001 Facilicom BV", omschrijving = "Beveiliging Q1", bedrag = 6000.00m, status = "Gejournaliseerd", redencode = "", aangemaakt = "2026-04-01T00:00:00Z", aanmakerNaam = "M. Bakker" },
-    new { abonnementsregel = "AR-0005", abonnement = "AB-1003 Groen & Co", omschrijving = "Onderhoud tuin maart", bedrag = 525.00m, status = "Gejournaliseerd", redencode = "", aangemaakt = "2026-03-01T00:00:00Z", aanmakerNaam = "S. de Groot" },
+    new { abonnementsregel = "AR-0001", abonnement = "AB-1001 Facilicom BV", omschrijving = "Schoonmaak kantoor Q1", bedrag = 3750.00m, aangemaakt = "2026-04-01T00:00:00Z", aanmakerNaam = "P. Jansen" },
+    new { abonnementsregel = "AR-0002", abonnement = "AB-1001 Facilicom BV", omschrijving = "Schoonmaak kantoor Q2", bedrag = 3750.00m, aangemaakt = "2026-04-01T00:00:00Z", aanmakerNaam = "P. Jansen" },
+    new { abonnementsregel = "AR-0003", abonnement = "AB-1001 Facilicom BV", omschrijving = "Beveiliging Q1", bedrag = 6000.00m, aangemaakt = "2026-04-01T00:00:00Z", aanmakerNaam = "M. Bakker" },
+    new { abonnementsregel = "AR-0004", abonnement = "AB-1002 Bakker BV", omschrijving = "Catering januari", bedrag = 89.25m, aangemaakt = "2026-03-15T00:00:00Z", aanmakerNaam = "J. de Vries" },
+    new { abonnementsregel = "AR-0005", abonnement = "AB-1003 Groen & Co", omschrijving = "Onderhoud tuin maart", bedrag = 525.00m, aangemaakt = "2026-03-01T00:00:00Z", aanmakerNaam = "S. de Groot" },
 });
 
 app.MapGet("/api/rpt00692-abonnement-cyclus", () => new {
@@ -95,10 +83,7 @@ app.MapPatch("/api/rpt00692-facturering-voorraad", () => Results.Ok());
 app.MapGet("/api/rpt00692-genereer-wizard", () => new {
     Id = "1",
     Boekjaar = 2026,
-    Periode = "April (4)",
-    BegindatumPeriode = "2026-04-01",
-    EinddatumPeriode = "2026-04-30",
-    DirectJournaliseren = false
+    Periode = "April (4)"
 });
 
 app.MapGet("/api/rpt00692-genereer-wizard/preview", () => new[] {
@@ -106,18 +91,6 @@ app.MapGet("/api/rpt00692-genereer-wizard/preview", () => new[] {
     new { abonnementsregel = "AR-0011", abonnement = "AB-1001 Facilicom BV", omschrijving = "Beveiliging april", bedrag = 6000.00m, factuurmoment = "Aantal dagen voor begindatumcyclus", geparkeerd = false },
     new { abonnementsregel = "AR-0012", abonnement = "AB-1002 Bakker BV", omschrijving = "Catering april", bedrag = 89.25m, factuurmoment = "Aantal dagen na begindatumcyclus", geparkeerd = false },
     new { abonnementsregel = "AR-0013", abonnement = "AB-1003 Groen & Co", omschrijving = "Onderhoud tuin april", bedrag = 525.00m, factuurmoment = "Midden van de factuurperiode", geparkeerd = true },
-});
-
-// RPT00692 — Wizard: Journaliseer toekenningsregels
-app.MapGet("/api/rpt00692-journaliseer-wizard", () => new {
-    Id = "1",
-    Boekjaar = 2026,
-    Periode = "April (4)"
-});
-
-app.MapGet("/api/rpt00692-journaliseer-wizard/selectie", () => new[] {
-    new { abonnementsregel = "AR-0001", abonnement = "AB-1001 Facilicom BV", omschrijving = "Schoonmaak kantoor Q1", bedrag = 3750.00m, status = "Te journaliseren" },
-    new { abonnementsregel = "AR-0004", abonnement = "AB-1002 Bakker BV", omschrijving = "Catering januari", bedrag = 89.25m, status = "Te journaliseren" },
 });
 
 // RPT00692 — Saldoverklaring Te factureren abonnementen omzet
@@ -131,16 +104,24 @@ app.MapGet("/api/rpt00692-saldoverklaring", () => new[] {
     new { administratie = "1", abonnementsregel = "AR-0007", abonnement = "AB-1001 Facilicom BV", datumVan = "2026-05-01T00:00:00Z", datumTot = "2026-05-31T00:00:00Z", gefactureerd = 0.00m, toegerekend = 0.00m, teruggedraaid = 0.00m, openstaand = 0.00m },
 });
 
-// RPT00692 — Wizard: Journaliseren ongedaan maken
-app.MapGet("/api/rpt00692-terugdraaien-wizard", () => new {
-    Id = "1",
-    Boekjaar = 2026,
-    Periode = "April (4)"
+// RPT00692 — Eigenschappen abonnement (US09)
+app.MapGet("/api/rpt00692-abonnement-eigenschappen", () => new {
+    Id = "1"
 });
 
-app.MapGet("/api/rpt00692-terugdraaien-wizard/selectie", () => new[] {
-    new { abonnementsregel = "AR-0002", abonnement = "AB-1001 Facilicom BV", omschrijving = "Schoonmaak kantoor Q2", bedrag = 3750.00m, status = "Gejournaliseerd", aangemaakt = "01-04-2026" },
-    new { abonnementsregel = "AR-0003", abonnement = "AB-1001 Facilicom BV", omschrijving = "Beveiliging Q1", bedrag = 6000.00m, status = "Gejournaliseerd", aangemaakt = "01-04-2026" },
+app.MapPatch("/api/rpt00692-abonnement-eigenschappen", () => Results.Ok());
+
+app.MapGet("/api/rpt00692-abonnement-eigenschappen/toekenningsregels", () => new[] {
+    new { abonnementsregel = "7007", item = "EnYoi Glasvezel internet 400", boekjaar = 2026, periode = 4, bedrag = 58.00m, status = "Gejournaliseerd", aangemaakt = "2026-03-15T00:00:00Z", aanmakerNaam = "P. de Vries" },
+    new { abonnementsregel = "7007", item = "EnYoi Glasvezel internet 400", boekjaar = 2026, periode = 3, bedrag = 58.00m, status = "Gejournaliseerd", aangemaakt = "2026-02-15T00:00:00Z", aanmakerNaam = "P. de Vries" },
+    new { abonnementsregel = "7008", item = "EnYoi TV Standaard", boekjaar = 2026, periode = 4, bedrag = 12.50m, status = "Gejournaliseerd", aangemaakt = "2026-03-15T00:00:00Z", aanmakerNaam = "P. de Vries" },
+});
+
+app.MapGet("/api/rpt00692-abonnement-eigenschappen/journaalposten", () => new[] {
+    new { boekstuknummer = "20260401-001", boekdatum = "2026-04-01T00:00:00Z", boekjaar = 2026, periode = 4, grootboekrekening = "1350 Te factureren abo omzet", omschrijving = "Periodetoekenning apr 2026", debet = 58.00m, credit = (decimal?)null },
+    new { boekstuknummer = "20260401-002", boekdatum = "2026-04-01T00:00:00Z", boekjaar = 2026, periode = 4, grootboekrekening = "8010 Omzet abonnementen", omschrijving = "Periodetoekenning apr 2026", debet = (decimal?)null, credit = 58.00m },
+    new { boekstuknummer = "20260301-001", boekdatum = "2026-03-01T00:00:00Z", boekjaar = 2026, periode = 3, grootboekrekening = "1350 Te factureren abo omzet", omschrijving = "Periodetoekenning mrt 2026", debet = 58.00m, credit = (decimal?)null },
+    new { boekstuknummer = "20260301-002", boekdatum = "2026-03-01T00:00:00Z", boekjaar = 2026, periode = 3, grootboekrekening = "8010 Omzet abonnementen", omschrijving = "Periodetoekenning mrt 2026", debet = (decimal?)null, credit = 58.00m },
 });
 
 // SPA Fallback: Serve the dynamic HTML for any request not handled by static files.

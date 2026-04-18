@@ -556,19 +556,19 @@
           <div class="flow-label">Werkproces</div>
 <div class="flow-step">
   <div class="flow-dot blue">1</div>
-  <div class="flow-step-text"><strong>Instellen</strong><br>Periodetoekenning activeren per artikelgroep</div>
+  <div class="flow-step-text"><strong>Selecteer</strong><br>Open de wizard en kies de toekenbare abonnementsregels</div>
 </div>
 <div class="flow-step">
   <div class="flow-dot green">2</div>
-  <div class="flow-step-text"><strong>Genereer</strong><br>Toekenningsregels aanmaken met status Te journaliseren</div>
+  <div class="flow-step-text"><strong>Genereer</strong><br>Toekenningsregels aanmaken &eacute;n direct journaliseren in &eacute;&eacute;n stap</div>
 </div>
 <div class="flow-step">
   <div class="flow-dot orange">3</div>
-  <div class="flow-step-text"><strong>Journaliseer</strong><br>Journaalposten boeken, status naar Gejournaliseerd</div>
+  <div class="flow-step-text"><strong>Controleer</strong><br>Saldo bewaken via standenoverzicht en saldoverklaring</div>
 </div>
 <div class="flow-step">
   <div class="flow-dot teal">4</div>
-  <div class="flow-step-text"><strong>Controleer</strong><br>Saldo bewaken via standenoverzicht en saldoverklaring</div>
+  <div class="flow-step-text"><strong>Verwijder</strong><br>Toekenningsregels verwijderen met automatisch terugdraaien</div>
 </div>
           <!--HERO_STEPS_END-->
         </div>
@@ -589,7 +589,7 @@
       <!--PROBLEM_CARDS_START-->
       <div class="problem-card fade-in">
   <h3>Blokkade bij afsluiting</h3>
-  <p>De periode kan niet worden gesloten als er nog ongejournaliseerde abonnementsomzet is. Dit is omzet uit abonnementen die achteraf worden gefactureerd: de factuur bestaat nog niet, dus er is ook geen journaalpost.</p>
+  <p>De periode kan niet worden gesloten als er nog ongejournaliseerde abonnementsomzet is. De factuur bestaat nog niet, dus er is ook geen journaalpost.</p>
 </div>
 <div class="problem-card fade-in">
   <h3>Geen vooraf toerekenen</h3>
@@ -651,8 +651,8 @@
 
       <!-- Nieuwe situatie -->
       <div class="feature-card fade-in" style="grid-column:1/-1;padding:2rem;">
-        <h3 style="margin-bottom:1rem;">Nieuwe situatie: vier factuurmomenten op een tijdlijn</h3>
-        <p style="margin-bottom:1.5rem;color:var(--color-muted);">Het factuurmoment wordt uitgebreid naar vier waarden. Hieronder de vier waarden op een tijdlijn (voorbeeld: dagen&nbsp;=&nbsp;10).</p>
+        <h3 style="margin-bottom:1rem;">Nieuwe situatie: vijf factuurmomenten op een tijdlijn</h3>
+        <p style="margin-bottom:1.5rem;color:var(--color-muted);">Het factuurmoment wordt uitgebreid naar vijf waarden. Hieronder op een tijdlijn (voorbeeld: cyclus april 2026, dagen&nbsp;=&nbsp;10).</p>
         <!-- Tijdlijn nieuwe situatie -->
         <div style="display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:2rem;flex-wrap:wrap;">
           <div style="background:#c8e6c9;border:2px solid #81c784;border-radius:10px;padding:0.5rem 0.8rem;text-align:center;font-size:0.78rem;line-height:1.4;">
@@ -665,6 +665,10 @@
           <div style="font-size:1rem;color:#999;padding:0 0.25rem;">&#8594;</div>
           <div style="background:#b3e5fc;border:2px solid #81d4fa;border-radius:10px;padding:0.5rem 0.8rem;text-align:center;font-size:0.78rem;line-height:1.4;">
             &#9313; Na<br>begindatum<br><strong>11 apr</strong>
+          </div>
+          <div style="font-size:1rem;color:#999;padding:0 0.25rem;">&#8594;</div>
+          <div style="background:#fff3cd;border:2px solid #e0c97e;border-radius:10px;padding:0.5rem 0.8rem;text-align:center;font-size:0.78rem;line-height:1.4;">
+            &#9316; Midden<br>factuurperiode<br><strong>15 apr</strong>
           </div>
           <div style="font-size:1rem;color:#999;padding:0 0.25rem;">&#8594;</div>
           <div style="background:#b3e5fc;border:2px solid #81d4fa;border-radius:10px;padding:0.5rem 0.8rem;text-align:center;font-size:0.78rem;line-height:1.4;">
@@ -691,13 +695,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">&#9312;</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">Aantal dagen v&oacute;&oacute;r begindatumcyclus</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">1 apr &minus; 10 dagen</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">22 mrt</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">Transitorisch journaliseren</td></tr>
-            <tr><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">&#9313;</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">Aantal dagen n&aacute; begindatumcyclus</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">1 apr + 10 dagen</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">11 apr</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">Transitorisch journaliseren</td></tr>
-            <tr><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">&#9314;</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">Aantal dagen v&oacute;&oacute;r einddatumcyclus</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">30 apr &minus; 10 dagen</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">20 apr</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">Transitorisch journaliseren</td></tr>
-            <tr style="background:#fff8e1;"><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">&#9315;</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">Aantal dagen n&aacute; einddatumcyclus</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">30 apr + 10 dagen</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">10 mei</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;"><strong>Periodetoekenning</strong></td></tr>
+            <tr><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">&#9312;</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">Aantal dagen v&oacute;&oacute;r begindatumcyclus</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">1 apr &minus; 10 dagen</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">22 mrt</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">Transitorisch journaliseren of periodetoekenning</td></tr>
+            <tr><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">&#9313;</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">Aantal dagen n&aacute; begindatumcyclus</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">1 apr + 10 dagen</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">11 apr</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">Transitorisch journaliseren of periodetoekenning</td></tr>
+            <tr><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">&#9314;</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">Aantal dagen v&oacute;&oacute;r einddatumcyclus</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">30 apr &minus; 10 dagen</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">20 apr</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">Transitorisch journaliseren of periodetoekenning</td></tr>
+            <tr><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">&#9315;</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">Aantal dagen n&aacute; einddatumcyclus</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">30 apr + 10 dagen</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">10 mei</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">Transitorisch journaliseren of periodetoekenning</td></tr>
+            <tr><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">&#9316;</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">Midden van de factuurperiode</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">(1 apr + 30 apr) / 2</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">15 apr</td><td style="padding:0.6rem 1rem;border-bottom:1px solid #e2e8f0;">Transitorisch journaliseren of periodetoekenning</td></tr>
           </tbody>
         </table>
-        <p style="margin-top:1rem;padding:0.75rem 1rem;background:#e8f5e9;border-left:4px solid var(--color-success);border-radius:6px;font-size:0.9rem;">Alleen bij factuurmoment &#9315; (n&aacute; einddatumcyclus) is periodetoekenning nodig, want de factuur komt pas beschikbaar nadat de cyclus voorbij is.</p>
+        <p style="margin-top:1rem;padding:0.75rem 1rem;background:#e8f5e9;border-left:4px solid var(--color-success);border-radius:6px;font-size:0.9rem;">Periodetoekenning is beschikbaar bij elk factuurmoment. In de wizard bepaal je per periode welke abonnementsregels meedoen.</p>
       </div>
       <!--FACTUURMOMENTEN_END-->
     </div>
@@ -710,7 +715,7 @@
     <div class="solution-header fade-in">
       <span class="badge">Aanpak</span>
       <h2>Hoe lossen we dit op?</h2>
-      <p>Een nieuw tabblad op het Periodeafsluitingsplan met drie duidelijke acties.</p>
+      <p>Een nieuw tabblad op het Periodeafsluitingsplan met twee duidelijke acties.</p>
     </div>
     <div class="solution-visual fade-in">
       <div class="solution-path">
@@ -719,21 +724,14 @@
   <div class="node-icon primary">&#128203;</div>
   <div class="node-text">
     <h3>Genereer periodetoekenningsregels</h3>
-    <p>Maakt regels aan per abonnementsregel. Er wordt nog niet geboekt. Herhaald uitvoeren maakt geen dubbele regels.</p>
-  </div>
-</div>
-<div class="solution-node">
-  <div class="node-icon success">&#128179;</div>
-  <div class="node-text">
-    <h3>Journaliseer toekenningsregels</h3>
-    <p>Boekt journaalposten (Te factureren omzet &rarr; Omzet) en zet de status naar Gejournaliseerd.</p>
+    <p>Opent een wizard (1 stap) met multi-select. Geselecteerde regels worden direct aangemaakt &eacute;n gejournaliseerd. Herhaald uitvoeren maakt geen dubbele regels.</p>
   </div>
 </div>
 <div class="solution-node">
   <div class="node-icon secondary">&#128269;</div>
   <div class="node-text">
-    <h3>Journaliseren ongedaan maken</h3>
-    <p>Maakt een tegenboeking aan. Het originele record blijft bewaard voor de audit trail.</p>
+    <h3>Verwijder toekenningsregels</h3>
+    <p>Verwijdert geselecteerde regels en draait de journaalposten automatisch terug. Valideert of de periode niet geblokkeerd is.</p>
   </div>
 </div>
         <!--SOLUTION_NODES_END-->
@@ -753,9 +751,9 @@
     <div class="features-grid">
       <!--FEATURE_CARDS_START-->
       <div class="feature-card fade-in">
-  <div class="feature-icon blue">&#128736;</div>
-  <h3>Per artikelgroep instelbaar</h3>
-  <p>Niet alle artikelgroepen hoeven tegelijk over. De klant bepaalt zelf per groep of periodetoekenning wordt toegepast.</p>
+  <div class="feature-icon blue">&#128179;</div>
+  <h3>Direct journaliseren</h3>
+  <p>Genereer en journaliseer in &eacute;&eacute;n stap. Geen tussenstatus, geen aparte actie.</p>
 </div>
 <div class="feature-card fade-in">
   <div class="feature-icon green">&#9989;</div>
@@ -770,12 +768,12 @@
 <div class="feature-card fade-in">
   <div class="feature-icon teal">&#128272;</div>
   <h3>Volledige audit trail</h3>
-  <p>Tegenboekingen worden nooit verwijderd. Vijf redencodes maken correcties herleidbaar.</p>
+  <p>Verwijderde regels krijgen status Verwijderd in plaats van fysieke verwijdering. Record blijft bewaard.</p>
 </div>
 <div class="feature-card fade-in">
   <div class="feature-icon blue">&#128279;</div>
-  <h3>Soepele overgang</h3>
-  <p>Via een startperiode blijft transitorisch journaliseren actief voor eerdere perioden. Geen conversie nodig.</p>
+  <h3>Samenloop met transitorisch</h3>
+  <p>Bestaat er een toekenningsregel? Dan slaat transitorisch journaliseren die regel over. Periodetoekenning wint.</p>
 </div>
 <div class="feature-card fade-in">
   <div class="feature-icon green">&#128196;</div>
@@ -793,23 +791,25 @@
     <div class="scope-header fade-in">
       <span class="badge">Afbakening</span>
       <h2>Scope</h2>
-      <p>Periodetoekenning richt zich op achteraf-abonnementen en het Periodeafsluitingsplan.</p>
+      <p>Periodetoekenning richt zich op het Periodeafsluitingsplan en is beschikbaar bij elk factuurmoment.</p>
     </div>
     <div class="scope-grid fade-in">
       <div class="scope-col scope-in">
         <h3>&#9989; Binnen scope</h3>
         <ul>
           <!--SCOPE_IN_START-->
-          <li>Nieuw tabblad Periodetoekenningsregels op Periodeafsluitingsplan</li>
-<li>Instelling Periodetoekenning toepassen per artikelgroep</li>
+          <li>Nieuw tabblad Periodetoekenningsregels abonnementen op Periodeafsluitingsplan</li>
+<li>Genereer-actie met wizard (1 stap, multi-select, direct journaliseren)</li>
+<li>Verwijderactie met multi-select en validatie op geblokkeerde periode</li>
 <li>Nieuwe tabel Toekenningsregels (FbFalAss)</li>
-<li>Genereer-actie (regels aanmaken, status Te journaliseren)</li>
-<li>Journaliseer-actie (boekingen, status Gejournaliseerd)</li>
-<li>Journaliseren ongedaan maken (tegenboeking)</li>
+<li>Nieuw veld Factuurmoment op het abonnement (vijf waarden)</li>
 <li>Automatisch terugdraaien bij be&euml;indigen en verwijderen</li>
-<li>Delta-afhandeling bij bedragcorrectie</li>
+<li>Delta-afhandeling bij bedragwijziging</li>
 <li>Saldoverklaring Te factureren abonnementen omzet</li>
-<li>Standalone weergave Periodetoekenningsregels</li>
+<li>KPI's gefactureerd, toegerekend en openstaand saldo op abonnementsregel</li>
+<li>Tabblad Periodetoekenningsregels op Eigenschappen abonnement</li>
+<li>Tabblad Transitorische journaalposten op Eigenschappen abonnement</li>
+<li>Standalone weergave Alle periodetoekenningsregels (submenu Periodetoekenning)</li>
           <!--SCOPE_IN_END-->
         </ul>
       </div>
@@ -818,7 +818,6 @@
         <ul>
           <!--SCOPE_OUT_START-->
           <li>Wijzigingen aan transitorisch journaliseren zelf</li>
-<li>Vooraf-abonnementen (alleen achteraf)</li>
 <li>Automatisch beginsaldo op tussenrekening (klant boekt dit zelf)</li>
 <li>Nieuwe rapportages of gegevensverzamelingen</li>
           <!--SCOPE_OUT_END-->
@@ -834,49 +833,34 @@
     <div class="features-header fade-in">
       <span class="badge">Mockups</span>
       <h2>Schermontwerp</h2>
-      <p>Zeven schermen zijn gebouwd als interactieve Podium-JS mockups.</p>
+      <p>Zeven schermen zijn gebouwd als interactieve Podium-JS mockups. De Journaliseer-wizard, Terugdraaien-wizard en Artikelgroep-instellingen zijn vervallen.</p>
     </div>
     <div class="features-grid" style="grid-template-columns:1fr;gap:2rem;">
       <!--MOCKUPS_START-->
       <div class="feature-card fade-in" style="grid-column:1/-1;">
   <h3>Periodeafsluitingsplan &mdash; tabblad Algemeen</h3>
-  <p>Het Periodeafsluitingsplan met het nieuwe tabblad Periodetoekenningsregels in de sidebar.</p>
+  <p>Het Periodeafsluitingsplan met het nieuwe tabblad Periodetoekenningsregels abonnementen in de sidebar.</p>
   <img src="./afbeeldingen/periodeafsluiting-algemeen.png" alt="Periodeafsluiting met tabblad Algemeen" style="width:100%;border-radius:8px;margin-top:1rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
 </div>
 <div class="feature-card fade-in" style="grid-column:1/-1;">
-  <h3>Periodetoekenningsregels &mdash; Genereer-actie</h3>
-  <p>Embedded ListPage met kolommen en de Genereer-actie in de toolbar.</p>
-  <img src="./afbeeldingen/periodetoekenningsregels-acties.png" alt="Periodetoekenningsregels met Genereer-actie" style="width:100%;border-radius:8px;margin-top:1rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+  <h3>Periodetoekenningsregels &mdash; acties</h3>
+  <p>Embedded ListPage met twee acties: Genereer en Verwijder.</p>
+  <img src="./afbeeldingen/periodetoekenningsregels-acties.png" alt="Periodetoekenningsregels met acties" style="width:100%;border-radius:8px;margin-top:1rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
 </div>
 <div class="feature-card fade-in" style="grid-column:1/-1;">
-  <h3>Periodetoekenningsregels &mdash; alle acties na selectie</h3>
-  <p>Na rijselectie zijn alle drie acties zichtbaar: Genereer, Journaliseer en Journaliseren ongedaan maken.</p>
-  <img src="./afbeeldingen/periodetoekenningsregels-lijst.png" alt="Periodetoekenningsregels met alle acties na selectie" style="width:100%;border-radius:8px;margin-top:1rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+  <h3>Periodetoekenningsregels &mdash; lijst met mockdata</h3>
+  <p>Na rijselectie is de Verwijder-actie zichtbaar.</p>
+  <img src="./afbeeldingen/periodetoekenningsregels-lijst.png" alt="Periodetoekenningsregels lijst met mockdata" style="width:100%;border-radius:8px;margin-top:1rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
 </div>
 <div class="feature-card fade-in" style="grid-column:1/-1;">
-  <h3>Standalone weergave Periodetoekenningsregels</h3>
-  <p>Toegankelijk via Abonnementen &rarr; Facturering. Alleen Journaliseren ongedaan maken beschikbaar.</p>
-  <img src="./afbeeldingen/periodetoekenningsregels-standalone.png" alt="Standalone weergave zonder Genereer-actie" style="width:100%;border-radius:8px;margin-top:1rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+  <h3>Standalone weergave Alle periodetoekenningsregels</h3>
+  <p>Toegankelijk via Abonnementen &rarr; Facturering &rarr; Periodetoekenning. Alleen Verwijder beschikbaar.</p>
+  <img src="./afbeeldingen/periodetoekenningsregels-standalone.png" alt="Standalone weergave" style="width:100%;border-radius:8px;margin-top:1rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
 </div>
 <div class="feature-card fade-in" style="grid-column:1/-1;">
   <h3>Genereer-wizard</h3>
-  <p>Stap 1 toont de periode (alleen-lezen) met optie Direct journaliseren.</p>
+  <p>Wizard met 1 stap: boekjaar en periode bovenin, daaronder de toekenbare regels als multi-select.</p>
   <img src="./afbeeldingen/genereer-wizard.png" alt="Genereer periodetoekenningsregels wizard" style="width:100%;border-radius:8px;margin-top:1rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
-</div>
-<div class="feature-card fade-in" style="grid-column:1/-1;">
-  <h3>Journaliseer-wizard</h3>
-  <p>Toont een preview van te journaliseren regels.</p>
-  <img src="./afbeeldingen/journaliseer-wizard.png" alt="Journaliseer toekenningsregels wizard" style="width:100%;border-radius:8px;margin-top:1rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
-</div>
-<div class="feature-card fade-in" style="grid-column:1/-1;">
-  <h3>Journaliseren ongedaan maken-wizard</h3>
-  <p>Selecteer regels om terug te draaien.</p>
-  <img src="./afbeeldingen/terugdraaien-wizard.png" alt="Journaliseren ongedaan maken wizard" style="width:100%;border-radius:8px;margin-top:1rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
-</div>
-<div class="feature-card fade-in" style="grid-column:1/-1;">
-  <h3>Artikelgroep &mdash; Periodetoekenning</h3>
-  <p>Nieuwe velden op tabblad Integratie: Periodetoekenning toepassen, Startperiode en Te factureren abonnementen omzet.</p>
-  <img src="./afbeeldingen/artikelgroep-periodetoekenning.png" alt="Artikelgroep met veldgroep Periodetoekenning" style="width:100%;border-radius:8px;margin-top:1rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
 </div>
 <div class="feature-card fade-in" style="grid-column:1/-1;">
   <h3>Facturering/voorraad &mdash; Periodetoekenning</h3>
@@ -906,7 +890,7 @@
     <div class="meta-bar">
       <div class="meta-item"><span>Project</span><strong>RPT00692</strong></div>
       <div class="meta-item"><span>Module</span><strong>Financial Basic - Abonnementen</strong></div>
-      <div class="meta-item"><span>Versie</span><strong>2.4</strong></div>
+      <div class="meta-item"><span>Versie</span><strong>3.9</strong></div>
       <div class="meta-item"><span>Status</span><strong>Concept</strong></div>
     </div>
   </div>
