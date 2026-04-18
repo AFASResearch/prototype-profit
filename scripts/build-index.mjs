@@ -26,13 +26,9 @@ const projects = readdirSync(root)
     try {
       lastUpdated = execSync(`git log -1 --format=%cI -- "${d}"`, { cwd: root, encoding: 'utf-8' }).trim();
     } catch { /* no git history */ }
-<<<<<<< HEAD
-    return { id: d, description: pkg.description || d, lastUpdated };
-=======
     const hasOntwerp = existsSync(join(root, d, 'ontwerp.html'));
     const hasPresentatie = existsSync(join(root, d, 'presentatie.html'));
     return { id: d, description: pkg.description || d, lastUpdated, hasOntwerp, hasPresentatie };
->>>>>>> 5495691 (feat: add ontwerp and presentatie action buttons per project)
   });
 
 const html = `<!doctype html>
@@ -75,13 +71,6 @@ const html = `<!doctype html>
     <input type="search" id="search" placeholder="Zoek op projectnummer of omschrijving\u2026" autocomplete="off" />
   </div>
   <div class="grid" id="grid">
-<<<<<<< HEAD
-${projects.map(p => `    <div class="card" data-search="${p.id.toUpperCase()} ${p.description.toLowerCase()}">
-      <h2><a href="${p.id}/menu">${p.id.toUpperCase()}</a></h2>
-      <p>${p.description}</p>${p.lastUpdated ? `
-      <p class="updated">Laatst bijgewerkt: <time datetime="${p.lastUpdated}">${new Date(p.lastUpdated).toLocaleString('nl-NL', { dateStyle: 'medium', timeStyle: 'short' })}</time></p>` : ''}
-    </div>`).join('\n')}
-=======
 ${projects.map(p => {
     const actions = [
       `<a class="act-prototype" href="${p.id}/menu" target="_blank" rel="noopener">&#9654; Prototype</a>`,
@@ -99,7 +88,6 @@ ${projects.map(p => {
       <div class="actions">${actions.join('')}</div>
     </div>`;
   }).join('\n')}
->>>>>>> 5495691 (feat: add ontwerp and presentatie action buttons per project)
   </div>
   <script>
     document.getElementById('search').addEventListener('input', function() {
