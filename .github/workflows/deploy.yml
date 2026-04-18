@@ -92,6 +92,10 @@ jobs:
             # Generate index.html (SPA shell)
             node ../scripts/build-spa-shell.mjs "$OUTDIR"
 
+            # Copy ontwerp and presentatie HTML if they exist
+            [ -f "ontwerp.html" ] && cp "ontwerp.html" "$OUTDIR/ontwerp.html" && echo "  Copied ontwerp.html"
+            [ -f "presentatie.html" ] && cp "presentatie.html" "$OUTDIR/presentatie.html" && echo "  Copied presentatie.html"
+
             # 404.html = index.html for SPA routing
             cp "$OUTDIR/index.html" "$OUTDIR/404.html"
 
