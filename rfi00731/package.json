@@ -2,7 +2,7 @@
   "name": "prototype-rfi00731",
   "version": "1.0.0",
   "private": true,
-  "description": "RFI00731 \u2014 Inhoudingsplicht Belgi\u00eb",
+  "description": "RFI00731 — Inhoudingsplicht België",
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",

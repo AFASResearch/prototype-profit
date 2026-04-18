@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ontwerp RPT00692 — Periodetoekenning omzet abonnement</title>
+  <meta name="description" content="Periodetoekenning van omzet uit achteraf-abonnementen via het Periodeafsluitingsplan in AFAS Profit.">
+  <meta name="author" content="Eric Zaal">
+  <meta property="og:title" content="Ontwerp RPT00692 — Periodetoekenning omzet abonnement">
+  <meta property="og:description" content="Periodetoekenning van omzet uit achteraf-abonnementen via het Periodeafsluitingsplan in AFAS Profit.">
+  <meta property="og:type" content="article">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <style>
+    :root {
+      --color-primary: #0057B8;
+      --color-secondary: #009FE3;
+      --color-success: #00A651;
+      --color-warning: #F58220;
+      --color-error: #E30613;
+      --color-dark: #1a202c;
+      --color-light: #f7f8fa;
+      --color-white: #ffffff;
+      --color-muted: #64748b;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --radius: 12px;
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 12px 48px rgba(0, 87, 184, 0.12);
+      --sidebar-width: 260px;
+      --content-max: 860px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      color: var(--color-dark);
+      background: var(--color-white);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed; top: 0; left: 0; width: var(--sidebar-width); height: 100vh;
+      background: var(--color-dark); color: #cbd5e1; overflow-y: auto;
+      padding: 1.5rem 0; z-index: 100; display: flex; flex-direction: column;
+    }
+    .sidebar-logo {
+      font-weight: 800; font-size: 1rem; color: var(--color-white);
+      padding: 0 1.25rem; margin-bottom: 0.25rem; letter-spacing: -0.01em;
+    }
+    .sidebar-project {
+      font-size: 0.75rem; color: var(--color-secondary); padding: 0 1.25rem;
+      margin-bottom: 1.25rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .sidebar-back {
+      display: flex; align-items: center; gap: 0.5rem; margin: 0 0.75rem 1.25rem;
+      padding: 0.6rem 0.75rem; border-radius: 8px; text-decoration: none;
+      font-size: 0.82rem; font-weight: 600; color: var(--color-white);
+      background: var(--color-primary); border: 1px solid rgba(255,255,255,0.15);
+      transition: background 0.15s, transform 0.15s;
+    }
+    .sidebar-back:hover { background: #004a9e; transform: translateX(-2px); }
+    .sidebar-nav { flex: 1; overflow-y: auto; }
+    .sidebar-nav a {
+      display: block; padding: 0.4rem 1.25rem; text-decoration: none;
+      font-size: 0.78rem; color: #94a3b8; transition: color 0.15s, background 0.15s;
+      border-left: 3px solid transparent;
+    }
+    .sidebar-nav a:hover { color: var(--color-white); background: rgba(255,255,255,0.04); }
+    .sidebar-nav a.active { color: var(--color-white); border-left-color: var(--color-secondary); background: rgba(0,159,227,0.1); font-weight: 600; }
+    .sidebar-nav a.nav-h2 { font-weight: 600; color: #cbd5e1; padding-top: 0.65rem; margin-top: 0.3rem; }
+    .sidebar-nav a.nav-h3 { padding-left: 2rem; font-size: 0.74rem; }
+
+    /* Content */
+    .content {
+      margin-left: var(--sidebar-width);
+      max-width: var(--content-max);
+      padding: 3rem 2.5rem 5rem;
+    }
+
+    /* Typography */
+    .content h1 { font-size: clamp(1.75rem, 3vw, 2.5rem); margin-bottom: 1.5rem; line-height: 1.2; }
+    .content h2 {
+      font-size: clamp(1.3rem, 2.5vw, 1.75rem); margin: 3rem 0 1rem;
+      padding-bottom: 0.5rem; border-bottom: 3px solid var(--color-primary);
+      line-height: 1.25;
+    }
+    .content h3 { font-size: clamp(1.05rem, 1.5vw, 1.25rem); margin: 2rem 0 0.75rem; color: var(--color-dark); }
+    .content h4 { font-size: 1rem; margin: 1.5rem 0 0.5rem; color: var(--color-muted); font-weight: 600; }
+    .content p { margin-bottom: 1rem; font-size: 0.95rem; }
+    .content ul, .content ol { margin: 0.5rem 0 1rem 1.5rem; font-size: 0.95rem; }
+    .content li { margin-bottom: 0.35rem; }
+    .content strong { color: var(--color-dark); }
+    .content hr { border: none; border-top: 1px solid #e2e8f0; margin: 2.5rem 0; }
+
+    /* Meta table */
+    .meta-table { margin-bottom: 2rem; }
+    .meta-table table { width: auto; }
+    .meta-table td:first-child { font-weight: 700; color: var(--color-primary); padding-right: 2rem; white-space: nowrap; }
+
+    /* Tables */
+    .content table {
+      width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem;
+      font-size: 0.88rem; border-radius: 8px; overflow: hidden;
+      box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+    }
+    .content thead { background: var(--color-primary); color: var(--color-white); }
+    .content th { padding: 0.7rem 0.85rem; text-align: left; font-weight: 600; font-size: 0.82rem; white-space: nowrap; }
+    .content td { padding: 0.6rem 0.85rem; border-bottom: 1px solid #eef1f5; vertical-align: top; }
+    .content tbody tr:last-child td { border-bottom: none; }
+    .content tbody tr:hover { background: #f8fafd; }
+
+    /* Code blocks */
+    .content pre {
+      background: #1e293b; color: #e2e8f0; border-radius: 8px;
+      padding: 1.25rem 1.5rem; overflow-x: auto; margin: 1rem 0 1.5rem;
+      font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.6;
+    }
+    .content code {
+      font-family: var(--font-mono); font-size: 0.85em;
+      background: rgba(0,87,184,0.06); color: var(--color-primary);
+      padding: 0.15rem 0.4rem; border-radius: 4px;
+    }
+    .content pre code { background: transparent; color: inherit; padding: 0; }
+    .kw { color: #c084fc; } .str { color: #86efac; } .cm { color: #64748b; }
+    .fn { color: #67e8f9; } .num { color: #fdba74; }
+
+    /* Mermaid */
+    .mermaid { margin: 1.5rem 0; background: var(--color-light); border-radius: 8px; padding: 1.5rem; text-align: center; }
+
+    /* Version history */
+    .version-table { font-size: 0.82rem; }
+    .version-table td:first-child { white-space: nowrap; font-weight: 600; color: var(--color-primary); }
+
+    /* Blockquote / info boxes */
+    .content blockquote {
+      border-left: 4px solid var(--color-secondary); background: rgba(0,159,227,0.06);
+      padding: 1rem 1.25rem; margin: 1rem 0 1.5rem; border-radius: 0 8px 8px 0;
+      font-size: 0.92rem;
+    }
+
+    /* ASCII art / screen layout */
+    .content .screen-layout {
+      background: #1e293b; color: #e2e8f0; border-radius: 8px;
+      padding: 1.25rem 1.5rem; overflow-x: auto; margin: 1rem 0 1.5rem;
+      font-family: var(--font-mono); font-size: 0.78rem; line-height: 1.5;
+      white-space: pre;
+    }
+
+    /* Back to top */
+    .back-to-top {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 90;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--color-primary); color: var(--color-white);
+      border: none; cursor: pointer; font-size: 1.2rem;
+      box-shadow: 0 4px 16px rgba(0,87,184,0.3);
+      opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.15s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,87,184,0.4); }
+
+    /* Print */
+    @media print {
+      .sidebar, .back-to-top, .notes-fab, .notes-panel, .notes-overlay, .toast-note, .btn-note-section { display: none !important; }
+      .content { margin-left: 0; max-width: 100%; padding: 1rem; }
+      .content h2 { break-before: page; }
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+      .content { margin-left: 0; padding: 2rem 1.5rem 4rem; }
+    }
+
+    /* --- Notes system --- */
+    .notes-fab {
+      position: fixed; bottom: 5.5rem; right: 1.5rem; z-index: 200;
+      width: 52px; height: 52px; border-radius: 50%;
+      background: var(--color-primary); color: var(--color-white);
+      border: none; cursor: pointer; font-size: 1.3rem;
+      box-shadow: 0 4px 20px rgba(0,87,184,0.35);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .notes-fab:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(0,87,184,0.45); }
+    .notes-fab .fab-count {
+      position: absolute; top: -4px; right: -4px;
+      background: var(--color-error); color: #fff;
+      font-size: 0.7rem; font-weight: 700;
+      min-width: 20px; height: 20px; border-radius: 999px;
+      display: flex; align-items: center; justify-content: center; padding: 0 5px;
+    }
+    .notes-fab .fab-count:empty { display: none; }
+    .notes-panel {
+      position: fixed; top: 0; right: 0; width: 400px; max-width: 95vw; height: 100vh;
+      background: var(--color-white); box-shadow: -8px 0 40px rgba(0,0,0,0.12);
+      z-index: 300; transform: translateX(100%); transition: transform 0.3s ease;
+      display: flex; flex-direction: column;
+    }
+    .notes-panel.open { transform: translateX(0); }
+    .notes-panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 1.5rem; border-bottom: 1px solid #e2e8f0; flex-shrink: 0;
+    }
+    .notes-panel-header h3 { font-size: 1.1rem; margin: 0; }
+    .notes-panel-actions { display: flex; gap: 0.4rem; align-items: center; }
+    .notes-panel-actions button {
+      background: none; border: 1px solid #e2e8f0; cursor: pointer;
+      font-size: 0.78rem; font-weight: 600; font-family: var(--font);
+      padding: 0.35rem 0.65rem; border-radius: 6px;
+      color: var(--color-muted); transition: color 0.15s, border-color 0.15s;
+    }
+    .notes-panel-actions button:hover { color: var(--color-primary); border-color: var(--color-primary); }
+    .notes-panel-close {
+      background: none; border: none; cursor: pointer;
+      font-size: 1.4rem; color: var(--color-muted);
+      padding: 0.2rem; line-height: 1; transition: color 0.15s;
+    }
+    .notes-panel-close:hover { color: var(--color-dark); }
+    .notes-panel-body { flex: 1; overflow-y: auto; padding: 1rem 1.5rem; }
+    .notes-empty { text-align: center; color: var(--color-muted); padding: 3rem 1rem; font-size: 0.95rem; }
+    .notes-empty .notes-empty-hint { display: block; margin-top: 0.5rem; font-size: 0.85rem; color: #94a3b8; }
+    .np-card { border-radius: 10px; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); overflow: hidden; }
+    .np-color-bar { height: 4px; }
+    .np-source { padding: 0.5rem 0.85rem; background: #f8fafc; border-bottom: 1px solid #f1f5f9; font-size: 0.75rem; }
+    .np-source-section { font-weight: 600; color: var(--color-primary); }
+    .np-source-title { color: var(--color-muted); }
+    .np-source-summary { display: block; margin-top: 0.2rem; color: #94a3b8; font-style: italic; font-size: 0.73rem; line-height: 1.3; max-height: 2.6em; overflow: hidden; }
+    .np-card textarea {
+      width: 100%; min-height: 80px; border: none; outline: none; resize: vertical;
+      padding: 0.75rem 0.85rem; font-family: var(--font); font-size: 0.88rem; line-height: 1.5; background: transparent;
+    }
+    .np-card textarea:focus { background: #fefce8; }
+    .np-footer { display: flex; justify-content: space-between; align-items: center; padding: 0.35rem 0.85rem; border-top: 1px solid #f1f5f9; }
+    .np-meta { display: flex; flex-direction: column; gap: 0.1rem; }
+    .np-author { font-size: 0.7rem; color: var(--color-primary); font-weight: 600; }
+    .np-timestamp { font-size: 0.7rem; color: var(--color-muted); }
+    .np-delete { background: none; border: none; cursor: pointer; font-size: 0.95rem; color: #94a3b8; padding: 0.2rem; transition: color 0.15s; }
+    .np-delete:hover { color: var(--color-error); }
+    .notes-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.2); z-index: 250; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .notes-overlay.open { opacity: 1; pointer-events: auto; }
+    .btn-note-section {
+      display: inline-flex; align-items: center; gap: 0; background: transparent; color: var(--color-dark);
+      border: none; cursor: pointer; font-size: 0.82rem; font-weight: 400; font-family: var(--font);
+      padding: 0.15rem 0.25rem; border-radius: 999px; box-shadow: none;
+      transition: opacity 0.2s, transform 0.15s, background 0.2s, color 0.2s, box-shadow 0.2s;
+      white-space: nowrap; vertical-align: middle; margin-left: 0.35rem; opacity: 0.18; line-height: 1;
+    }
+    .btn-note-section:hover { opacity: 0.45; transform: scale(1.08); }
+    .btn-note-section.has-note {
+      opacity: 1; background: var(--color-secondary); color: #fff;
+      font-size: 0.65rem; font-weight: 600; padding: 0.2rem 0.5rem; gap: 0.25rem;
+      box-shadow: 0 2px 8px rgba(0,159,227,0.25);
+    }
+    .btn-note-section.has-note:hover { background: #0084c1; transform: scale(1.06); }
+    .card-noted { box-shadow: 0 0 0 2px var(--color-secondary), var(--shadow) !important; }
+    .toast-note {
+      position: fixed; top: 1.5rem; left: 50%; transform: translateX(-50%) translateY(-20px);
+      background: var(--color-dark); color: var(--color-white);
+      padding: 0.7rem 1.4rem; border-radius: 8px; font-size: 0.88rem; font-weight: 500;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2); z-index: 1000;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.3s; max-width: 90vw; text-align: center;
+    }
+    .toast-note.visible { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+  </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-logo">AFAS Profit</div>
+  <div class="sidebar-project">RPT00692</div>
+  <a href="./projectoverzicht-rpt00692-periodetoekenning-omzet-abonnement.html" class="sidebar-back">&larr; Terug naar projectoverzicht</a>
+  <div class="sidebar-nav" id="sidebarNav">
+    <!-- Wordt automatisch gevuld via JS -->
+  </div>
+</nav>
+
+<!-- Content -->
+<main class="content" id="content">
+
+  <h1 id="titel">Ontwerp: Periodetoekenning omzet abonnement</h1>
+
+  <div class="meta-table">
+    <table>
+      <tbody>
+        <tr><td>Project</td><td>RPT00692</td></tr>
+        <tr><td>Versie</td><td>1.11</td></tr>
+        <tr><td>Datum</td><td>06-03-2026</td></tr>
+        <tr><td>Status</td><td>Concept</td></tr>
+        <tr><td>Module</td><td>Financial Basic &ndash; Abonnementen</td></tr>
+        <tr><td>Gepland voor</td><td>P08/09</td></tr>
+        <tr><td>Klant</td><td>Facilicom</td></tr>
+        <tr><td>Auteur</td><td>Eric Zaal</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr>
+
+  <h2 id="versiehistorie">Versiehistorie</h2>
+  <table class="version-table">
+    <thead><tr><th>Versie</th><th>Datum</th><th>Auteur</th><th>Wijziging</th></tr></thead>
+    <tbody>
+      <tr><td>1.11</td><td>06-03-2026</td><td>Eric Zaal</td><td>Korte UI-helpteksten toegevoegd voor tooltips op tabblad, acties en statussen</td></tr>
+      <tr><td>1.10</td><td>06-03-2026</td><td>Eric Zaal</td><td>Hoofdstuk 13 Helpdocumentatie uitgebreid met gebruikersstappen en veelvoorkomende meldingen</td></tr>
+      <tr><td>1.9</td><td>06-03-2026</td><td>Eric Zaal</td><td>Klantsamenvatting uitgebreid en hoofdstuk 14 Documentatie toegevoegd</td></tr>
+      <tr><td>1.8</td><td>06-03-2026</td><td>Eric Zaal</td><td>Reviewverwerking: audit trail bij verwijderen FbSul aangescherpt, robuustere EXISTS-query, selectiecriteria met statusfilter, tolerant journaliseren en terminologie vereenvoudigd</td></tr>
+      <tr><td>1.7</td><td>05-03-2026</td><td>Eric Zaal</td><td>Hoofdstuk 13 toegevoegd met helpdocumentatie voor tabblad en acties</td></tr>
+      <tr><td>1.6</td><td>04-03-2026</td><td>Eric Zaal</td><td>User stories genummerd en voorbeelden gekoppeld aan user story-tabel</td></tr>
+      <tr><td>1.5</td><td>04-03-2026</td><td>Eric Zaal</td><td>User stories uitgebreid met bedragverhoging en beëindigen per datum</td></tr>
+      <tr><td>1.4</td><td>04-03-2026</td><td>Eric Zaal</td><td>Reviewverwerking: genereer alleen vóór periodeafsluiting, tabblad-zichtbaarheid via activering</td></tr>
+      <tr><td>1.3</td><td>04-03-2026</td><td>Eric Zaal</td><td>Automatisch terugdraaien bij beëindigen (event-driven) in scope geplaatst</td></tr>
+      <tr><td>1.2</td><td>04-03-2026</td><td>Eric Zaal</td><td>Rework conform skills: IST/SOLL, user stories, auditkolommen, UNIQUE-constraint</td></tr>
+      <tr><td>1.1</td><td>03-03-2026</td><td>Eric Zaal</td><td>Rework: TOC verwijderd, valutanotatie gecorrigeerd, tekstverbeteringen</td></tr>
+      <tr><td>1.0</td><td>01-03-2026</td><td>Eric Zaal</td><td>Eerste volledige versie incl. terugdraaien, verwijderbeveiliging en migratiescript</td></tr>
+      <tr><td>0.1</td><td>01-03-2026</td><td>Eric Zaal</td><td>Initieel concept</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ═══════ 1. INLEIDING ═══════ -->
+
+  <h2 id="inleiding">1. Inleiding</h2>
+
+  <h3 id="aanleiding">1.1 Aanleiding</h3>
+  <p>Profit heeft geen functie voor periodetoekenning van omzet op achteraf-abonnementen. De tabel Toekenningsregels (<code>FbFalAss</code>) bestaat niet en er is geen ingangspunt om journalisatie te starten.</p>
+
+  <h3 id="resultaat">1.2 Resultaat</h3>
+  <p>Een nieuw tabblad <strong>Periodetoekenningsregels</strong> op het bestaande scherm <code>frmFiPeriodeafsluiting</code> (Periodeafsluitingsplan) met de volgende acties:</p>
+  <ol>
+    <li><strong>Genereer periodetoekenningsregels</strong> &ndash; maakt <code>FbFalAss</code>-records aan met status <em>Gegenereerd</em>; nog geen journaalposten.</li>
+    <li><strong>Journaliseer toekenningsregels</strong> &ndash; boekt journaalposten en zet de status naar <em>Actief</em>.</li>
+    <li><strong>Journaliseren ongedaan maken</strong> &ndash; maakt tegenboekingsrecords aan en boekt tegenjournaalposten.</li>
+  </ol>
+  <p>Het tabblad opent met een leeg grid; de gebruiker start de Genereer-actie expliciet.</p>
+
+  <h3 id="samenvatting-klant">1.3 Samenvatting voor klant</h3>
+  <p>Deze wijziging zorgt ervoor dat omzet uit achteraf-abonnementen beter en controleerbaar wordt toegerekend aan de juiste financiële periode. Je krijgt hiervoor op het bestaande Periodeafsluitingsplan een extra tabblad met duidelijke acties voor genereren, journaliseren en terugdraaien.</p>
+  <p>Wat dit je oplevert:</p>
+  <ul>
+    <li>Minder handmatige correcties bij periodeafsluiting.</li>
+    <li>Betere financiële controle door een duidelijke audit trail.</li>
+    <li>Snellere verwerking omdat bestaande boekingslogica wordt hergebruikt.</li>
+    <li>Meer zekerheid dat openstaande abonnementenomzet tijdig wordt verwerkt.</li>
+    <li>Consistente afhandeling van correcties, creditfacturen en beëindigingen.</li>
+  </ul>
+
+  <h3 id="korte-klantsamenvatting">1.3.1 Korte klantsamenvatting voor besluitvorming</h3>
+  <p>Met deze wijziging krijgt je team op een bestaand scherm een praktische werkwijze om omzet uit achteraf-abonnementen per periode te verwerken.</p>
+  <ul>
+    <li>Je voorkomt blokkades en handmatige correcties rond periodeafsluiting.</li>
+    <li>Je houdt grip op kwaliteit via duidelijke statussen, controles en audit trail.</li>
+    <li>Je behoudt snelheid door bestaande journalisatie en rechten te hergebruiken.</li>
+    <li>Je beperkt risico bij correcties en verwijderingen door automatisch terugdraaien.</li>
+  </ul>
+  <p>Resultaat: meer voorspelbare periodeafsluiting met minder herstelwerk.</p>
+
+  <h3 id="afbakening">1.4 Afbakening</h3>
+  <table>
+    <thead><tr><th></th><th>In scope</th><th>Buiten ontwerp</th></tr></thead>
+    <tbody>
+      <tr><td>Nieuw tabblad Periodetoekenningsregels op Periodeafsluitingsplan</td><td>&#10004;</td><td></td></tr>
+      <tr><td>Nieuwe tabel Toekenningsregels (<code>FbFalAss</code>)</td><td>&#10004;</td><td></td></tr>
+      <tr><td>Genereer-actie (aanmaken <code>FbFalAss</code>, Status=Gegenereerd)</td><td>&#10004;</td><td></td></tr>
+      <tr><td>Journaliseer-actie (journaalposten boeken, Status=Actief)</td><td>&#10004;</td><td></td></tr>
+      <tr><td>Journaliseren ongedaan maken (tegenboeking, Status=Tegenboeking)</td><td>&#10004;</td><td></td></tr>
+      <tr><td>Terugdraaien bij beëindigen abonnementsregel</td><td>&#10004;</td><td></td></tr>
+      <tr><td>Afhandeling creditfactuur via normale flow (negatief bedrag)</td><td>&#10004;</td><td></td></tr>
+      <tr><td>Delta-afhandeling bij bedragcorrectie</td><td>&#10004;</td><td></td></tr>
+      <tr><td>Verwijderen <code>FbSul</code> met automatisch terugdraaien</td><td>&#10004;</td><td></td></tr>
+      <tr><td>Automatisch terugdraaien bij beëindigen (event-driven)</td><td>&#10004;</td><td></td></tr>
+      <tr><td>Factuurverwerkingslogica (hoe facturen ontstaan)</td><td></td><td>&#10004;</td></tr>
+      <tr><td>Periodeafsluitingsactie (<code>CloseFiPeriod</code>)</td><td></td><td>&#10004;</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="randvoorwaarden">1.5 Randvoorwaarden</h3>
+  <table>
+    <thead><tr><th>Nr</th><th>Randvoorwaarde</th></tr></thead>
+    <tbody>
+      <tr><td>R1</td><td>Periodeafsluitingsplan (<code>frmFiPeriodeafsluiting</code>) bestaat en is operationeel</td></tr>
+      <tr><td>R2</td><td>Journalisatieprocedure (<code>PSFbJouIn</code>) en Integratiescherm (<code>frmFbIntegration</code>) zijn ongewijzigd beschikbaar</td></tr>
+      <tr><td>R3</td><td>Abonnementsfuncties-module (<code>AfasFbSubscriptionFunctions</code>) is beschikbaar als module</td></tr>
+      <tr><td>R4</td><td>De gebruiker heeft rechten op het Periodeafsluitingsplan-scherm</td></tr>
+      <tr><td>R5</td><td>De nieuwe tabel Toekenningsregels (<code>FbFalAss</code>) is aangemaakt vóór de eerste uitvoering</td></tr>
+      <tr><td>R6</td><td>De beëindigingsstatus van een abonnementsregel (<code>FbSul</code>) is opvraagbaar via bestaande velden</td></tr>
+      <tr><td>R7</td><td>De verwijdervalidatie van <code>FbSul</code> is uitbreidbaar met een externe check</td></tr>
+      <tr><td>R8</td><td>Feature-activering <code>Periodetoekenningsregels abonnementen</code> is beschikbaar en ingeschakeld</td></tr>
+      <tr><td>R9</td><td>Bij verwijdering van <code>FbSul</code> worden gekoppelde <code>FbFal</code>-records niet verwijderd (geen cascade-delete)</td></tr>
+      <tr><td>R10</td><td>Drie nieuwe rechtenobjecten beschikbaar: <code>FbFalAssGenerate</code>, <code>FbFalAssJournalise</code> en <code>FbFalAssReverse</code></td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="begrippen">1.6 Begrippen</h3>
+  <table>
+    <thead><tr><th>Term</th><th>Betekenis</th></tr></thead>
+    <tbody>
+      <tr><td>Periodetoekenning</td><td>Omzet van achteraf-abonnementen toerekenen aan de juiste perioden</td></tr>
+      <tr><td>Toekenningsregel</td><td>Record in <code>FbFalAss</code> dat een factuurregel koppelt aan een boekjaar/periode</td></tr>
+      <tr><td>Journaalpost omzettoekenning</td><td>Boeking: Te factureren abonnementen omzet (1900) &rarr; Omzet (8010)</td></tr>
+      <tr><td>Tegenboeking toekenning</td><td>Boeking: Omzet (8010) &rarr; Te factureren abonnementen omzet (1900)</td></tr>
+      <tr><td>Netto-saldo <code>FbFalAss</code></td><td>Som van alle <code>FbFalAss.Amount</code> per <code>FbFalId</code></td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="woordenlijst">1.7 Woordenlijst (technische afkortingen)</h3>
+  <table>
+    <thead><tr><th>Afkorting</th><th>Betekenis</th></tr></thead>
+    <tbody>
+      <tr><td><code>FbFal</code></td><td>Factuurregel (bronrecord)</td></tr>
+      <tr><td><code>FbFalAss</code></td><td>Toekenningsregel per factuurregel en periode</td></tr>
+      <tr><td><code>FbSul</code></td><td>Abonnementsregel</td></tr>
+      <tr><td><code>AfasFiYear</code></td><td>Boekjaar</td></tr>
+      <tr><td><code>AfasFiPeriod</code></td><td>Financiële periode</td></tr>
+      <tr><td><code>ReasonCode</code></td><td>Redencode voor audittrail</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <!-- ═══════ 2. GLOBALE BESCHRIJVING ═══════ -->
+
+  <h2 id="globale-beschrijving">2. Globale beschrijving</h2>
+
+  <h3 id="levenscyclus">2.1 Levenscyclus toekenningsregel (FbFalAss)</h3>
+
+  <div class="mermaid">
+flowchart TD
+    E[Actie Genereer] --> F[Toe te kennen regel aangemaakt - Toekenningsregel]
+    F --> G[Actie Journaliseer]
+    G --> H[Journaalpost Te factureren abonnementen omzet → Omzet]
+    H --> I[Status Actief - Toekenningsregel]
+    I --> J{Correctie nodig?}
+    J -- Nee --> END([Einde])
+    J -- Ja --> K[Actie Terugdraaien]
+    K --> L[Status Tegenboeking - Toekenningsregel]
+    L --> M[Journaalpost Omzet → Te factureren abonnementen omzet]
+    style I fill:#d4edda,color:#155724
+    style L fill:#f8d7da,color:#721c24
+  </div>
+
+  <table>
+    <thead><tr><th>Stap</th><th>Beschrijving</th></tr></thead>
+    <tbody>
+      <tr><td>E</td><td>Genereer wordt uitgevoerd voor het geselecteerde Boekjaar en Periode; maakt <code>FbFalAss</code>-records aan zonder boekingen.</td></tr>
+      <tr><td>H</td><td>Journaliseer boekt de journaalposten en activeert de records.</td></tr>
+      <tr><td>L</td><td>Terugdraaien maakt een tegenboekingsrecord aan (audit trail) en boekt de tegenjournaalpost.</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="situatietabel">2.2 Situatietabel</h3>
+  <table>
+    <thead><tr><th>Situatie</th><th>Netto-saldo Te factureren (1900)</th><th>Actie</th></tr></thead>
+    <tbody>
+      <tr><td>Nog niet toegekend</td><td>Openstaand (credit)</td><td>Genereer + Journaliseer</td></tr>
+      <tr><td>Volledig toegekend</td><td>Nul</td><td>Geen</td></tr>
+      <tr><td>Gedeeltelijk toegekend</td><td>Resterend saldo</td><td>Journaliseer restant</td></tr>
+      <tr><td>Teruggedraaid</td><td>Openstaand (credit)</td><td>Afhankelijk van oorzaak</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="getroffen-componenten">2.3 Overzicht getroffen componenten</h3>
+  <table>
+    <thead><tr><th>Component</th><th>Type</th><th>Wijziging</th></tr></thead>
+    <tbody>
+      <tr><td>Periodeafsluitingsplan (<code>frmFiPeriodeafsluiting</code>)</td><td>Bestaand formulier</td><td>Nieuw tabblad + acties</td></tr>
+      <tr><td>MDD</td><td>Metadata</td><td>Tab + grid + acties</td></tr>
+      <tr><td>Profit-wachtrij (batchservice)</td><td>Bestaand</td><td>Drie nieuwe taaktypes</td></tr>
+      <tr><td>Abonnementsfuncties-module</td><td>Bestaande module</td><td>Helpers: genereer, journaliseer, terugdraaien</td></tr>
+      <tr><td>Validatie <code>FbSul</code></td><td>Bestaand/nieuw</td><td>Blokkeer verwijdering als netto-saldo &ne; 0</td></tr>
+      <tr><td>Toekenningsregels (<code>FbFalAss</code>)</td><td>Database</td><td><strong>Nieuwe tabel</strong></td></tr>
+      <tr><td>Journalisatieprocedure (<code>PSFbJouIn</code>)</td><td>Bestaand</td><td>Hergebruik; geen wijziging</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <!-- ═══════ 3. USER STORIES ═══════ -->
+
+  <h2 id="user-stories">3. User stories</h2>
+  <table>
+    <thead><tr><th>Nr</th><th>Als</th><th>Wil ik</th><th>Zodat</th></tr></thead>
+    <tbody>
+      <tr><td>US01</td><td>Financieel medewerker</td><td>periodetoekenningsregels kunnen genereren en journaliseren via het Periodeafsluitingsplan</td><td>omzet correct aan perioden wordt toegerekend zonder aparte wizard</td></tr>
+      <tr><td>US02</td><td>Financieel medewerker</td><td>toekenningsregels kunnen terugdraaien bij beëindiging of foutieve toekenning</td><td>omzet niet ten onrechte op Omzet blijft staan</td></tr>
+      <tr><td>US03</td><td>Financieel medewerker</td><td>creditfacturen en correcties verwerken zonder aparte speciale actie</td><td>bestaande flows herbruikbaar blijven</td></tr>
+      <tr><td>US04</td><td>Financieel medewerker</td><td>bij verhoging na toekenning alleen het delta-bedrag als extra toekenning verwerken</td><td>eerder gejournaliseerde bedragen intact blijven</td></tr>
+      <tr><td>US05</td><td>Financieel medewerker</td><td>bij beëindigen per datum toekomstige toekenningsregels automatisch laten terugdraaien</td><td>omzet na de einddatum niet ten onrechte als gerealiseerd blijft staan</td></tr>
+      <tr><td>US06</td><td>Financieel medewerker</td><td>een abonnementsregel kunnen verwijderen zonder handmatige tussenstappen</td><td>er geen financieel weesgegeven ontstaat</td></tr>
+      <tr><td>US07</td><td>Controller</td><td>een openstaand saldo als controlesignaal zien</td><td>zichtbaar is dat toekenning ontbreekt of is teruggedraaid</td></tr>
+      <tr><td>US08</td><td>Controller</td><td>zien welke toekenningsregels zijn teruggedraaid</td><td>de audit trail compleet is</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="voorbeeld-bedragverhoging">3.2 Voorbeeld: bedragverhoging na toekenning</h3>
+  <p><strong>Als</strong> financieel medewerker <strong>wil ik</strong> bij verhoging van het abonnementsbedrag na eerdere toekenning alleen het delta-bedrag extra laten journaliseren, <strong>zodat</strong> de bestaande audit trail behouden blijft.</p>
+  <div class="mermaid">
+flowchart TD
+    A[Actieve toekenning 250] --> B[Abonnementsbedrag wijzigt naar 300]
+    B --> C[Delta berekenen +50]
+    C --> D[Nieuwe toekenningsregel voor 50]
+    D --> E[Journaliseer delta Te factureren abonnementen omzet → Omzet]
+    E --> F[Netto toekenning is 300]
+    style D fill:#cce5ff,color:#003d82
+    style F fill:#d4edda,color:#155724
+  </div>
+
+  <h3 id="voorbeeld-beeindigen">3.3 Voorbeeld: beëindigen per datum</h3>
+  <p><strong>Als</strong> financieel medewerker <strong>wil ik</strong> dat bij beëindigen van een abonnementsregel per einddatum toekomstige toekenningsregels automatisch worden teruggedraaid, <strong>zodat</strong> omzet na de einddatum niet onterecht als gerealiseerd blijft staan.</p>
+  <div class="mermaid">
+flowchart TD
+    A[Actieve toekenning in toekomstige periode] --> B[Abonnementsregel beëindigd met einddatum]
+    B --> C[Systeem vindt toekomstige actieve regels]
+    C --> D[Tegenboekingsregel aanmaken met negatief bedrag]
+    D --> E[Journaliseer Omzet → Te factureren abonnementen omzet]
+    E --> F[Status Tegenboeking en audit trail compleet]
+    style D fill:#f8d7da,color:#721c24
+    style F fill:#d4edda,color:#155724
+  </div>
+
+  <hr>
+
+  <!-- ═══════ 4. PROCESBESCHRIJVING ═══════ -->
+
+  <h2 id="procesbeschrijving">4. Procesbeschrijving</h2>
+
+  <h3 id="ist">4.1 IST: huidige situatie</h3>
+  <p>Wanneer een periode wordt afgesloten en een abonnement daarna wordt gejournaliseerd waarvan de omzet (deels) over die afgesloten periode valt, stopt het journaliseringsproces met een <strong>blokkerende foutmelding</strong>.</p>
+  <div class="mermaid">
+flowchart TD
+    A[Periode afsluiten] --> B[Abonnement journaliseren]
+    B --> C{Periode open?}
+    C -- Ja --> D[Journaalpost geboekt]
+    C -- Nee --> E[Blokkerende foutmelding]
+    E --> F[Gebruiker past handmatig periode aan]
+    F --> B
+    style D fill:#d4edda,color:#155724
+    style E fill:#f8d7da,color:#721c24
+    style F fill:#fff3cd,color:#6d4c00
+  </div>
+
+  <h3 id="soll">4.2 SOLL: gewenste situatie</h3>
+  <p>In de nieuwe situatie journaliseert een financieel medewerker de toekenning van Te factureren abonnementen omzet &rarr; Omzet per boekjaar en periode via een nieuw tabblad op het bestaande Periodeafsluitingsplan.</p>
+
+  <table>
+    <thead><tr><th>Stap</th><th>Actor</th><th>Actie</th><th>Validatie</th><th>Systeemactie</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Systeem</td><td>Factureringsverwerking draait</td><td>&mdash;</td><td><code>FbFal</code>-record aangemaakt</td></tr>
+      <tr><td>2</td><td>Fin. medewerker</td><td>Opent tabblad Periodetoekenningsregels</td><td>Rechten (R4) + feature-activering (R8)</td><td>Jaar en periode overgenomen; grid is leeg</td></tr>
+      <tr><td>3</td><td>Fin. medewerker</td><td>Start actie Genereer</td><td>Recht <code>FbFalAssGenerate</code> (R10); periode niet afgesloten</td><td>Taak in wachtrij; <code>FbFalAss</code>-records met Status=Gegenereerd</td></tr>
+      <tr><td>4</td><td>Fin. medewerker</td><td>Selecteer en start Journaliseer</td><td>Recht <code>FbFalAssJournalise</code> (R10); min. 1 regel Gegenereerd</td><td>Journaalposten via <code>PSFbJouIn</code>; Status=Actief</td></tr>
+      <tr><td>5</td><td>Controller</td><td>Bewaakt saldo via Standenoverzicht</td><td>&mdash;</td><td>Openstaand saldo = signaal</td></tr>
+      <tr><td>6</td><td>Fin. medewerker</td><td>Start Journaliseren ongedaan maken</td><td>Recht <code>FbFalAssReverse</code> (R10); min. 1 regel Actief</td><td>Tegenboekingsrecord + tegenjournaalposten</td></tr>
+    </tbody>
+  </table>
+
+  <div class="mermaid">
+flowchart TD
+    A[Factureringsverwerking] --> B[FbFal aangemaakt omzet op 1900]
+    B --> C[Tabblad Periodetoekenningsregels]
+    C --> D[Genereer Status=Gegenereerd]
+    D --> E[Journaliseer 1900 → 8010]
+    E --> F[Status=Actief]
+    F --> G{Correctie nodig?}
+    G -- Nee --> H[Saldo 1900 is nul]
+    G -- Ja --> I[Terugdraaien 8010 → 1900]
+    I --> J[Status=Tegenboeking]
+    style F fill:#d4edda,color:#155724
+    style H fill:#d4edda,color:#155724
+    style J fill:#f8d7da,color:#721c24
+  </div>
+
+  <hr>
+
+  <!-- ═══════ 5. DATAMODEL ═══════ -->
+
+  <h2 id="datamodel">5. Datamodel</h2>
+
+  <h3 id="nieuwe-tabel">5.1 Nieuwe tabel: FbFalAss</h3>
+  <table>
+    <thead><tr><th>Kolom</th><th>Type</th><th>Omschrijving</th></tr></thead>
+    <tbody>
+      <tr><td><code>Id</code></td><td>INT IDENTITY</td><td>Primaire sleutel</td></tr>
+      <tr><td><code>FbFalId</code></td><td>INT NOT NULL</td><td>FK naar factuurregel <code>FbFal.Id</code></td></tr>
+      <tr><td><code>AfasFiYear</code></td><td>INT NOT NULL</td><td>Boekjaar van toekenning</td></tr>
+      <tr><td><code>AfasFiPeriod</code></td><td>INT NOT NULL</td><td>Periode van toekenning</td></tr>
+      <tr><td><code>Amount</code></td><td>DECIMAL(18,2) NOT NULL</td><td>Toegerekend bedrag (negatief bij tegenboeking)</td></tr>
+      <tr><td><code>Status</code></td><td>VARCHAR(20) NOT NULL</td><td>Gegenereerd, Actief of Tegenboeking</td></tr>
+      <tr><td><code>OriginalId</code></td><td>INT NULL</td><td>FK naar origineel record (bij tegenboekingen)</td></tr>
+      <tr><td><code>ReasonCode</code></td><td>VARCHAR(50) NULL</td><td>Reden voor terugdraaien</td></tr>
+      <tr><td><code>CreatedAt</code></td><td>DATETIME2 NOT NULL</td><td>Tijdstip aanmaak</td></tr>
+      <tr><td><code>CreatedBy</code></td><td>NVARCHAR(100) NOT NULL</td><td>Gebruikersnaam</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Som-invariant (per <code>FbFalId</code>)</strong>: de som van alle <code>FbFalAss.Amount</code> bepaalt de netto-toekenning. Na volledig terugdraaien is dit nul.</p>
+  <p><strong>Gelijktijdigheid</strong>: een gefilterde <code>UNIQUE</code>-constraint op <code>(FbFalId, AfasFiYear, AfasFiPeriod)</code> voor records met <code>Status IN ('Gegenereerd', 'Actief')</code> voorkomt dubbele toekenningen.</p>
+
+  <h3 id="erd">5.3 ERD (conceptueel)</h3>
+  <div class="mermaid">
+erDiagram
+    FbSub["Abonnement - FbSub"] {
+        int Id PK
+        string InvoiceMoment "Vooraf of Achteraf"
+    }
+    FbSul["Abonnementsregel - FbSul"] {
+        int Id PK
+        int FbSubId FK
+        date EndDate "Einddatum bij beëindigen"
+    }
+    FbFal["Factuurregel - FbFal"] {
+        int Id PK
+        int FbSulId FK
+        decimal Amount "Factuurbedrag"
+    }
+    FbFalAss["Toekenningsregel - FbFalAss"] {
+        int Id PK
+        int FbFalId FK
+        int AfasFiYear "Boekjaar"
+        int AfasFiPeriod "Periode"
+        decimal Amount "Toegekend bedrag"
+        string Status "Gegenereerd / Actief / Tegenboeking"
+        int OriginalId FK "Verwijst naar origineel bij tegenboeking"
+    }
+    FbSub ||--o{ FbSul : "heeft regels"
+    FbSul ||--o{ FbFal : "genereert factuurregels"
+    FbFal ||--o{ FbFalAss : "heeft toekenningsregels"
+    FbFalAss ||--o| FbFalAss : "tegenboeking van"
+  </div>
+
+  <h3 id="standenoverzicht-boekingsstromen">5.4 Standenoverzicht (boekingsstromen)</h3>
+  <div class="mermaid">
+flowchart TD
+    FAL[FbFal Factuurregel] --> KOP[Journaalpost Facturatieverwerking]
+    KOP --> TUS[Te factureren abonnementen omzet - 1900]
+    ASS[Toekenningsregel] --> JOU[Journaalpost Toekenning/tegenboeking]
+    JOU --> TUS
+    JOU --> OMZ[Omzet - 8010]
+    TUS --> STA[Standenoverzicht]
+    OMZ --> STA
+    style TUS fill:#cce5ff,color:#003d82
+    style OMZ fill:#d4edda,color:#155724
+  </div>
+
+  <hr>
+
+  <!-- ═══════ 6. TECHNISCH ONTWERP ═══════ -->
+
+  <h2 id="technisch-ontwerp">6. Technisch ontwerp</h2>
+
+  <h3 id="architectuur">6.1 Architectuur</h3>
+  <table>
+    <thead><tr><th>Laag</th><th>Component</th><th>Verantwoordelijkheid</th></tr></thead>
+    <tbody>
+      <tr><td>UI</td><td>Periodeafsluitingsplan &ndash; nieuw tabblad</td><td>Regels tonen + acties starten</td></tr>
+      <tr><td>Wachtrij</td><td>Batchservice (Profit-wachtrij)</td><td>Asynchroon uitvoeren acties</td></tr>
+      <tr><td>Domeinlogica</td><td>Abonnementsfuncties-module</td><td>Selecteren, muteren, validaties</td></tr>
+      <tr><td>Data</td><td><code>FbFalAss</code></td><td>Opslag toekenning/tegenboeking</td></tr>
+      <tr><td>Boeken</td><td>Journalisatieprocedure (<code>PSFbJouIn</code>)</td><td>Journaalposten boeken</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="flow-2-genereer">6.3 Flow 2 &ndash; Genereer periodetoekenningsregels</h3>
+  <div class="mermaid">
+flowchart TD
+    A[Tabblad openen] --> B[Grid is leeg]
+    B --> C[Start Genereer]
+    C --> C1[Taak in wachtrij]
+    C1 --> D[Batchservice laadt toekenbare factuurregels]
+    D --> E{Toekenbare regels?}
+    E -- Nee --> F[Melding: geen toekenbare regels]
+    E -- Ja --> G[FbFalAss Status=Gegenereerd]
+    G --> H[Taak afgerond - grid vernieuwen]
+    style C1 fill:#fff3cd,color:#6d4c00
+    style G fill:#cce5ff,color:#003d82
+    style H fill:#d4edda,color:#155724
+  </div>
+
+  <h3 id="flow-3-journaliseer">6.4 Flow 3 &ndash; Journaliseer toekenningsregels</h3>
+  <div class="mermaid">
+flowchart TD
+    A[Selecteer gegenereerde regels] --> B{Regels geselecteerd?}
+    B -- Nee --> C[Melding: selecteer eerst regels]
+    B -- Ja --> D[Start Journaliseer]
+    D --> D1[Taak in wachtrij]
+    D1 --> E[Boek journaalposten 1900 → 8010]
+    E --> F[Status=Actief]
+    F --> G[Taak afgerond]
+    style D1 fill:#fff3cd,color:#6d4c00
+    style F fill:#d4edda,color:#155724
+  </div>
+
+  <h3 id="flow-4-ongedaan-maken">6.5 Flow 4 &ndash; Journaliseren ongedaan maken</h3>
+  <div class="mermaid">
+flowchart TD
+    A[Selecteer actieve regels] --> B{Regels geselecteerd?}
+    B -- Nee --> C[Melding: selecteer eerst regels]
+    B -- Ja --> D[Start Journaliseren ongedaan maken]
+    D --> D1[Taak in wachtrij]
+    D1 --> E[Boek tegenjournaalposten 8010 → 1900]
+    E --> F[FbFalAss Status=Tegenboeking]
+    F --> G[Origineel blijft ongewijzigd]
+    G --> H[Taak afgerond]
+    style D1 fill:#fff3cd,color:#6d4c00
+    style F fill:#f8d7da,color:#721c24
+  </div>
+
+  <h3 id="toe-te-kennen-regels">6.6 Toe te kennen regels selecteren</h3>
+  <p>Criteria voor toe te kennen regels:</p>
+  <ul>
+    <li>Abonnement is <strong>achteraf</strong>.</li>
+    <li>Periode is nog niet afgesloten.</li>
+    <li>Geen bestaand <code>FbFalAss</code>-record met <code>Status IN ('Gegenereerd','Actief')</code> voor die jaar/periode-combinatie.</li>
+  </ul>
+  <pre><code><span class="kw">SELECT</span> f.Id
+<span class="kw">FROM</span> dbo.FbFal <span class="kw">AS</span> f
+<span class="kw">INNER JOIN</span> dbo.FbSul <span class="kw">AS</span> s <span class="kw">ON</span> s.Id = f.FbSulId
+<span class="kw">INNER JOIN</span> dbo.FbSub <span class="kw">AS</span> b <span class="kw">ON</span> b.Id = s.FbSubId
+<span class="kw">INNER JOIN</span> dbo.AfasFiPeriodClosure <span class="kw">AS</span> pc
+    <span class="kw">ON</span>  pc.AfasFiYear   = <span class="num">@Year</span>
+    <span class="kw">AND</span> pc.AfasFiPeriod = <span class="num">@Period</span>
+    <span class="kw">AND</span> pc.IsClosed     = <span class="num">0</span>
+<span class="kw">WHERE</span> b.InvoiceMoment = <span class="str">'Achteraf'</span>
+    <span class="kw">AND NOT EXISTS</span> (
+        <span class="kw">SELECT</span> <span class="num">1</span>
+        <span class="kw">FROM</span> dbo.FbFalAss <span class="kw">AS</span> a
+        <span class="kw">WHERE</span> a.FbFalId = f.Id
+            <span class="kw">AND</span> a.AfasFiYear = <span class="num">@Year</span>
+            <span class="kw">AND</span> a.AfasFiPeriod = <span class="num">@Period</span>
+            <span class="kw">AND</span> a.Status <span class="kw">IN</span> (<span class="str">'Gegenereerd'</span>, <span class="str">'Actief'</span>)
+    );</code></pre>
+
+  <h3 id="flow-5-delta">6.13 Flow 5 &ndash; Delta-afhandeling bij bedragcorrectie (US04)</h3>
+  <p><strong>Trigger</strong>: het bedrag op een abonnementsregel wordt gewijzigd nadat voor de gekoppelde factuurregel al een toekenningsregel met <code>Status = Actief</code> bestaat.</p>
+  <div class="mermaid">
+flowchart TD
+    A[Bedrag FbSul gewijzigd] --> B[Facturatieverwerking actualiseert FbFal]
+    B --> C[Gebruiker opent tabblad en start Genereer]
+    C --> D[Systeem berekent delta per FbFalId]
+    D --> E{Delta != 0?}
+    E -- Ja --> F[Nieuwe FbFalAss met delta Status=Gegenereerd]
+    F --> G[Journaliseer delta]
+    G --> H[Netto toekenning klopt]
+    E -- Nee --> I[Geen actie nodig]
+    style F fill:#cce5ff,color:#003d82
+    style H fill:#d4edda,color:#155724
+  </div>
+
+  <h3 id="robuustheid">6.11 Robuustheid</h3>
+  <ul>
+    <li><strong>Genereer is herhaalbaar</strong>: een tweede uitvoering voor dezelfde periode heeft geen effect.</li>
+    <li><strong>Journaliseer is tolerant</strong>: alleen records met <code>Status = Gegenereerd</code> worden verwerkt.</li>
+    <li><strong>Transactioneel per stap</strong>: bij fout volledige terugdraaiing.</li>
+    <li><strong>Geen wizard</strong>: geen afhankelijkheid van periodeafsluitingsprocedure.</li>
+    <li><strong>Wachtrij/batchservice</strong>: alle acties asynchroon; UI blokkeert niet.</li>
+    <li><strong>Concurrency</strong>: gefilterde UNIQUE-constraint voorkomt dubbele records.</li>
+  </ul>
+
+  <h3 id="sequence-diagram">6.12 Sequence diagram</h3>
+  <div class="mermaid">
+sequenceDiagram
+    actor G as Gebruiker
+    participant Tab as Tabblad
+    participant WR as Wachtrij
+    participant Log as Domeinlogica
+    participant DB as Database
+    G->>Tab: Open tabblad
+    Tab-->>G: Grid is leeg
+    rect rgb(204, 229, 255)
+        Note over G,DB: Stap 1 – Genereer
+        G->>Tab: Klik Genereer
+        Tab->>WR: Taak aanmaken
+        WR->>Log: Bepaal toe te kennen regels
+        Log->>DB: Ophalen factuurregels
+        Log->>DB: Aanmaken FbFalAss Gegenereerd
+        Log-->>WR: Gereed
+        WR-->>Tab: Taak afgerond
+        Tab-->>G: Grid toont gegenereerde regels
+    end
+    rect rgb(212, 237, 218)
+        Note over G,DB: Stap 2 – Journaliseer
+        G->>Tab: Selecteer en klik Journaliseer
+        Tab->>WR: Taak aanmaken
+        WR->>Log: Journaliseer
+        Log->>DB: Boek journaalposten 1900 → 8010
+        Log->>DB: Status naar Actief
+        Log-->>WR: Gereed
+        WR-->>Tab: Taak afgerond
+        Tab-->>G: Bevestiging
+    end
+    rect rgb(248, 215, 218)
+        Note over G,DB: Stap 3 – Ongedaan maken
+        G->>Tab: Selecteer en klik Ongedaan maken
+        Tab->>WR: Taak aanmaken
+        WR->>Log: Maak tegenboeking
+        Log->>DB: Boek tegenjournaalposten 8010 → 1900
+        Log->>DB: FbFalAss Tegenboeking
+        Log-->>WR: Gereed
+        WR-->>Tab: Taak afgerond
+        Tab-->>G: Bevestiging
+    end
+  </div>
+
+  <h3 id="verwijderen-fbsul">6.15 Verwijderen abonnementsregel (FbSul) met automatisch terugdraaien</h3>
+  <p>Bij verwijdering van <code>FbSul</code> draait het systeem gekoppelde actieve toekenningsregels automatisch terug, boekt de tegenjournaalposten en rondt daarna de verwijdering af.</p>
+  <div class="mermaid">
+flowchart TD
+    A[Start verwijdering FbSul] --> B{Netto saldo = 0?}
+    B -- Ja of geen records --> C[Behoud records voor audit trail]
+    B -- Nee --> D[Systeem draait actieve regels terug]
+    D --> E[Boek tegenjournaalposten]
+    E --> C
+    C --> F[Verwijder FbSul]
+    F --> G[Verwijdering afgerond]
+    style D fill:#f8d7da,color:#721c24
+    style G fill:#d4edda,color:#155724
+  </div>
+
+  <hr>
+
+  <!-- ═══════ 7. USER INTERFACE ═══════ -->
+
+  <h2 id="user-interface">7. User interface</h2>
+
+  <h3 id="locatie">7.1 Locatie</h3>
+  <ul>
+    <li>Scherm: Periodeafsluitingsplan (<code>frmFiPeriodeafsluiting</code>)</li>
+    <li>Nieuw tabblad: <strong>Periodetoekenningsregels</strong></li>
+    <li>Navigatiepad: <em>Financieel - Periodeafsluitingsplan - tabblad Periodetoekenningsregels</em></li>
+  </ul>
+
+  <h3 id="mdd-definitie">7.2 MDD-definitie</h3>
+  <table>
+    <thead><tr><th>Element</th><th>Waarde</th></tr></thead>
+    <tbody>
+      <tr><td>Scherm</td><td>Periodeafsluitingsplan (<code>frmFiPeriodeafsluiting</code>)</td></tr>
+      <tr><td>Nieuw tabblad</td><td>Periodetoekenningsregels</td></tr>
+      <tr><td>Zichtbaarheid</td><td>Feature-activering <code>Periodetoekenningsregels abonnementen</code></td></tr>
+      <tr><td>Actie 1</td><td>Genereer periodetoekenningsregels</td></tr>
+      <tr><td>Actie 2</td><td>Journaliseer toekenningsregels</td></tr>
+      <tr><td>Actie 3</td><td>Journaliseren ongedaan maken</td></tr>
+      <tr><td>Grid</td><td>Toekenningsregels met status</td></tr>
+      <tr><td>Filter</td><td>Jaar + Periode + Status</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="scherm-layout">7.3 Scherm-layout</h3>
+  <div class="screen-layout">+---------------------------------------------------------------+
+| Periodeafsluitingsplan                                        |
+|                                                               |
+| [Tab: Periodeafsluiting] [Tab: Periodetoekenningsregels *]    |
+|                                                               |
+| Jaar: [2024]  Periode: [03]  Status: [Actief v]               |
+|                                                               |
+| +-----------------------------------------------------------+ |
+| | Id abonnementsregel | Abonnement |  Bedrag | Status       | |
+| | [x] 10234           | ABO-0042   |  250,00 | Gegenereerd  | |
+| | [ ] 10235           | ABO-0043   |  180,00 | Gegenereerd  | |
+| | [ ] 10236           | ABO-0044   |  300,00 | Actief       | |
+| | [ ] 10234           | ABO-0042   | -250,00 | Tegenboeking | |
+| +-----------------------------------------------------------+ |
+|                                                               |
+| [Genereer periodetoekenningsregels]                           |
+| [Journaliseer toekenningsregels]                              |
+| [Journaliseren ongedaan maken]                                |
++---------------------------------------------------------------+</div>
+
+  <h3 id="veldgedrag">7.4 Veldgedrag</h3>
+  <table>
+    <thead><tr><th>Veld</th><th>Gedrag</th></tr></thead>
+    <tbody>
+      <tr><td>Jaar</td><td>Overgenomen van hoofdscherm, alleen-lezen</td></tr>
+      <tr><td>Periode</td><td>Overgenomen van hoofdscherm, alleen-lezen</td></tr>
+      <tr><td>Status-filter</td><td>Dropdown: Gegenereerd / Actief / Tegenboeking / Alle; standaard: Alle</td></tr>
+      <tr><td>Grid</td><td>Aanvinken per rij; tegenboekingsregels zijn grijs en niet aanvinkbaar</td></tr>
+      <tr><td>Genereer-actie</td><td>Alleen actief als periode niet is afgesloten</td></tr>
+      <tr><td>Journaliseer-actie</td><td>Alleen actief bij min. 1 geselecteerde Gegenereerde regel</td></tr>
+      <tr><td>Ongedaan maken</td><td>Alleen actief bij min. 1 geselecteerde Actieve regel</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <!-- ═══════ 8. MIGRATIESCRIPT ═══════ -->
+
+  <h2 id="migratiescript">8. Migratiescript</h2>
+  <pre><code><span class="cm">-- RPT00692: Nieuwe tabel FbFalAss</span>
+<span class="cm">-- Periodetoekenning omzet abonnement</span>
+
+<span class="kw">CREATE TABLE</span> dbo.FbFalAss (
+    Id           <span class="fn">INT IDENTITY</span>(<span class="num">1</span>,<span class="num">1</span>) <span class="kw">NOT NULL</span>,
+    FbFalId      <span class="fn">INT</span>               <span class="kw">NOT NULL</span>,
+    AfasFiYear   <span class="fn">INT</span>               <span class="kw">NOT NULL</span>,
+    AfasFiPeriod <span class="fn">INT</span>               <span class="kw">NOT NULL</span>,
+    Amount       <span class="fn">DECIMAL</span>(<span class="num">18</span>, <span class="num">2</span>)    <span class="kw">NOT NULL</span>,
+    Status       <span class="fn">VARCHAR</span>(<span class="num">20</span>)       <span class="kw">NOT NULL</span>
+                     <span class="kw">CONSTRAINT</span> CK_FbFalAss_Status
+                     <span class="kw">CHECK</span> (Status <span class="kw">IN</span> (<span class="str">'Gegenereerd'</span>, <span class="str">'Actief'</span>, <span class="str">'Tegenboeking'</span>)),
+    OriginalId   <span class="fn">INT</span>               <span class="kw">NULL</span>,
+    ReasonCode   <span class="fn">VARCHAR</span>(<span class="num">50</span>)       <span class="kw">NULL</span>,
+    CreatedAt    <span class="fn">DATETIME2</span>         <span class="kw">NOT NULL DEFAULT GETDATE</span>(),
+    CreatedBy    <span class="fn">NVARCHAR</span>(<span class="num">100</span>)     <span class="kw">NOT NULL DEFAULT SUSER_SNAME</span>(),
+    <span class="kw">CONSTRAINT</span> PK_FbFalAss
+        <span class="kw">PRIMARY KEY CLUSTERED</span> (Id),
+    <span class="kw">CONSTRAINT</span> FK_FbFalAss_FbFal
+        <span class="kw">FOREIGN KEY</span> (FbFalId) <span class="kw">REFERENCES</span> dbo.FbFal (Id),
+    <span class="kw">CONSTRAINT</span> FK_FbFalAss_Original
+        <span class="kw">FOREIGN KEY</span> (OriginalId) <span class="kw">REFERENCES</span> dbo.FbFalAss (Id)
+);
+<span class="kw">GO</span>
+
+<span class="kw">CREATE NONCLUSTERED INDEX</span> IX_FbFalAss_FbFalId
+    <span class="kw">ON</span> dbo.FbFalAss (FbFalId);
+<span class="kw">GO</span>
+
+<span class="kw">CREATE NONCLUSTERED INDEX</span> IX_FbFalAss_YearPeriod
+    <span class="kw">ON</span> dbo.FbFalAss (AfasFiYear, AfasFiPeriod)
+    <span class="kw">INCLUDE</span> (FbFalId, Amount, Status);
+<span class="kw">GO</span>
+
+<span class="kw">CREATE UNIQUE NONCLUSTERED INDEX</span> IX_FbFalAss_UniqueAssignment
+    <span class="kw">ON</span> dbo.FbFalAss (FbFalId, AfasFiYear, AfasFiPeriod)
+    <span class="kw">WHERE</span> Status <span class="kw">IN</span> (<span class="str">'Gegenereerd'</span>, <span class="str">'Actief'</span>);
+<span class="kw">GO</span></code></pre>
+
+  <hr>
+
+  <!-- ═══════ 9. TESTSCENARIO'S ═══════ -->
+
+  <h2 id="testscenarios">9. Testscenario's</h2>
+
+  <h3 id="testscenarios-tabel">9.1 Testscenario's</h3>
+  <table>
+    <thead><tr><th>Nr</th><th>Scenario</th><th>Trigger</th><th>Verwacht resultaat</th></tr></thead>
+    <tbody>
+      <tr><td>T01</td><td>Achteraf-factuurregel zichtbaar</td><td>Tabblad openen</td><td>Toe te kennen regel zichtbaar voor jaar/periode</td></tr>
+      <tr><td>T02</td><td>Journaliseer maandfactuur</td><td>Journaliseer-actie</td><td>Gegenereerde regels gejournaliseerd, status Actief</td></tr>
+      <tr><td>T04</td><td>Herhaalbaarheid</td><td>Herhaal Genereer/Journaliseer</td><td>Geen toe te kennen regels, melding getoond</td></tr>
+      <tr><td>T08a</td><td>Gemengde selectie</td><td>Journaliseer-actie</td><td>Alleen Gegenereerd verwerkt; overige overgeslagen</td></tr>
+      <tr><td>T09</td><td>Fout tijdens boeken</td><td>Journaliseer met fout</td><td>Rollback; regels blijven Gegenereerd</td></tr>
+      <tr><td>T10</td><td>Beëindigd na toekenning</td><td>Terugdraaien-actie</td><td>Tegenboekingsrecord aangemaakt</td></tr>
+      <tr><td>T13</td><td>Creditfactuur</td><td>Journaliseer creditfactuurregel</td><td>FbFalAss met negatief bedrag</td></tr>
+      <tr><td>T14</td><td>Bedragcorrectie</td><td>Delta als nieuwe regel</td><td>Delta-FbFalAss; som = gecorrigeerd bedrag</td></tr>
+      <tr><td>T18</td><td>Verwijderen FbSul met actieve regels</td><td>Verwijderpoging</td><td>Automatisch teruggedraaid; verwijdering toegestaan</td></tr>
+      <tr><td>T20</td><td>Verwijderen FbSul zonder regels</td><td>Verwijderpoging</td><td>Verwijdering direct toegestaan</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="acceptatiecriteria">9.3 Acceptatiecriteria</h3>
+  <table>
+    <thead><tr><th>Nr</th><th>Criterium</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Tabblad zichtbaar als feature-activering actief is</td></tr>
+      <tr><td>2</td><td>Na Genereer toont grid regels met Status=Gegenereerd</td></tr>
+      <tr><td>3</td><td>Journaliseer alleen actief bij geselecteerde Gegenereerde regels</td></tr>
+      <tr><td>4</td><td>Na Journaliseer is Status=Actief</td></tr>
+      <tr><td>5</td><td>Journaalposten geboekt via PSFbJouIn</td></tr>
+      <tr><td>6</td><td>Tweede uitvoering heeft geen effect (herhaalbaar)</td></tr>
+      <tr><td>7</td><td>Bij fout: transactionele rollback</td></tr>
+      <tr><td>9</td><td>Som FbFalAss.Amount = factuurregel bedrag</td></tr>
+      <tr><td>11</td><td>Saldo Te factureren (1900) = 0 na volledige journalisatie</td></tr>
+      <tr><td>14</td><td>Terugdraaien maakt Tegenboeking met negatief bedrag</td></tr>
+      <tr><td>17</td><td>Terugdraaien alleen mogelijk op Actieve records</td></tr>
+      <tr><td>21</td><td>Verwijderen FbSul met netto-saldo &ne; 0 triggert automatisch terugdraaien</td></tr>
+      <tr><td>24</td><td>Journaalposten blijven bestaan na verwijdering FbSul</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <!-- ═══════ 10. IMPACTANALYSE ═══════ -->
+
+  <h2 id="impactanalyse">10. Impactanalyse</h2>
+
+  <h3 id="stakeholders">10.1 Stakeholders</h3>
+  <table>
+    <thead><tr><th>Stakeholder</th><th>Impact</th></tr></thead>
+    <tbody>
+      <tr><td>Financieel medewerker</td><td>Nieuw tabblad op bekend scherm; drie acties beschikbaar</td></tr>
+      <tr><td>Controller</td><td>Openstaand saldo als signaal; audit trail via status-filter</td></tr>
+      <tr><td>Beheerder</td><td>Nieuwe tabel FbFalAss; eenmalig migratiescript</td></tr>
+      <tr><td>Test / QA</td><td>Testscenario's T01&ndash;T20, acceptatiecriteria 1&ndash;24</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="autorisatiemodel">10.2 Autorisatiemodel</h3>
+  <table>
+    <thead><tr><th>Rol</th><th>Actie</th><th>Rechtenobject</th><th>Toegestaan</th></tr></thead>
+    <tbody>
+      <tr><td>Financieel medewerker</td><td>Tabblad inzien</td><td>Bestaand recht + feature-activering</td><td>&#10004;</td></tr>
+      <tr><td>Financieel medewerker</td><td>Genereer</td><td><code>FbFalAssGenerate</code></td><td>&#10004;</td></tr>
+      <tr><td>Financieel medewerker</td><td>Journaliseer</td><td><code>FbFalAssJournalise</code></td><td>&#10004;</td></tr>
+      <tr><td>Financieel medewerker</td><td>Ongedaan maken</td><td><code>FbFalAssReverse</code></td><td>&#10004;</td></tr>
+      <tr><td>Controller</td><td>Tabblad inzien (read-only)</td><td>Bestaand recht + feature-activering</td><td>&#10004;</td></tr>
+      <tr><td>Controller</td><td>Genereer / Journaliseer / Ongedaan</td><td>&mdash;</td><td>&#10060;</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <!-- ═══════ 11. OPEN PUNTEN ═══════ -->
+
+  <h2 id="open-punten">11. Open punten</h2>
+  <table>
+    <thead><tr><th>Nr</th><th>Punt</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>O1</td><td>Definitieve formuliernaam tabblad in MDD</td><td>Open</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="besluiten">11.1 Besluiten</h3>
+  <table>
+    <thead><tr><th>Nr</th><th>Besluit</th></tr></thead>
+    <tbody>
+      <tr><td>B1</td><td>Zichtbaarheid tabblad afhankelijk van feature-activering</td></tr>
+      <tr><td>B2</td><td>Kolom <code>ReasonCode</code> toegevoegd aan <code>FbFalAss</code></td></tr>
+      <tr><td>B3</td><td>Genereer alleen vóór periodeafsluiting</td></tr>
+      <tr><td>B4</td><td>Tegenboekingen bij correcties in scope via &sect;6.13</td></tr>
+      <tr><td>B5</td><td>Automatisch terugdraaien bij beëindigen in scope (&sect;12)</td></tr>
+      <tr><td>B6</td><td>Geen cascade-delete op <code>FbFal</code> bij verwijdering <code>FbSul</code> (R9)</td></tr>
+      <tr><td>B7</td><td>Drie rechtenobjecten voor actieniveau-autorisatie (R10)</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <!-- ═══════ 12. AUTOMATISCH TERUGDRAAIEN ═══════ -->
+
+  <h2 id="automatisch-terugdraaien">12. Automatisch terugdraaien bij beëindigen</h2>
+
+  <h3 id="verschil-handmatig-automatisch">12.2 Verschil met handmatig terugdraaien</h3>
+  <table>
+    <thead><tr><th>Aspect</th><th>Handmatig (&sect;6.5)</th><th>Automatisch (&sect;12)</th></tr></thead>
+    <tbody>
+      <tr><td>Wie start?</td><td>Gebruiker via tabblad</td><td>Systeem automatisch</td></tr>
+      <tr><td>Trigger</td><td>Handmatige actie</td><td>Beëindigen FbSul</td></tr>
+      <tr><td>Tijdstip</td><td>Elk moment na beëindigen</td><td>Direct bij beëindigen</td></tr>
+      <tr><td>Zichtbaarheid</td><td>Actie vereist</td><td>Resultaat zichtbaar in grid</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="globale-werking-terugdraaien">12.3 Globale werking</h3>
+  <div class="mermaid">
+flowchart TD
+    A[Abonnementsregel beëindigen] --> B{Actieve toekenningsregels?}
+    B -- Nee --> C[Geen actie nodig]
+    B -- Ja --> D[Systeemevent getriggerd]
+    D --> E[Tegenboekingsrecords aanmaken]
+    E --> F[Tegenjournaalposten boeken]
+    F --> G[Status Tegenboeking]
+    style C fill:#d4edda,color:#155724
+    style G fill:#f8d7da,color:#721c24
+  </div>
+
+  <h3 id="technische-vereisten-terugdraaien">12.4 Technische vereisten</h3>
+  <table>
+    <thead><tr><th>Vereiste</th><th>Toelichting</th></tr></thead>
+    <tbody>
+      <tr><td>Event-hook op <code>FbSul</code></td><td>AfterUpdate- of BeforeDelete-event voor externe logica</td></tr>
+      <tr><td>Periodefilter</td><td>Logica om perioden na einddatum te bepalen</td></tr>
+      <tr><td>Transactionele koppeling</td><td>Tegenboeking in dezelfde transactie als beëindiging</td></tr>
+      <tr><td>Notificatie</td><td>Resultaat tonen in tabblad of als melding</td></tr>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <!-- ═══════ 13. HELPDOCUMENTATIE ═══════ -->
+
+  <h2 id="helpdocumentatie">13. Helpdocumentatie</h2>
+
+  <h3 id="helptekst-tabblad">13.3 Helptekst tabblad</h3>
+  <blockquote>
+    <p>Gebruik dit tabblad om omzet uit achteraf-abonnementen toe te kennen aan de juiste financiële periode.</p>
+    <ul>
+      <li>Start met <strong>Genereer periodetoekenningsregels</strong> om regels op te bouwen.</li>
+      <li>Gebruik daarna <strong>Journaliseer toekenningsregels</strong> om te verwerken.</li>
+      <li>Gebruik <strong>Journaliseren ongedaan maken</strong> alleen om actieve toekenningen terug te draaien.</li>
+    </ul>
+  </blockquote>
+
+  <h3 id="helptekst-acties">13.4 Helptekst per actie</h3>
+  <table>
+    <thead><tr><th>Actie</th><th>Helptekst</th></tr></thead>
+    <tbody>
+      <tr><td>Genereer</td><td>Maakt toekenningsregels aan met status Gegenereerd. Nog geen journaalposten.</td></tr>
+      <tr><td>Journaliseer</td><td>Boekt journaalposten voor geselecteerde regels en zet status naar Actief.</td></tr>
+      <tr><td>Ongedaan maken</td><td>Draait actieve toekenning terug door tegenboekingsregel aan te maken. Origineel blijft bewaard.</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="helptekst-statussen">13.5 Statuswaarden</h3>
+  <table>
+    <thead><tr><th>Status</th><th>Uitleg</th></tr></thead>
+    <tbody>
+      <tr><td>Gegenereerd</td><td>De toekenningsregel is voorbereid maar nog niet geboekt.</td></tr>
+      <tr><td>Actief</td><td>De toekenningsregel is geboekt en telt mee in de omzettoekenning.</td></tr>
+      <tr><td>Tegenboeking</td><td>De actieve toekenningsregel is financieel teruggedraaid.</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="stappenplan">13.7 Stappenplan voor gebruiker</h3>
+  <table>
+    <thead><tr><th>Stap</th><th>Actie</th><th>Verwacht resultaat</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Open Periodeafsluitingsplan, ga naar tabblad Periodetoekenningsregels</td><td>Je ziet jaar en periode</td></tr>
+      <tr><td>2</td><td>Klik <strong>Genereer periodetoekenningsregels</strong></td><td>Nieuwe regels met status Gegenereerd</td></tr>
+      <tr><td>3</td><td>Filter op status Gegenereerd</td><td>Alleen relevante regels zichtbaar</td></tr>
+      <tr><td>4</td><td>Selecteer regels en klik <strong>Journaliseer</strong></td><td>Regels geboekt, status Actief</td></tr>
+      <tr><td>5</td><td>Controleer resultaat in Standenoverzicht</td><td>Openstaand saldo neemt af of is nul</td></tr>
+      <tr><td>6</td><td>Bij fout: <strong>Journaliseren ongedaan maken</strong></td><td>Tegenboeking met status Tegenboeking</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="veelvoorkomende-meldingen">13.8 Veelvoorkomende meldingen</h3>
+  <table>
+    <thead><tr><th>Situatie</th><th>Melding</th><th>Actie voor gebruiker</th></tr></thead>
+    <tbody>
+      <tr><td>Geen regels geselecteerd</td><td>Selecteer minimaal één gegenereerde toekenningsregel</td><td>Selecteer min. 1 regel met status Gegenereerd</td></tr>
+      <tr><td>Geen toekenbare regels</td><td>Geen toekenbare factuurregels gevonden</td><td>Controleer periode en abonnementstype</td></tr>
+      <tr><td>Terugdraaien op niet-actieve regel</td><td>Alleen actieve toekenningsregels kunnen worden teruggedraaid</td><td>Selecteer alleen Actieve regels</td></tr>
+      <tr><td>Fout tijdens boeken</td><td>Journaliseren kon niet worden voltooid</td><td>Corrigeer oorzaak en voer opnieuw uit</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="ui-helpteksten">13.9 Korte UI-helpteksten (tooltips)</h3>
+  <table>
+    <thead><tr><th>Onderdeel</th><th>Korte tekst</th></tr></thead>
+    <tbody>
+      <tr><td>Tabblad</td><td>Verwerk omzettoekenning per periode voor achteraf-abonnementen.</td></tr>
+      <tr><td>Genereer</td><td>Maak regels aan voor deze periode; er wordt nog niet geboekt.</td></tr>
+      <tr><td>Journaliseer</td><td>Boek geselecteerde gegenereerde regels en zet ze op Actief.</td></tr>
+      <tr><td>Ongedaan maken</td><td>Maak tegenboeking voor actieve regels; audit trail blijft behouden.</td></tr>
+      <tr><td>Status Gegenereerd</td><td>Klaar om te boeken.</td></tr>
+      <tr><td>Status Actief</td><td>Geboekt en verwerkt in omzettoekenning.</td></tr>
+      <tr><td>Status Tegenboeking</td><td>Eerder geboekte regel is financieel teruggedraaid.</td></tr>
+    </tbody>
+  </table>
+
+</main>
+
+<!-- Back to top -->
+<button class="back-to-top" id="backToTop" aria-label="Terug naar boven">&#8593;</button>
+
+<!-- ═══════ NOTITIEPANEEL ═══════ -->
+<div class="notes-overlay" id="notesOverlay"></div>
+<button class="notes-fab" id="notesFab" title="Notities bekijken">&#9998;<span class="fab-count" id="fabCount"></span></button>
+<div class="notes-panel" id="notesPanel">
+  <div class="notes-panel-header">
+    <h3>Notities</h3>
+    <div class="notes-panel-actions">
+      <button id="npExport">Exporteer .txt</button>
+      <input type="file" id="npImport" accept=".txt" style="display:none">
+      <button id="npImportBtn">Importeer</button>
+    </div>
+    <button class="notes-panel-close" id="npClose">&times;</button>
+  </div>
+  <div class="notes-panel-body" id="npBody">
+    <div class="notes-empty" id="npEmpty">Nog geen notities<span class="notes-empty-hint">Klik op &ldquo;&#9998; Notitie&rdquo; bij een heading om te beginnen</span></div>
+  </div>
+</div>
+<div class="toast-note" id="toastNote"></div>
+
+<script>
+/* ═══════ Sidebar nav generator ═══════ */
+(function() {
+  var nav = document.getElementById('sidebarNav');
+  var headings = document.querySelectorAll('.content h2[id], .content h3[id]');
+  headings.forEach(function(h) {
+    var a = document.createElement('a');
+    a.href = '#' + h.id;
+    a.textContent = h.textContent.replace(/[✎●].*$/, '').trim();
+    a.className = h.tagName === 'H3' ? 'nav-h3' : 'nav-h2';
+    nav.appendChild(a);
+  });
+
+  var links = nav.querySelectorAll('a');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        links.forEach(function(l) { l.classList.remove('active'); });
+        var match = nav.querySelector('a[href="#' + e.target.id + '"]');
+        if (match) match.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-10% 0px -80% 0px' });
+  headings.forEach(function(h) { observer.observe(h); });
+})();
+
+/* ═══════ Back to top ═══════ */
+var btt = document.getElementById('backToTop');
+window.addEventListener('scroll', function() {
+  btt.classList.toggle('visible', window.scrollY > 600);
+});
+btt.addEventListener('click', function() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+/* ═══════ Mermaid init ═══════ */
+mermaid.initialize({ startOnLoad: true, theme: 'neutral', securityLevel: 'loose' });
+
+/* ═══════ Notitiepaneel ═══════ */
+var NS_KEY = 'notes-ontwerp-rpt00692';
+var NS_PAGE_TITLE = 'Ontwerp RPT00692';
+
+var NS_COLORS = ['#FFF9C4','#BBDEFB','#C8E6C9','#F8BBD0'];
+var nsColorIdx = 0;
+function nsLoad(){ try{return JSON.parse(localStorage.getItem(NS_KEY))||[];}catch(e){return[];} }
+function nsSave(n){ try{localStorage.setItem(NS_KEY,JSON.stringify(n));}catch(e){} }
+function nsId(){ return Date.now().toString(36)+Math.random().toString(36).substr(2,5); }
+function nsFmt(ts){ return new Date(ts).toLocaleDateString('nl-NL',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}); }
+var NS_AUTHOR_KEY=NS_KEY+'-author';
+function nsGetAuthor(){var saved=localStorage.getItem(NS_AUTHOR_KEY);if(saved)return saved;var meta=document.querySelector('meta[name="author"]');var def=meta?meta.content:'';var name=prompt('Je naam voor notities:',def);if(name){localStorage.setItem(NS_AUTHOR_KEY,name);return name;}return def||'Onbekend';}
+var nsBarColors={'#FFF9C4':'#FDD835','#BBDEFB':'#42A5F5','#C8E6C9':'#66BB6A','#F8BBD0':'#EC407A'};
+var nsPanel=document.getElementById('notesPanel');
+var nsOverlay=document.getElementById('notesOverlay');
+var nsBody=document.getElementById('npBody');
+var nsEmpty=document.getElementById('npEmpty');
+var nsFabCount=document.getElementById('fabCount');
+var nsToast=document.getElementById('toastNote');
+var nsToastTimer;
+
+function nsShowToast(msg){ nsToast.textContent=msg; nsToast.classList.add('visible'); clearTimeout(nsToastTimer); nsToastTimer=setTimeout(function(){nsToast.classList.remove('visible');},2500); }
+function nsOpen(){ nsPanel.classList.add('open'); nsOverlay.classList.add('open'); }
+function nsClose(){ nsPanel.classList.remove('open'); nsOverlay.classList.remove('open'); }
+document.getElementById('notesFab').addEventListener('click', function(){ nsRender(); nsOpen(); });
+document.getElementById('npClose').addEventListener('click', nsClose);
+nsOverlay.addEventListener('click', nsClose);
+
+var nsDebounce={};
+function escHtml(s){ var d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+
+function nsRender(){
+  var notes=nsLoad();
+  nsFabCount.textContent=notes.length>0?notes.length:'';
+  Array.from(nsBody.querySelectorAll('.np-card')).forEach(function(c){c.remove();});
+  if(notes.length===0){nsEmpty.style.display='';return;}
+  nsEmpty.style.display='none';
+  notes.forEach(function(note){
+    var card=document.createElement('div'); card.className='np-card'; card.style.background=note.color;
+    var bar=document.createElement('div'); bar.className='np-color-bar'; bar.style.background=nsBarColors[note.color]||'#42A5F5'; card.appendChild(bar);
+    if(note.source){
+      var src=document.createElement('div'); src.className='np-source';
+      src.innerHTML='<span class="np-source-section">'+escHtml(note.source.section)+'</span>';
+      if(note.source.title) src.innerHTML+=' &#8250; <span class="np-source-title">'+escHtml(note.source.title)+'</span>';
+      if(note.source.summary) src.innerHTML+='<span class="np-source-summary">'+escHtml(note.source.summary)+'</span>';
+      card.appendChild(src);
+    }
+    var ta=document.createElement('textarea'); ta.value=note.text; ta.placeholder='Typ je notitie...';
+    ta.addEventListener('input', function(){ var all=nsLoad(); var f=all.find(function(n){return n.id===note.id;}); if(f)f.text=ta.value; clearTimeout(nsDebounce[note.id]); nsDebounce[note.id]=setTimeout(function(){nsSave(all);},300); });
+    card.appendChild(ta);
+    var ft=document.createElement('div'); ft.className='np-footer';
+    var meta=document.createElement('div');meta.className='np-meta';
+    if(note.author){var au=document.createElement('span');au.className='np-author';au.textContent=note.author;meta.appendChild(au);}
+    var ts=document.createElement('span'); ts.className='np-timestamp'; ts.textContent=nsFmt(note.timestamp);meta.appendChild(ts);
+    var del=document.createElement('button'); del.className='np-delete'; del.title='Verwijderen'; del.textContent='\uD83D\uDDD1\uFE0F';
+    del.addEventListener('click', function(){ if(confirm('Notitie verwijderen?')){nsSave(nsLoad().filter(function(n){return n.id!==note.id;})); nsRender(); nsMarkNoted();} });
+    ft.appendChild(meta); ft.appendChild(del); card.appendChild(ft); nsBody.appendChild(card);
+  });
+}
+
+function nsAddNote(section,title,summary,el){
+  var notes=nsLoad();
+  var note={id:nsId(),text:'',color:NS_COLORS[nsColorIdx%NS_COLORS.length],timestamp:new Date().toISOString(),author:nsGetAuthor(),source:{section:section,title:title||'',summary:summary||''}};
+  nsColorIdx++; notes.push(note); nsSave(notes); nsRender(); nsMarkNoted();
+  if(el) el.classList.add('card-noted');
+  nsShowToast('\u270F\uFE0F Notitie toegevoegd: '+(title||section));
+  nsOpen();
+  setTimeout(function(){ var tas=nsBody.querySelectorAll('.np-card textarea'); if(tas.length){tas[tas.length-1].focus(); nsBody.scrollTop=nsBody.scrollHeight;} },200);
+}
+
+function nsMarkNoted(){
+  var notes=nsLoad(); var titles={};
+  notes.forEach(function(n){if(n.source&&n.source.title)titles[n.source.title]=true;});
+  document.querySelectorAll('[data-note-title]').forEach(function(btn){
+    var noted=!!titles[btn.dataset.noteTitle];
+    btn.classList.toggle('has-note',noted);
+    btn.innerHTML=noted?'&#9679; notitie':'&#9998;';
+    var card=btn.closest('.problem-card, .feature-card, .scope-col, .solution-node, .hero-card, [data-note-section]');
+    if(card) card.classList.toggle('card-noted',noted);
+  });
+}
+
+function nsInjectButtons(){
+  // Ontwerp variant: target h2[id] en h3[id]
+  document.querySelectorAll('.content h2[id], .content h3[id]').forEach(function(h){
+    var section=h.tagName==='H2'?h.textContent:'';
+    if(h.tagName==='H3'){ var prev=h; while(prev=prev.previousElementSibling){if(prev.tagName==='H2'){section=prev.textContent;break;}} }
+    var title=h.textContent.trim();
+    var nextP=h.nextElementSibling; var summary=nextP&&nextP.tagName==='P'?nextP.textContent.substring(0,120):'';
+    var btn=document.createElement('button'); btn.className='btn-note-section';
+    btn.dataset.noteTitle=title; btn.innerHTML='&#9998;';
+    btn.title='Notitie over: '+title;
+    btn.addEventListener('click', function(e){e.stopPropagation(); nsAddNote(section,title,summary,h);});
+    h.appendChild(btn);
+  });
+  // Tabelrijen
+  document.querySelectorAll('.content table tbody tr').forEach(function(tr){
+    var tds=tr.querySelectorAll('td'); if(tds.length<1)return;
+    var title=tds[0].textContent.trim();
+    var summary=Array.from(tds).map(function(td){return td.textContent;}).join(' | ');
+    var section='Tabel';
+    var prev=tr.closest('table'); if(prev){ var h=prev.previousElementSibling; while(h&&!/^H[23]$/.test(h.tagName))h=h.previousElementSibling; if(h) section=h.textContent; }
+    var btn=document.createElement('button'); btn.className='btn-note-section';
+    btn.dataset.noteTitle=title; btn.innerHTML='&#9998;';
+    btn.title='Notitie over: '+title; btn.style.marginLeft='0.3rem';
+    btn.addEventListener('click', function(e){e.stopPropagation(); nsAddNote(section,title,summary,tr);});
+    tds[0].appendChild(btn);
+  });
+}
+
+document.getElementById('npExport').addEventListener('click', function(){
+  var notes=nsLoad(); if(!notes.length){alert('Geen notities om te exporteren.');return;}
+  var lines=['# '+NS_PAGE_TITLE+' \u2014 Notities','# Ge\u00ebxporteerd: '+new Date().toLocaleString('nl-NL'),''];
+  notes.forEach(function(n,i){
+    lines.push('--- Notitie '+(i+1)+' ('+nsFmt(n.timestamp)+(n.author?' \u2014 '+n.author:'')+') ---');
+    if(n.source){ var s='[Bron: '+n.source.section; if(n.source.title) s+=' > '+n.source.title; s+=']'; lines.push(s); if(n.source.summary) lines.push('Context: '+n.source.summary); }
+    lines.push(n.text||'(leeg)'); lines.push('');
+  });
+  var blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=NS_KEY+'-notities.txt';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+});
+
+document.getElementById('npImportBtn').addEventListener('click', function(){document.getElementById('npImport').click();});
+document.getElementById('npImport').addEventListener('change', function(e){
+  var file=e.target.files[0]; if(!file)return;
+  var r=new FileReader();
+  r.onload=function(ev){
+    var blocks=ev.target.result.split(/^---\s*Notitie\s+\d+.*---$/m);
+    var imported=[];
+    for(var i=1;i<blocks.length;i++){var c=blocks[i].trim(); if(c==='(leeg)')c=''; imported.push({id:nsId(),text:c,color:NS_COLORS[(nsColorIdx+i-1)%NS_COLORS.length],timestamp:new Date().toISOString(),author:'Ge\u00efmporteerd'});}
+    if(!imported.length){alert('Geen notities gevonden in het bestand.');return;}
+    var all=nsLoad().concat(imported); nsColorIdx+=imported.length;
+    nsSave(all); nsRender(); nsMarkNoted(); alert(imported.length+' notitie(s) ge\u00efmporteerd.');
+  };
+  r.readAsText(file,'UTF-8'); e.target.value='';
+});
+
+nsRender(); nsInjectButtons(); nsMarkNoted();
+</script>
+
+</body>
+</html>

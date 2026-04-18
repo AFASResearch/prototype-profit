@@ -2,7 +2,7 @@
   "name": "prototype-rpt00701",
   "version": "1.0.0",
   "private": true,
-  "description": "RPT00701 \u2014 Abonnementsprijzen",
+  "description": "RPT00701 — Abonnementsprijzen",
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",

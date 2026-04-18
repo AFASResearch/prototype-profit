@@ -33,6 +33,7 @@ export const groups: ApplicationMenuGroup[] = [
       { id: 'rpt00692-terugdraaien-wizard', description: 'Journaliseren ongedaan maken (wizard)', link: 'rpt00692-terugdraaien-wizard/1?inEditMode=true' },
       { id: 'rpt00692-facturering-voorraad', description: 'Facturering/voorraad — Periodetoekenning', link: 'rpt00692-facturering-voorraad/1' },
       { id: 'rpt00692-saldoverklaring', description: 'Saldoverklaring Te factureren omzet', link: 'rpt00692-saldoverklaring' },
+<<<<<<< HEAD
     ]
   },
   {
@@ -45,6 +46,8 @@ export const groups: ApplicationMenuGroup[] = [
       { id: 'rfi00731-instantie', description: 'Instantie inhoudingsplicht', link: 'rfi00731-instantie' },
       { id: 'rfi00731-w15-profit7', description: 'W15 — Crediteur InSite (Profit 7)', link: 'rfi00731-w15-profit7' },
       { id: 'rfi00731-w15-profit8', description: 'W15 — Crediteur InSite (Profit 8)', link: 'rfi00731-w15-profit8' },
+=======
+>>>>>>> 5495691 (feat: add ontwerp and presentatie action buttons per project)
     ]
   }
 ];

@@ -26,7 +26,13 @@ const projects = readdirSync(root)
     try {
       lastUpdated = execSync(`git log -1 --format=%cI -- "${d}"`, { cwd: root, encoding: 'utf-8' }).trim();
     } catch { /* no git history */ }
+<<<<<<< HEAD
     return { id: d, description: pkg.description || d, lastUpdated };
+=======
+    const hasOntwerp = existsSync(join(root, d, 'ontwerp.html'));
+    const hasPresentatie = existsSync(join(root, d, 'presentatie.html'));
+    return { id: d, description: pkg.description || d, lastUpdated, hasOntwerp, hasPresentatie };
+>>>>>>> 5495691 (feat: add ontwerp and presentatie action buttons per project)
   });
 
 const html = `<!doctype html>
@@ -52,6 +58,14 @@ const html = `<!doctype html>
     .card p { color: #666; font-size: .9rem; }
     .card .updated { color: #999; font-size: .8rem; margin-top: .5rem; }
     .card.hidden { display: none; }
+    .card .actions { display: flex; gap: .5rem; margin-top: .75rem; flex-wrap: wrap; }
+    .card .actions a { display: inline-flex; align-items: center; gap: .35rem; padding: .35rem .75rem; font-size: .8rem; font-weight: 500; border-radius: 5px; text-decoration: none; transition: background .15s, color .15s; }
+    .card .actions .act-prototype { background: #e8f0fe; color: #0366d6; }
+    .card .actions .act-prototype:hover { background: #0366d6; color: #fff; }
+    .card .actions .act-ontwerp { background: #e6f9ef; color: #1a7f37; }
+    .card .actions .act-ontwerp:hover { background: #1a7f37; color: #fff; }
+    .card .actions .act-presentatie { background: #fff3e0; color: #b45309; }
+    .card .actions .act-presentatie:hover { background: #b45309; color: #fff; }
   </style>
 </head>
 <body>
@@ -61,11 +75,31 @@ const html = `<!doctype html>
     <input type="search" id="search" placeholder="Zoek op projectnummer of omschrijving\u2026" autocomplete="off" />
   </div>
   <div class="grid" id="grid">
+<<<<<<< HEAD
 ${projects.map(p => `    <div class="card" data-search="${p.id.toUpperCase()} ${p.description.toLowerCase()}">
       <h2><a href="${p.id}/menu">${p.id.toUpperCase()}</a></h2>
       <p>${p.description}</p>${p.lastUpdated ? `
       <p class="updated">Laatst bijgewerkt: <time datetime="${p.lastUpdated}">${new Date(p.lastUpdated).toLocaleString('nl-NL', { dateStyle: 'medium', timeStyle: 'short' })}</time></p>` : ''}
     </div>`).join('\n')}
+=======
+${projects.map(p => {
+    const actions = [
+      `<a class="act-prototype" href="${p.id}/menu" target="_blank" rel="noopener">&#9654; Prototype</a>`,
+    ];
+    if (p.hasOntwerp) {
+      actions.push(`<a class="act-ontwerp" href="${p.id}/ontwerp.html" target="_blank" rel="noopener">&#128196; Ontwerp</a>`);
+    }
+    if (p.hasPresentatie) {
+      actions.push(`<a class="act-presentatie" href="${p.id}/presentatie.html" target="_blank" rel="noopener">&#127916; Presentatie</a>`);
+    }
+    return `    <div class="card" data-search="${p.id.toUpperCase()} ${p.description.toLowerCase()}">
+      <h2>${p.id.toUpperCase()}</h2>
+      <p>${p.description}</p>${p.lastUpdated ? `
+      <p class="updated">Laatst bijgewerkt: <time datetime="${p.lastUpdated}">${new Date(p.lastUpdated).toLocaleString('nl-NL', { dateStyle: 'medium', timeStyle: 'short' })}</time></p>` : ''}
+      <div class="actions">${actions.join('')}</div>
+    </div>`;
+  }).join('\n')}
+>>>>>>> 5495691 (feat: add ontwerp and presentatie action buttons per project)
   </div>
   <script>
     document.getElementById('search').addEventListener('input', function() {
