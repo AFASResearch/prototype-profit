@@ -93,7 +93,7 @@ export default function (services: BlueprintFactories): DetailPage {
                   isPrimary: true,
                   getMicroCopyText() { return 'Maak regels aan en journaliseer ze direct voor deze periode.'; },
                   async execute(context: any) {
-                    let result = await context.startDialog('rpt00692-genereer-wizard/1', {}, { editMode: 'Add' });
+                    let result = await context.startDialog({ routePattern: 'rpt00692-genereer-wizard/:id', routeParameters: { id: '1' } }, {}, { editMode: 'Add' });
                     return !!result;
                   },
                   scheduleListRefresh: [1000, 3000, 8000, 15000]
