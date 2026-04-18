@@ -7,6 +7,7 @@
 
 import { readdirSync, existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { execSync } from 'node:child_process';
 
 const outputDir = process.argv[2];
 if (!outputDir) {
@@ -21,7 +22,11 @@ const projects = readdirSync(root)
   .filter(d => existsSync(join(root, d, 'package.json')))
   .map(d => {
     const pkg = JSON.parse(readFileSync(join(root, d, 'package.json'), 'utf-8'));
-    return { id: d, description: pkg.description || d };
+    let lastUpdated = '';
+    try {
+      lastUpdated = execSync(`git log -1 --format=%cI -- "${d}"`, { cwd: root, encoding: 'utf-8' }).trim();
+    } catch { /* no git history */ }
+    return { id: d, description: pkg.description || d, lastUpdated };
   });
 
 const html = `<!doctype html>
@@ -45,6 +50,7 @@ const html = `<!doctype html>
     .card h2 a { color: #0366d6; text-decoration: none; }
     .card h2 a:hover { text-decoration: underline; }
     .card p { color: #666; font-size: .9rem; }
+    .card .updated { color: #999; font-size: .8rem; margin-top: .5rem; }
     .card.hidden { display: none; }
   </style>
 </head>
@@ -57,7 +63,8 @@ const html = `<!doctype html>
   <div class="grid" id="grid">
 ${projects.map(p => `    <div class="card" data-search="${p.id.toUpperCase()} ${p.description.toLowerCase()}">
       <h2><a href="${p.id}/menu">${p.id.toUpperCase()}</a></h2>
-      <p>${p.description}</p>
+      <p>${p.description}</p>${p.lastUpdated ? `
+      <p class="updated">Laatst bijgewerkt: <time datetime="${p.lastUpdated}">${new Date(p.lastUpdated).toLocaleString('nl-NL', { dateStyle: 'medium', timeStyle: 'short' })}</time></p>` : ''}
     </div>`).join('\n')}
   </div>
   <script>
