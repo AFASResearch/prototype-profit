@@ -118,10 +118,10 @@ app.MapGet("/api/rpt00692-abonnement-eigenschappen/toekenningsregels", () => new
 });
 
 app.MapGet("/api/rpt00692-abonnement-eigenschappen/journaalposten", () => new[] {
-    new { boekstuknummer = "20260401-001", boekdatum = "2026-04-01T00:00:00Z", boekjaar = 2026, periode = 4, grootboekrekening = "1350 Te factureren abo omzet", omschrijving = "Periodetoekenning apr 2026", debet = 58.00m, credit = (decimal?)null },
-    new { boekstuknummer = "20260401-002", boekdatum = "2026-04-01T00:00:00Z", boekjaar = 2026, periode = 4, grootboekrekening = "8010 Omzet abonnementen", omschrijving = "Periodetoekenning apr 2026", debet = (decimal?)null, credit = 58.00m },
-    new { boekstuknummer = "20260301-001", boekdatum = "2026-03-01T00:00:00Z", boekjaar = 2026, periode = 3, grootboekrekening = "1350 Te factureren abo omzet", omschrijving = "Periodetoekenning mrt 2026", debet = 58.00m, credit = (decimal?)null },
-    new { boekstuknummer = "20260301-002", boekdatum = "2026-03-01T00:00:00Z", boekjaar = 2026, periode = 3, grootboekrekening = "8010 Omzet abonnementen", omschrijving = "Periodetoekenning mrt 2026", debet = (decimal?)null, credit = 58.00m },
+    new { boekstuknummer = "20260401-001", boekdatum = "2026-04-01T00:00:00Z", boekjaar = 2026, periode = 4, grootboekrekening = "1350 Te factureren abo omzet", omschrijving = "Periodetoekenning apr 2026", debet = (decimal?)58.00m, credit = (decimal?)null },
+    new { boekstuknummer = "20260401-002", boekdatum = "2026-04-01T00:00:00Z", boekjaar = 2026, periode = 4, grootboekrekening = "8010 Omzet abonnementen", omschrijving = "Periodetoekenning apr 2026", debet = (decimal?)null, credit = (decimal?)58.00m },
+    new { boekstuknummer = "20260301-001", boekdatum = "2026-03-01T00:00:00Z", boekjaar = 2026, periode = 3, grootboekrekening = "1350 Te factureren abo omzet", omschrijving = "Periodetoekenning mrt 2026", debet = (decimal?)58.00m, credit = (decimal?)null },
+    new { boekstuknummer = "20260301-002", boekdatum = "2026-03-01T00:00:00Z", boekjaar = 2026, periode = 3, grootboekrekening = "8010 Omzet abonnementen", omschrijving = "Periodetoekenning mrt 2026", debet = (decimal?)null, credit = (decimal?)58.00m },
 });
 
 // SPA Fallback: Serve the dynamic HTML for any request not handled by static files.
