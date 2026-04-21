@@ -159,6 +159,30 @@ app.MapGet("/api/rpt00692-abonnement-eigenschappen/journaalposten", () => new[] 
 // RPT00692 — Boekingslay-out abonnement (US07)
 app.MapGet("/api/rpt00692-boekingslayout-abonnement", () => new {
     Id = "1",
+    // Kop - Algemeen
+    Verkooprelatie = "Total Job B.V. (10132)",
+    FactuurNaarAfwijkende = false,
+    Contactpersoon = "",
+    Betaalvoorwaarde = "30 dagen (30)",
+    BegindatumAbonnement = "2025-02-27T00:00:00Z",
+    Project = "",
+    Projectfase = "",
+    UitsluitenVerzamelfactuur = false,
+    Administratie = "EnYoi ICT Services B.V. (1)",
+    // Kop - Cyclus
+    BegindatumCyclus = "2025-02-27T00:00:00Z",
+    EinddatumCyclus = "2026-04-30T00:00:00Z",
+    // Kop - Factuurmoment (nieuw US07)
+    Factuurmoment = "1",
+    AantalDagen = 15,
+    // Staart - Verkoop
+    ItemcodeVerkoop = "TP-Link Acces point (6000)",
+    KortingPercentageVerkoop = (decimal?)null,
+    OrgVerkoopprijs = 312.00m,
+    KortingsbedragVerkoop = (decimal?)null,
+    AfwVerkoopprijs = (decimal?)null,
+    Verkoopbedrag = 312.00m
+});
 app.MapPatch("/api/rpt00692-boekingslayout-abonnement", () => Results.Ok());
 
 app.MapGet("/api/rpt00692-boekingslayout-abonnement/regels", () => new[] {
