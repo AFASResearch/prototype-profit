@@ -81,7 +81,13 @@ jobs:
             # Copy compiled pages
             cp -r wwwroot/pages "$OUTDIR/pages"
 
-            # Scrape all API endpoints to static JSON
+            # Copy pre-committed API data (fallback for scraping)
+            if [ -d "api" ]; then
+              cp -r api "$OUTDIR/"
+              echo "  Copied committed api/ files"
+            fi
+
+            # Scrape all API endpoints to static JSON (overrides committed files with fresh data)
             mkdir -p "$OUTDIR/api"
             node ../scripts/scrape-api.mjs "http://localhost:5099" "$OUTDIR/api" "."
 
