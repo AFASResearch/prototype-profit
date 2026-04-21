@@ -16,12 +16,14 @@
         }
       ],
       "columns": [
-        { "key": "abonnementsregel", "header": "Abonnementsregel", "dataType": "text", "sortable": true, "status": "nieuw" },
-        { "key": "abonnement", "header": "Abonnement", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "abonnementsregel", "header": "Itemcode", "dataType": "text", "sortable": true, "status": "nieuw" },
         { "key": "omschrijving", "header": "Omschrijving", "dataType": "text", "sortable": true, "status": "nieuw" },
-        { "key": "bedrag", "header": "Bedrag", "dataType": "currencyAmount", "sortable": true, "status": "nieuw" },
-        { "key": "factuurmoment", "header": "Factuurmoment", "dataType": "text", "sortable": true, "status": "nieuw" },
-        { "key": "geparkeerd", "header": "Geparkeerd", "dataType": "yesNo", "sortable": true, "status": "nieuw" }
+        { "key": "verkooprelatie", "header": "Verkooprelatie", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "abonnementsnr", "header": "Abonnementsnr.", "dataType": "number", "sortable": true, "status": "nieuw" },
+        { "key": "begin", "header": "Begin", "dataType": "date", "sortable": true, "status": "nieuw" },
+        { "key": "eind", "header": "Eind", "dataType": "date", "sortable": true, "status": "nieuw" },
+        { "key": "cyclus", "header": "Cyclus", "dataType": "text", "sortable": true, "status": "nieuw" },
+        { "key": "bedrag", "header": "Bedrag", "dataType": "currencyAmount", "sortable": true, "status": "nieuw" }
       ]
     }
   ]

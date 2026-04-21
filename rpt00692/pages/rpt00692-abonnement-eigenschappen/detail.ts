@@ -10,8 +10,24 @@ export default function (services: BlueprintFactories): DetailPage {
   let mainModel = createModel({
     properties: {
       Id: createProperty(dataType.text()),
+      Abonnementnummer: createProperty(dataType.text()),
+      Debiteur: createProperty(dataType.text()),
+      Omschrijving: createProperty(dataType.text()),
+      BegindatumCyclus: createProperty(dataType.date()),
+      EinddatumCyclus: createProperty(dataType.date()),
+      Factuurmoment: createProperty(dataType.text()),
+      AantalDagen: createProperty(dataType.number({ digitGrouping: false })),
     }
   });
+
+  // Alle overzichtsvelden zijn alleen-lezen op dit tabblad
+  mainModel.properties.Abonnementnummer.config.locked = constant(true);
+  mainModel.properties.Debiteur.config.locked = constant(true);
+  mainModel.properties.Omschrijving.config.locked = constant(true);
+  mainModel.properties.BegindatumCyclus.config.locked = constant(true);
+  mainModel.properties.EinddatumCyclus.config.locked = constant(true);
+  mainModel.properties.Factuurmoment.config.locked = constant(true);
+  mainModel.properties.AantalDagen.config.locked = constant(true);
 
   return {
     id: 'rpt00692-abonnement-eigenschappen',
@@ -19,6 +35,26 @@ export default function (services: BlueprintFactories): DetailPage {
     title: constant('Eigenschappen abonnement – EnYoi Glasvezel internet'),
     blueprint: {
       sections: [
+        // --- Overzicht met KPI K004 (US08) ---
+        {
+          id: 'overzicht',
+          sectionName: 'Overzicht',
+          elements: [
+            {
+              type: 'fieldGroup',
+              title: 'Abonnement',
+              fields: [
+                { labelText: constant('Abonnementnummer'), property: mainModel.properties.Abonnementnummer },
+                { labelText: constant('Debiteur'), property: mainModel.properties.Debiteur },
+                { labelText: constant('Omschrijving'), property: mainModel.properties.Omschrijving },
+                { labelText: constant('Begindatum cyclus'), property: mainModel.properties.BegindatumCyclus },
+                { labelText: constant('Einddatum cyclus'), property: mainModel.properties.EinddatumCyclus },
+                { labelText: constant('Factuurmoment'), property: mainModel.properties.Factuurmoment },
+                { labelText: constant('Aantal dagen'), property: mainModel.properties.AantalDagen },
+              ]
+            }
+          ]
+        },
         // --- NIEUW tabblad: Periodetoekenningsregels (US09) ---
         ({
           id: 'periodetoekenningsregels',
@@ -32,19 +68,21 @@ export default function (services: BlueprintFactories): DetailPage {
                 itemNamePlural: 'toekenningsregels'
               },
               columns: [
-                { key: 'abonnementsregel', header: 'Abonnementsregel', dataType: dataType.text(), sortable: true },
+                { key: 'verkooprelatie', header: 'Verkooprelatie', dataType: dataType.text(), sortable: true },
+                { key: 'verkooprelatienr', header: 'Verkooprelatienr.', dataType: dataType.number({ digitGrouping: false }), sortable: true },
+                { key: 'abonnementsnr', header: 'Abonnementsnr.', dataType: dataType.number({ digitGrouping: false }), sortable: true },
+                { key: 'soort', header: 'Soort', dataType: dataType.text(), sortable: true },
                 { key: 'item', header: 'Item', dataType: dataType.text(), sortable: true },
-                { key: 'boekjaar', header: 'Boekjaar', dataType: dataType.number({ digitGrouping: false }), sortable: true },
-                { key: 'periode', header: 'Periode', dataType: dataType.number({ digitGrouping: false }), sortable: true },
-                { key: 'bedrag', header: 'Bedrag', dataType: dataType.currencyAmount(), sortable: true },
-                { key: 'status', header: 'Status', dataType: dataType.text(), sortable: true },
-                { key: 'aangemaakt', header: 'Aangemaakt op', dataType: dataType.date(), sortable: true },
-                { key: 'aanmakerNaam', header: 'Aangemaakt door', dataType: dataType.text(), sortable: true },
+                { key: 'begin', header: 'Begin', dataType: dataType.date(), sortable: true },
+                { key: 'eind', header: 'Eind', dataType: dataType.date(), sortable: true },
+                { key: 'cyclus', header: 'Cyclus', dataType: dataType.text(), sortable: true },
+                { key: 'aantal', header: 'Aantal', dataType: dataType.number({ digitGrouping: false }), sortable: true },
+                { key: 'orgPrijs', header: 'Bedrag', dataType: dataType.currencyAmount(), sortable: true },
               ],
               actions: [],
               itemsLoader: rest.createItemsLoader({
                 url: '/api/rpt00692-abonnement-eigenschappen/toekenningsregels',
-                idFieldKeys: ['abonnementsregel']
+                idFieldKeys: ['abonnementsnr']
               })
             } as any
           ]

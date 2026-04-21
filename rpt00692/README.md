@@ -17,6 +17,7 @@ Then open [http://localhost:5000](http://localhost:5000) in your browser.
 
 - `rpt00692-abonnement-cyclus`
 - `rpt00692-abonnement-eigenschappen`
+- `rpt00692-boekingslayout-abonnement`
 - `rpt00692-facturering-voorraad`
 - `rpt00692-genereer-wizard`
 - `rpt00692-saldoverklaring`

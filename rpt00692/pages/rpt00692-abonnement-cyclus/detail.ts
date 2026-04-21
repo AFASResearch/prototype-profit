@@ -80,6 +80,10 @@ export default function (services: BlueprintFactories): DetailPage {
               },
               columns: [
                 { key: 'abonnementsregel', header: 'Abonnementsregel', dataType: dataType.text(), sortable: true },
+                { key: 'jaarFactuur', header: 'Jaar (factuur)', dataType: dataType.text(), sortable: true },
+                { key: 'periodeFactuur', header: 'Periode (factuur)', dataType: dataType.number(), sortable: true },
+                { key: 'jaarJournaal', header: 'Jaar (journaalpost)', dataType: dataType.text(), sortable: true },
+                { key: 'periodeJournaal', header: 'Periode (journaalpost)', dataType: dataType.number(), sortable: true },
                 { key: 'abonnement', header: 'Abonnement', dataType: dataType.text(), sortable: true },
                 { key: 'omschrijving', header: 'Omschrijving', dataType: dataType.text(), sortable: true },
                 { key: 'bedrag', header: 'Bedrag', dataType: dataType.currencyAmount(), sortable: true },
@@ -117,7 +121,7 @@ export default function (services: BlueprintFactories): DetailPage {
               ],
               itemsLoader: rest.createItemsLoader({
                 url: '/api/rpt00692-toekenningsregels',
-                idFieldKeys: ['abonnementsregel']
+                idFieldKeys: ['abonnementsregel', 'jaarFactuur', 'periodeFactuur']
               })
             } as any
           ]

@@ -3,7 +3,7 @@ import type { DetailPage } from '@afas/blueprint/interfaces/detail-page';
 
 export default function (services: BlueprintFactories): DetailPage {
   let {
-    data: { dataType, createModel, createProperty, constant },
+    data: { dataType, createModel, createProperty, constant, createExpression },
     rest
   } = services;
 
@@ -48,11 +48,14 @@ export default function (services: BlueprintFactories): DetailPage {
         ]
       })),
       // --- Periodetoekenning (nieuw) ---
+      periodetoekenningToepassen: createProperty(dataType.boolean()),
       teFacturerenOmzetRekening: createProperty(dataType.text()),
     }
   });
 
-  mainModel.properties.teFacturerenOmzetRekening.config.makeMandatory();
+  const ptAan = createExpression([mainModel.properties.periodetoekenningToepassen], v => !!v);
+  mainModel.properties.teFacturerenOmzetRekening.config.makeMandatory(ptAan);
+  mainModel.properties.teFacturerenOmzetRekening.config.active = ptAan;
 
   return {
     id: 'rpt00692-facturering-voorraad',
@@ -89,6 +92,7 @@ export default function (services: BlueprintFactories): DetailPage {
               type: 'fieldGroup',
               title: 'Periodetoekenning', // nieuw
               fields: [
+                { labelText: constant('Periodetoekenning toepassen'), property: mainModel.properties.periodetoekenningToepassen, getMicroCopyText() { return 'Activeert periodetoekenning voor abonnementen. Zonder deze instelling is de functionaliteit niet beschikbaar.'; } } as any,
                 { labelText: constant('Te factureren abonnementen omzet'), property: mainModel.properties.teFacturerenOmzetRekening, getMicroCopyText() { return 'Grootboekrekening waarop omzet tijdelijk staat totdat toekenning plaatsvindt.'; } } as any,
               ]
             }

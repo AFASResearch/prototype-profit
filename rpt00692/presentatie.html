@@ -514,8 +514,8 @@
     <div class="hero-grid">
       <div class="hero-text fade-in">
         <span class="badge">RPT00692 &mdash; P08/09</span>
-        <h1>Omzet toekennen per periode</h1>
-        <p>Abonnementsomzet die achteraf wordt gefactureerd, is bij periodeafsluiting nog niet geboekt. Periodetoekenning journaliseert die omzet v&oacute;&oacute;r afsluiting zodat de periode gesloten kan worden.</p>
+        <h1>Omzet toekennen en factuurmoment instellen</h1>
+        <p>Dit project lost twee zaken op. Ten eerste: omzet toekennen aan een periode v&oacute;&oacute;r de factuur er is. Ten tweede: het factuurmoment flexibel instellen met vijf opties in plaats van alleen vooraf.</p>
         <div class="hero-actions">
           <a href="#oplossing" class="btn btn-primary">Bekijk de oplossing &darr;</a>
           <a href="#scope" class="btn btn-outline">Scope &amp; afbakening</a>
@@ -715,7 +715,7 @@
     <div class="solution-header fade-in">
       <span class="badge">Aanpak</span>
       <h2>Hoe lossen we dit op?</h2>
-      <p>Een nieuw tabblad op het Periodeafsluitingsplan met twee duidelijke acties.</p>
+      <p>Dit project pakt twee zaken aan: omzet toekennen v&oacute;&oacute;r de factuur er is, en het factuurmoment flexibel instellen.</p>
     </div>
     <div class="solution-visual fade-in">
       <div class="solution-path">
@@ -732,6 +732,13 @@
   <div class="node-text">
     <h3>Verwijder toekenningsregels</h3>
     <p>Verwijdert geselecteerde regels en draait de journaalposten automatisch terug. Valideert of de periode niet geblokkeerd is.</p>
+  </div>
+</div>
+<div class="solution-node">
+  <div class="node-icon success">&#128736;</div>
+  <div class="node-text">
+    <h3>Factuurmoment instellen</h3>
+    <p>Nieuw veld op het abonnement met vijf waarden. Bepaalt wanneer de factuur wordt aangemaakt ten opzichte van de cyclus.</p>
   </div>
 </div>
         <!--SOLUTION_NODES_END-->
@@ -778,7 +785,7 @@
 <div class="feature-card fade-in">
   <div class="feature-icon green">&#128196;</div>
   <h3>Saldoverklaring</h3>
-  <p>Een nieuw overzicht toont per abonnementsregel: gefactureerd, toegerekend, teruggedraaid en openstaand saldo.</p>
+  <p>Nieuw rapport (2 stappen) dat het volledige saldo op de tussenrekening verklaart: facturatie, periodetoekenning, tegenboekingen en handmatige boekingen.</p>
 </div>
       <!--FEATURE_CARDS_END-->
     </div>
@@ -806,7 +813,7 @@
 <li>Automatisch terugdraaien bij be&euml;indigen en verwijderen</li>
 <li>Delta-afhandeling bij bedragwijziging</li>
 <li>Saldoverklaring Te factureren abonnementen omzet</li>
-<li>KPI's gefactureerd, toegerekend en openstaand saldo op abonnementsregel</li>
+<li>Instelling Periodetoekenning toepassen op Facturering/voorraad</li>
 <li>Tabblad Periodetoekenningsregels op Eigenschappen abonnement</li>
 <li>Tabblad Transitorische journaalposten op Eigenschappen abonnement</li>
 <li>Standalone weergave Alle periodetoekenningsregels (submenu Periodetoekenning)</li>
@@ -817,9 +824,7 @@
         <h3>&#10060; Buiten scope</h3>
         <ul>
           <!--SCOPE_OUT_START-->
-          <li>Wijzigingen aan transitorisch journaliseren zelf</li>
-<li>Automatisch beginsaldo op tussenrekening (klant boekt dit zelf)</li>
-<li>Nieuwe rapportages of gegevensverzamelingen</li>
+          <li>Automatisch beginsaldo op tussenrekening (klant boekt dit zelf)</li>
           <!--SCOPE_OUT_END-->
         </ul>
       </div>
@@ -833,7 +838,7 @@
     <div class="features-header fade-in">
       <span class="badge">Mockups</span>
       <h2>Schermontwerp</h2>
-      <p>Zeven schermen zijn gebouwd als interactieve Podium-JS mockups. De Journaliseer-wizard, Terugdraaien-wizard en Artikelgroep-instellingen zijn vervallen.</p>
+      <p>Zeven schermen zijn gebouwd als interactieve Podium-JS mockups.</p>
     </div>
     <div class="features-grid" style="grid-template-columns:1fr;gap:2rem;">
       <!--MOCKUPS_START-->
@@ -863,9 +868,9 @@
   <img src="./afbeeldingen/genereer-wizard.png" alt="Genereer periodetoekenningsregels wizard" style="width:100%;border-radius:8px;margin-top:1rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
 </div>
 <div class="feature-card fade-in" style="grid-column:1/-1;">
-  <h3>Facturering/voorraad &mdash; Periodetoekenning</h3>
-  <p>Instellingen voor periodetoekenning op het factureringsplan.</p>
-  <img src="./afbeeldingen/instellingen-abonnementen.png" alt="Facturering/voorraad periodetoekenning instellingen" style="width:100%;border-radius:8px;margin-top:1rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+  <h3>Facturering/voorraad &mdash; tabblad Abonnementen</h3>
+  <p>Tabblad Abonnementen met de veldgroep Periodetoekenning en de instelling Periodetoekenning toepassen.</p>
+  <img src="./afbeeldingen/instellingen-abonnementen.png" alt="Facturering/voorraad tabblad Abonnementen" style="width:100%;border-radius:8px;margin-top:1rem;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
 </div>
 <div class="feature-card fade-in" style="grid-column:1/-1;">
   <h3>Saldoverklaring Te factureren omzet</h3>
@@ -890,7 +895,7 @@
     <div class="meta-bar">
       <div class="meta-item"><span>Project</span><strong>RPT00692</strong></div>
       <div class="meta-item"><span>Module</span><strong>Financial Basic - Abonnementen</strong></div>
-      <div class="meta-item"><span>Versie</span><strong>3.9</strong></div>
+      <div class="meta-item"><span>Versie</span><strong>4.0</strong></div>
       <div class="meta-item"><span>Status</span><strong>Concept</strong></div>
     </div>
   </div>

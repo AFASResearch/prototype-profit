@@ -54,12 +54,14 @@ export default function (services: BlueprintFactories): WizardPage {
             selectAllOnByDefault: true,
             languageInfo: { itemNamePlural: 'regels' },
             columns: [
-              { key: 'abonnementsregel', header: 'Abonnementsregel', dataType: dataType.text(), sortable: true },
-              { key: 'abonnement', header: 'Abonnement', dataType: dataType.text(), sortable: true },
+              { key: 'abonnementsregel', header: 'Itemcode', dataType: dataType.text(), sortable: true },
               { key: 'omschrijving', header: 'Omschrijving', dataType: dataType.text(), sortable: true },
+              { key: 'verkooprelatie', header: 'Verkooprelatie', dataType: dataType.text(), sortable: true },
+              { key: 'abonnementsnr', header: 'Abonnementsnr.', dataType: dataType.number(), sortable: true },
+              { key: 'begin', header: 'Begin', dataType: dataType.date(), sortable: true },
+              { key: 'eind', header: 'Eind', dataType: dataType.date(), sortable: true },
+              { key: 'cyclus', header: 'Cyclus', dataType: dataType.text(), sortable: true },
               { key: 'bedrag', header: 'Bedrag', dataType: dataType.currencyAmount(), sortable: true },
-              { key: 'factuurmoment', header: 'Factuurmoment', dataType: dataType.text(), sortable: true },
-              { key: 'geparkeerd', header: 'Geparkeerd', dataType: dataType.yesNo(), sortable: true },
             ],
             actions: [
               {

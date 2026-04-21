@@ -2,7 +2,38 @@
   "page": "rpt00692-abonnement-eigenschappen",
   "type": "detail",
   "title": "Eigenschappen abonnement – EnYoi Glasvezel internet",
+  "kpis": [
+    {
+      "id": "K004",
+      "type": "value",
+      "title": "Dagen tot facturering",
+      "valueType": "number",
+      "suffix": "dagen",
+      "sizeType": "Normal",
+      "sourceKey": "dagen",
+      "mockValue": 32,
+      "status": "nieuw"
+    }
+  ],
   "sections": [
+    {
+      "id": "overzicht",
+      "name": "Overzicht",
+      "fieldGroups": [
+        {
+          "title": "Abonnement",
+          "fields": [
+            { "property": "Abonnementnummer", "label": "Abonnementnummer", "dataType": "text", "locked": true, "status": "bestaand" },
+            { "property": "Debiteur", "label": "Debiteur", "dataType": "text", "locked": true, "status": "bestaand" },
+            { "property": "Omschrijving", "label": "Omschrijving", "dataType": "text", "locked": true, "status": "bestaand" },
+            { "property": "BegindatumCyclus", "label": "Begindatum cyclus", "dataType": "date", "locked": true, "status": "bestaand" },
+            { "property": "EinddatumCyclus", "label": "Einddatum cyclus", "dataType": "date", "locked": true, "status": "bestaand" },
+            { "property": "Factuurmoment", "label": "Factuurmoment", "dataType": "text", "locked": true, "status": "bestaand" },
+            { "property": "AantalDagen", "label": "Aantal dagen", "dataType": "number", "locked": true, "status": "bestaand" }
+          ]
+        }
+      ]
+    },
     {
       "id": "periodetoekenningsregels",
       "name": "Periodetoekenningsregels",
