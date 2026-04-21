@@ -23,6 +23,7 @@ export const groups: ApplicationMenuGroup[] = [
       { id: 'rpt00692-saldoverklaring', description: 'Saldoverklaring Te factureren omzet', link: 'rpt00692-saldoverklaring/1?inEditMode=true' },
       { id: 'rpt00692-abonnement-eigenschappen', description: 'Eigenschappen abonnement (US09 + KPI K004)', link: 'rpt00692-abonnement-eigenschappen/1' },
       { id: 'rpt00692-boekingslayout-abonnement', description: 'Boekingslay-out abonnement (US07 Factuurmoment)', link: 'rpt00692-boekingslayout-abonnement/1' },
+      { id: 'rpt00692-verkooprelatieprofiel', description: 'Verkooprelatieprofiel (US07 Factuurmoment)', link: 'rpt00692-verkooprelatieprofiel/1' },
     ]
   }
 ];

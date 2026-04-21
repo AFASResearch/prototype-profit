@@ -78,6 +78,8 @@ app.MapGet("/api/rpt00692-facturering-voorraad", () => new {
     voorstelDatumVerlenging = "01",
     cyclusVerlenging = "J1",
     methodeVerdeling = "P",
+    factuurmoment = "1",
+    aantalDagen = 10,
     periodetoekenningToepassen = true,
     teFacturerenOmzetRekening = "1500 - Te factureren abonnementen omzet"
 });
@@ -92,10 +94,10 @@ app.MapGet("/api/rpt00692-genereer-wizard", () => new {
 });
 
 app.MapGet("/api/rpt00692-genereer-wizard/preview", () => new[] {
-    new { abonnementsregel = "AR-0010", abonnement = "AB-1001 Facilicom BV", omschrijving = "Schoonmaak kantoor april", bedrag = 3750.00m, verkooprelatie = "Facilicom BV", verkooprelatienr = 10201, abonnementsnr = 1001, soort = "Schoonmaak", item = "Kantoorschoonmaak", begin = "2026-01-01T00:00:00Z", eind = (string?)null, cyclus = "Maand", aantal = 1 },
-    new { abonnementsregel = "AR-0011", abonnement = "AB-1001 Facilicom BV", omschrijving = "Beveiliging april", bedrag = 6000.00m, verkooprelatie = "Facilicom BV", verkooprelatienr = 10201, abonnementsnr = 1001, soort = "Beveiliging", item = "Objectbeveiliging", begin = "2026-01-01T00:00:00Z", eind = (string?)null, cyclus = "Maand", aantal = 1 },
-    new { abonnementsregel = "AR-0012", abonnement = "AB-1002 Bakker BV", omschrijving = "Catering april", bedrag = 89.25m, verkooprelatie = "Bakker BV", verkooprelatienr = 10202, abonnementsnr = 1002, soort = "Catering", item = "Lunchpakket", begin = "2026-02-01T00:00:00Z", eind = (string?)null, cyclus = "Maand", aantal = 1 },
-    new { abonnementsregel = "AR-0013", abonnement = "AB-1003 Groen & Co", omschrijving = "Onderhoud tuin april", bedrag = 525.00m, verkooprelatie = "Groen & Co", verkooprelatienr = 10203, abonnementsnr = 1003, soort = "Onderhoud", item = "Tuinonderhoud", begin = "2026-01-15T00:00:00Z", eind = (string?)"2026-12-31T00:00:00Z", cyclus = "Maand", aantal = 1 },
+    new { abonnementsregel = "AR-0010", abonnement = "AB-1001 Facilicom BV", omschrijving = "Schoonmaak kantoor april", bedrag = 3750.00m, factuurmoment = "Aantal dagen na einddatumcyclus" },
+    new { abonnementsregel = "AR-0011", abonnement = "AB-1001 Facilicom BV", omschrijving = "Beveiliging april", bedrag = 6000.00m, factuurmoment = "Aantal dagen na einddatumcyclus" },
+    new { abonnementsregel = "AR-0012", abonnement = "AB-1002 Bakker BV", omschrijving = "Catering april", bedrag = 89.25m, factuurmoment = "Aantal dagen voor begindatumcyclus" },
+    new { abonnementsregel = "AR-0013", abonnement = "AB-1003 Groen & Co", omschrijving = "Onderhoud tuin april", bedrag = 525.00m, factuurmoment = "Midden van de factuurperiode" },
 });
 
 // RPT00692 — Saldoverklaring: init (periode + telling)
@@ -144,9 +146,10 @@ app.MapGet("/api/rpt00692-abonnement-eigenschappen/kpi", () => new {
 app.MapPatch("/api/rpt00692-abonnement-eigenschappen", () => Results.Ok());
 
 app.MapGet("/api/rpt00692-abonnement-eigenschappen/toekenningsregels", () => new[] {
-    new { verkooprelatie = "Van Kempen Afbouw b.v.", verkooprelatienr = 10186, abonnementsnr = 4236, soort = "Combi internet/onderh/magazine", item = "Garantiecontract", begin = "2026-01-27T00:00:00Z", eind = (string?)null, cyclus = "Maand", aantal = 1, orgPrijs = 1046.35m },
-    new { verkooprelatie = "Van Kempen Afbouw b.v.", verkooprelatienr = 10186, abonnementsnr = 4239, soort = "Combi internet/onderh/magazine", item = "EnYoi Glasvezel internet 200 Mb", begin = "2026-01-14T00:00:00Z", eind = (string?)"2026-03-31T00:00:00Z", cyclus = "Maand", aantal = 1, orgPrijs = 48.50m },
-    new { verkooprelatie = "Van Kempen Afbouw b.v.", verkooprelatienr = 10186, abonnementsnr = 4232, soort = "Combi onderhoud/magazine", item = "EnYoi Glasvezel internet 50 Mb", begin = "2026-01-05T00:00:00Z", eind = (string?)null, cyclus = "Maand", aantal = 1, orgPrijs = 44.00m },
+    new { abonnementsregel = "7007", item = "EnYoi Glasvezel internet 400", boekjaar = 2026, periode = 4, bedrag = 58.00m, status = "Gejournaliseerd", aangemaakt = "2026-04-15T00:00:00Z", aanmakerNaam = "P. de Vries" },
+    new { abonnementsregel = "7007", item = "EnYoi Glasvezel internet 400", boekjaar = 2026, periode = 3, bedrag = 58.00m, status = "Gejournaliseerd", aangemaakt = "2026-03-15T00:00:00Z", aanmakerNaam = "P. de Vries" },
+    new { abonnementsregel = "7008", item = "EnYoi TV Standaard", boekjaar = 2026, periode = 4, bedrag = 12.50m, status = "Gejournaliseerd", aangemaakt = "2026-04-15T00:00:00Z", aanmakerNaam = "P. de Vries" },
+    new { abonnementsregel = "7009", item = "Onderhoudsabonnement modem", boekjaar = 2026, periode = 4, bedrag = 4.50m, status = "Verwijderd", aangemaakt = "2026-04-15T00:00:00Z", aanmakerNaam = "K. Bakker" },
 });
 
 app.MapGet("/api/rpt00692-abonnement-eigenschappen/journaalposten", () => new[] {
@@ -155,6 +158,24 @@ app.MapGet("/api/rpt00692-abonnement-eigenschappen/journaalposten", () => new[] 
     new { boekstuknummer = "20260301-001", boekdatum = "2026-03-01T00:00:00Z", boekjaar = 2026, periode = 3, grootboekrekening = "1350 Te factureren abo omzet", omschrijving = "Periodetoekenning mrt 2026", debet = (decimal?)58.00m, credit = (decimal?)null },
     new { boekstuknummer = "20260301-002", boekdatum = "2026-03-01T00:00:00Z", boekjaar = 2026, periode = 3, grootboekrekening = "8010 Omzet abonnementen", omschrijving = "Periodetoekenning mrt 2026", debet = (decimal?)null, credit = (decimal?)58.00m },
 });
+
+// RPT00692 — Verkooprelatieprofiel (US07, §3.4a)
+app.MapGet("/api/rpt00692-verkooprelatieprofiel", () => new {
+    Id = "1",
+    aantalExemplaren = 1,
+    bijlageSamenvoegen = false,
+    ordermanagement = "O",
+    overige = "O",
+    bankrekeningVerkoopfactuur = "ABN AMRO (0412595125)",
+    gRekeningEFactuur = "",
+    facturatieFrequentie = "",
+    extraDagenFacturatieFrequentie = (int?)null,
+    voorkeurPortal = "",
+    factuurmoment = "4",
+    aantalDagen = 10
+});
+
+app.MapPatch("/api/rpt00692-verkooprelatieprofiel", () => Results.Ok());
 
 // RPT00692 — Boekingslay-out abonnement (US07)
 app.MapGet("/api/rpt00692-boekingslayout-abonnement", () => new {

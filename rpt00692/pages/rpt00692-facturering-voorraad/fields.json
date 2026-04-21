@@ -104,8 +104,55 @@
           ]
         },
         {
+          "title": "Factuurmoment",
+          "fields": [
+            {
+              "property": "factuurmoment",
+              "label": "Factuurmoment",
+              "dataType": "enumeration",
+              "mandatory": false,
+              "locked": false,
+              "active": null,
+              "placeholder": null,
+              "choiceValues": [
+                { "key": "1", "name": "Aantal dagen voor begindatumcyclus" },
+                { "key": "2", "name": "Aantal dagen na begindatumcyclus" },
+                { "key": "3", "name": "Aantal dagen voor einddatumcyclus" },
+                { "key": "4", "name": "Aantal dagen na einddatumcyclus" },
+                { "key": "5", "name": "Midden van de factuurperiode" }
+              ],
+              "defaultValue": "1",
+              "status": "nieuw"
+            },
+            {
+              "property": "aantalDagen",
+              "label": "Aantal dagen",
+              "dataType": "number",
+              "mandatory": false,
+              "locked": false,
+              "active": "factuurmoment !== Midden van de factuurperiode",
+              "placeholder": null,
+              "choiceValues": null,
+              "defaultValue": 0,
+              "status": "nieuw"
+            }
+          ]
+        },
+        {
           "title": "Periodetoekenning",
           "fields": [
+            {
+              "property": "periodetoekenningToepassen",
+              "label": "Periodetoekenning toepassen",
+              "dataType": "yesNo",
+              "mandatory": false,
+              "locked": false,
+              "active": null,
+              "placeholder": null,
+              "choiceValues": null,
+              "defaultValue": false,
+              "status": "nieuw"
+            },
             {
               "property": "teFacturerenOmzetRekening",
               "label": "Te factureren abonnementen omzet",

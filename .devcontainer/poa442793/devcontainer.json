@@ -1,0 +1,21 @@
+{
+  "name": "POA442793 — Integratierekening inhuur derden",
+  "image": "mcr.microsoft.com/devcontainers/dotnet:8.0",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    }
+  },
+  "workspaceFolder": "/workspaces/prototype-profit/poa442793",
+  "postCreateCommand": "npm install",
+  "postStartCommand": "npm start",
+  "forwardPorts": [
+    5000
+  ],
+  "portsAttributes": {
+    "5000": {
+      "label": "Prototype",
+      "onAutoForward": "openBrowser"
+    }
+  }
+}

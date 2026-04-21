@@ -47,8 +47,19 @@ export default function (services: BlueprintFactories): DetailPage {
           { key: '4', name: '4-weken' },
         ]
       })),
+      // --- Factuurmoment (nieuw, systeemstandaard) ---
+      factuurmoment: createProperty(dataType.enumeration({
+        options: [
+          { key: '1', name: 'Aantal dagen voor begindatumcyclus' },
+          { key: '2', name: 'Aantal dagen na begindatumcyclus' },
+          { key: '3', name: 'Aantal dagen voor einddatumcyclus' },
+          { key: '4', name: 'Aantal dagen na einddatumcyclus' },
+          { key: '5', name: 'Midden van de factuurperiode' },
+        ]
+      })),
+      aantalDagen: createProperty(dataType.number({ digitGrouping: false })),
       // --- Periodetoekenning (nieuw) ---
-      periodetoekenningToepassen: createProperty(dataType.boolean()),
+      periodetoekenningToepassen: createProperty(dataType.yesNo()),
       teFacturerenOmzetRekening: createProperty(dataType.text()),
     }
   });
@@ -56,6 +67,9 @@ export default function (services: BlueprintFactories): DetailPage {
   const ptAan = createExpression([mainModel.properties.periodetoekenningToepassen], v => !!v);
   mainModel.properties.teFacturerenOmzetRekening.config.makeMandatory(ptAan);
   mainModel.properties.teFacturerenOmzetRekening.config.active = ptAan;
+
+  const nietMidden = createExpression([mainModel.properties.factuurmoment], v => v !== '5');
+  mainModel.properties.aantalDagen.config.active = nietMidden;
 
   return {
     id: 'rpt00692-facturering-voorraad',
@@ -90,10 +104,18 @@ export default function (services: BlueprintFactories): DetailPage {
             },
             {
               type: 'fieldGroup',
+              title: 'Factuurmoment', // nieuw v0029
+              fields: [
+                { labelText: constant('Factuurmoment'), property: mainModel.properties.factuurmoment, getMicroCopyText() { return 'Systeemstandaard factuurmoment voor nieuwe abonnementen. Geldt als het verkooprelatieprofiel geen afwijkende waarde heeft.'; } } as any,
+                { labelText: constant('Aantal dagen'), property: mainModel.properties.aantalDagen, getMicroCopyText() { return 'Systeemstandaard aantal dagen verschuiving voor nieuwe abonnementen.'; } } as any,
+              ]
+            },
+            {
+              type: 'fieldGroup',
               title: 'Periodetoekenning', // nieuw
               fields: [
-                { labelText: constant('Periodetoekenning toepassen'), property: mainModel.properties.periodetoekenningToepassen, getMicroCopyText() { return 'Activeert periodetoekenning voor abonnementen. Zonder deze instelling is de functionaliteit niet beschikbaar.'; } } as any,
-                { labelText: constant('Te factureren abonnementen omzet'), property: mainModel.properties.teFacturerenOmzetRekening, getMicroCopyText() { return 'Grootboekrekening waarop omzet tijdelijk staat totdat toekenning plaatsvindt.'; } } as any,
+                { labelText: constant('Periodetoekenning toepassen'), property: mainModel.properties.periodetoekenningToepassen, getMicroCopyText() { return 'Rekent verwachte abonnementsomzet toe aan een periode vóór de periodeafsluiting, ook als de factuur er nog niet is.'; } } as any,
+                { labelText: constant('Te factureren abonnementen omzet'), property: mainModel.properties.teFacturerenOmzetRekening, getMicroCopyText() { return 'Grootboekrekening die tegengeboekt wordt bij het factureren.'; } } as any,
               ]
             }
           ]

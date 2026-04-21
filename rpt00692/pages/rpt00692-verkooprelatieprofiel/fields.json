@@ -1,0 +1,88 @@
+{
+  "page": "rpt00692-verkooprelatieprofiel",
+  "type": "detail",
+  "title": "Standaard verkooprelatieprofiel (*****)",
+  "sections": [
+    { "id": "algemeen", "name": "Algemeen", "fieldGroups": [] },
+    {
+      "id": "factureren",
+      "name": "Factureren",
+      "fieldGroups": [
+        {
+          "title": "Verkoopfacturen",
+          "fields": [
+            { "property": "aantalExemplaren", "label": "Aantal exemplaren afdrukken", "dataType": "number", "status": "bestaand" },
+            { "property": "bijlageSamenvoegen", "label": "Bijlage samenvoegen met .pdf verkoopfactuur", "dataType": "yesNo", "status": "bestaand" }
+          ]
+        },
+        {
+          "title": "Btw- en betaalinstellingen",
+          "fields": [
+            { "property": "ordermanagement", "label": "Ordermanagement", "dataType": "enumeration", "status": "bestaand" },
+            { "property": "overige", "label": "Overige", "dataType": "enumeration", "status": "bestaand" }
+          ]
+        },
+        {
+          "title": "Bankrek. verkoopfactuur",
+          "fields": [
+            { "property": "bankrekeningVerkoopfactuur", "label": "Bankrek. verkoopfactuur", "dataType": "text", "status": "bestaand" },
+            { "property": "gRekeningEFactuur", "label": "G-rekening e-factuur", "dataType": "text", "status": "bestaand" }
+          ]
+        },
+        {
+          "title": "Frequentie",
+          "fields": [
+            { "property": "facturatieFrequentie", "label": "Facturatie frequentie", "dataType": "text", "status": "bestaand" },
+            { "property": "extraDagenFacturatieFrequentie", "label": "Extra dagen facturatie frequentie", "dataType": "number", "status": "bestaand" }
+          ]
+        },
+        {
+          "title": "Verstrekking OutSite",
+          "fields": [
+            { "property": "voorkeurPortal", "label": "Voorkeur Portal", "dataType": "text", "status": "bestaand" }
+          ]
+        },
+        {
+          "title": "Abonnementen",
+          "fields": [
+            {
+              "property": "factuurmoment",
+              "label": "Factuurmoment",
+              "dataType": "enumeration",
+              "mandatory": false,
+              "locked": false,
+              "active": null,
+              "choiceValues": [
+                { "key": "1", "name": "Aantal dagen voor begindatumcyclus" },
+                { "key": "2", "name": "Aantal dagen na begindatumcyclus" },
+                { "key": "3", "name": "Aantal dagen voor einddatumcyclus" },
+                { "key": "4", "name": "Aantal dagen na einddatumcyclus" },
+                { "key": "5", "name": "Midden van de factuurperiode" }
+              ],
+              "defaultValue": null,
+              "status": "nieuw"
+            },
+            {
+              "property": "aantalDagen",
+              "label": "Aantal dagen",
+              "dataType": "number",
+              "mandatory": false,
+              "locked": false,
+              "active": "factuurmoment gevuld en niet Midden",
+              "choiceValues": null,
+              "defaultValue": null,
+              "status": "nieuw"
+            }
+          ]
+        }
+      ]
+    },
+    { "id": "rapport", "name": "Rapport", "fieldGroups": [] },
+    { "id": "rapport-factuur", "name": "Rapport factuur", "fieldGroups": [] },
+    { "id": "berichtsjabloon", "name": "Berichtsjabloon", "fieldGroups": [] },
+    { "id": "berichtsjabloon-factuur", "name": "Berichtsjabloon factuur", "fieldGroups": [] },
+    { "id": "verzamelfactuur", "name": "Verzamelfactuur", "fieldGroups": [] },
+    { "id": "verzamelen-per-onderdeel", "name": "Verzamelen per onderdeel", "fieldGroups": [] },
+    { "id": "verdichten-factuur", "name": "Verdichten factuur", "fieldGroups": [] }
+  ]
+}

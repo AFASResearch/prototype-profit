@@ -3,7 +3,7 @@
 | <br> | <br> |
 | --- | --- |
 | **Project** | RPT00692 |
-| **Versie** | 0028 |
+| **Versie** | 0029 |
 | **Datum** | 21-04-2026 |
 | **Status** | Concept |
 | **Module** | Financial Basic – Abonnementen |
@@ -17,6 +17,7 @@
 
 | Versie | Datum | Auteur | Wijziging |
 | --- | --- | --- | --- |
+| 0029 | 21-04-2026 | Eric Zaal | Factuurmoment instelbaar op omgevingsinstelling (Facturering/voorraad) als systeemstandaard en op verkooprelatieprofiel als default per profiel. Overerving: omgevingsinstelling → verkooprelatieprofiel → abonnement. §3.2, §3.4a, US07, B27, B46, T40–T43, D56–D57 en Definition of Done bijgewerkt. |
 | 0028 | 21-04-2026 | Eric Zaal | Activering Periodetoekenning toepassen toegevoegd op Facturering/voorraad (tabblad Abonnementen, veldgroep Periodetoekenning). Vinkje is alleen zichtbaar als de module Abonnementen actief is. Staat het vinkje uit, dan is de volledige periodetoekenningsfunctionaliteit verborgen: tabblad op Periodeafsluitingsplan, menu-items, KPI's en tabbladen op Eigenschappen abonnement. US08, §3.2, B1, B44, T37–T39, D55 en Definition of Done bijgewerkt. |
 | 0027 | 21-04-2026 | Eric Zaal | US06 herschreven: rapport verklaart het volledige saldo op de tussenrekening, inclusief handmatige boekingen. User story, Podium-specificatie, §4.2 en testscenario's T20/T21 bijgewerkt. |
 | 0026 | 21-04-2026 | Eric Zaal | US06 herschreven als rapport (WizardPage, 2 stappen: periode kiezen en saldoverklaring tonen). Podium-specificatie gewijzigd van ListPage naar WizardPage. Export toegevoegd. Gegevensverzameling §4.2 Saldoverklaring Te factureren abonnementen omzet toegevoegd als databron. Work item D40 en D54 bijgewerkt. Definition of Done bijgewerkt. Traceability §4.1 gecorrigeerd. |
@@ -179,7 +180,7 @@ Bij de facturatieverwerking bepaalt het bestaan van een toekenningsregel de groo
 
 - Activering via vinkje Periodetoekenning toepassen op Facturering/voorraad (tabblad Abonnementen) — alleen zichtbaar als module Abonnementen actief is. Staat het vinkje uit, dan is de volledige functionaliteit verborgen.
 - Nieuwe tabel Toekenningsregels voor opslag van toekenningen en tegenboekingen
-- Nieuw veld Factuurmoment op het abonnement (vijf waarden, standaard: Aantal dagen voor begindatumcyclus)
+- Nieuw veld Factuurmoment op het abonnement (vijf waarden, standaard: Aantal dagen voor begindatumcyclus). Defaultwaarde instelbaar op de omgevingsinstelling (Facturering/voorraad) en op het verkooprelatieprofiel; bij het aanmaken van een nieuw abonnement neemt het systeem de waarde over
 - Facturatielogica: bestaan van een toekenningsrecord bepaalt tussenrekening vs. omzetrekening
 - Nieuw tabblad Periodetoekenningsregels op Eigenschappen abonnement — weergave met toekenningsregels per abonnement
 
@@ -187,7 +188,7 @@ Bij de facturatieverwerking bepaalt het bestaan van een toekenningsregel de groo
 
 | Term | Betekenis |
 | --- | --- |
-| Factuurmoment | Instelling op het abonnement die bepaalt wanneer de factuur wordt aangemaakt ten opzichte van de cyclus. Vijf waarden: Aantal dagen voor begindatumcyclus, Aantal dagen na begindatumcyclus, Aantal dagen voor einddatumcyclus, Aantal dagen na einddatumcyclus, Midden van de factuurperiode |
+| Factuurmoment | Instelling op het abonnement die bepaalt wanneer de factuur wordt aangemaakt ten opzichte van de cyclus. Vijf waarden: Aantal dagen voor begindatumcyclus, Aantal dagen na begindatumcyclus, Aantal dagen voor einddatumcyclus, Aantal dagen na einddatumcyclus, Midden van de factuurperiode. De omgevingsinstelling op Facturering/voorraad is de systeemstandaard. Op het verkooprelatieprofiel kan een afwijkende standaard worden ingesteld per profiel. |
 | Periodetoekenning | Omzet van abonnementen toerekenen aan de juiste perioden vóór de periodeafsluiting |
 | Periodetoekenning toepassen | Vinkje op Facturering/voorraad (tabblad Abonnementen) dat de volledige periodetoekenningsfunctionaliteit activeert. Alleen zichtbaar als de module Abonnementen actief is. |
 | Toekenningsregel | Record dat een abonnementsregel koppelt aan een boekjaar en periode. Wordt direct gejournaliseerd bij genereren. |
@@ -223,7 +224,7 @@ Bij de facturatieverwerking bepaalt het bestaan van een toekenningsregel de groo
 | US04 | Automatisch terugdraaien bij beëindigen | Toekomstige toekenningen terugdraaien bij factuurmoment als einddatum is ingesteld |
 | US05 | Verwijderen abonnementsregel met automatisch terugdraaien | Systeem draait openstaand saldo terug zonder gebruikersactie |
 | US06 | Rapport: Saldoverklaring Te factureren abonnementen omzet | Nieuw rapport (wizard, 2 stappen). Verklaart het volledige saldo op de tussenrekening: facturatie, periodetoekenning, tegenboekingen en handmatige boekingen. Gegevensverzameling §4.2. |
-| US07 | Instelling factuurmoment op abonnement | Nieuw veld Factuurmoment op abonnement met vijf waarden |
+| US07 | Instelling factuurmoment op abonnement | Nieuw veld Factuurmoment op abonnement met vijf waarden. Systeemstandaard op omgevingsinstelling (Facturering/voorraad). Default per profiel op verkooprelatieprofiel. |
 | US08 | Activering periodetoekenning en instelling grootboekrekening | Activering via vinkje Periodetoekenning toepassen op Facturering/voorraad. Centrale instelling grootboekrekening, facturatielogica en samenloop transitorisch journaliseren |
 | US09 | Periodetoekenningsregels op Eigenschappen abonnement | Weergave met toekenningsregels per abonnement op een nieuw tabblad onder Facturen |
 
@@ -431,7 +432,6 @@ Bovenin staan boekjaar en periode (alleen-lezen). Daaronder de toekenbare abonne
 | omschrijving | Omschrijving | text | ja | Schoonmaak kantoor april |
 | bedrag | Bedrag | currencyAmount | ja | 3.750,00 |
 | factuurmoment | Factuurmoment | text | ja | Aantal dagen na einddatumcyclus |
-| status | Geparkeerd | yesNo | ja | Nee |
 
 **Wizardflow:**
 1. Je klikt Genereer op het tabblad. De wizard opent.
@@ -899,6 +899,10 @@ De laatste rij in de lijst is een samenvattingsregel voor handmatige boekingen. 
 
 *Boekingslay-out abonnement, veldgroep Factuurmoment — mockup: *`pages/rpt00692-boekingslayout-abonnement/detail.ts`
 
+<img src="./afbeeldingen/verkooprelatieprofiel-abonnementen.png" alt="Verkooprelatieprofiel — tabblad Factureren, veldgroep Abonnementen met Factuurmoment en Aantal dagen" width="100%">
+
+*Verkooprelatieprofiel — tabblad Factureren, veldgroep Abonnementen — mockup: *`pages/rpt00692-verkooprelatieprofiel/detail.ts`
+
 #### Functionele uitwerking
 
 Op het abonnement komt een nieuw veld **Factuurmoment** met vijf waarden:
@@ -912,6 +916,18 @@ Standaard staat het op Aantal dagen voor begindatumcyclus — dat is het huidige
 
 Het veld **Aantal dagen** (het huidige "Aantal dagen vooraf", hernoemd) is altijd zichtbaar, behalve bij Midden van de factuurperiode.
 
+**Defaultwaarde via omgevingsinstelling en verkooprelatieprofiel**
+
+De omgevingsinstelling op Facturering/voorraad (tabblad Abonnementen) bevat de systeemstandaard voor **Factuurmoment** en **Aantal dagen**. Die waarde geldt als er geen afwijkende instelling op het verkooprelatieprofiel staat. De initiële waarde is Aantal dagen voor begindatumcyclus.
+
+Op het verkooprelatieprofiel komen dezelfde velden: **Factuurmoment** en **Aantal dagen**. Beide staan standaard leeg. Vul je ze in, dan geldt die waarde voor alle debiteuren met dat profiel.
+
+Bij het aanmaken van een nieuw abonnement bepaalt het systeem het factuurmoment in deze volgorde:
+1. Verkooprelatieprofiel van de debiteur (als gevuld)
+2. Omgevingsinstelling op Facturering/voorraad (systeemstandaard)
+
+De gebruiker kan het factuurmoment per abonnement wijzigen. Een wijziging op het verkooprelatieprofiel of de omgevingsinstelling werkt niet door naar bestaande abonnementen — alleen naar nieuwe.
+
 #### Acceptatiecriteria
 
 1. Standaard: Aantal dagen voor begindatumcyclus. Bestaande abonnementen krijgen die waarde via conversie.
@@ -919,17 +935,24 @@ Het veld **Aantal dagen** (het huidige "Aantal dagen vooraf", hernoemd) is altij
 3. Bij Aantal dagen na begindatumcyclus mag Aantal dagen niet groter zijn dan de cyclusdagen.
 4. Bij Aantal dagen voor einddatumcyclus mag Aantal dagen niet groter zijn dan de cyclusdagen.
 5. Bij Midden van de factuurperiode berekent het systeem de factuurdatum als het midden van de cyclus.
+6. Bij het aanmaken van een nieuw abonnement neemt het systeem het factuurmoment en het aantal dagen over: eerst van het verkooprelatieprofiel, daarna van de omgevingsinstelling. Staan beide leeg? Dan geldt Aantal dagen voor begindatumcyclus.
+7. Een wijziging van het factuurmoment op het verkooprelatieprofiel of de omgevingsinstelling werkt niet door naar bestaande abonnementen.
+8. De gebruiker kan het overgenomen factuurmoment per abonnement wijzigen.
 
 #### Tooltiptekst
 
 | Veld | Tekst |
 | --- | --- |
-| Factuurmoment | Bepaalt wanneer de factuur wordt aangemaakt ten opzichte van de cyclus. |
-| Aantal dagen | Aantal dagen verschuiving ten opzichte van de gekozen referentiedatum. |
+| Factuurmoment (abonnement) | Bepaalt wanneer de factuur wordt aangemaakt ten opzichte van de cyclus. |
+| Aantal dagen (abonnement) | Aantal dagen verschuiving ten opzichte van de gekozen referentiedatum. |
+| Factuurmoment (omgevingsinstelling) | Systeemstandaard factuurmoment voor nieuwe abonnementen. Geldt als het verkooprelatieprofiel geen afwijkende waarde heeft. |
+| Aantal dagen (omgevingsinstelling) | Systeemstandaard aantal dagen verschuiving voor nieuwe abonnementen. |
+| Factuurmoment (verkooprelatieprofiel) | Standaard factuurmoment voor nieuwe abonnementen van debiteuren met dit profiel. Laat leeg om de omgevingsinstelling te gebruiken. |
+| Aantal dagen (verkooprelatieprofiel) | Standaard aantal dagen verschuiving voor nieuwe abonnementen van debiteuren met dit profiel. |
 
 #### Autorisatie
 
-Geen apart recht vereist — toegang volgt het abonnement.
+Geen apart recht vereist — toegang volgt het abonnement, het verkooprelatieprofiel respectievelijk Facturering/voorraad.
 
 ---
 
@@ -1004,7 +1027,7 @@ Bestaat er een toekenningsregel voor een abonnementsregel in een periode? Dan sl
 | Veld | Tekst |
 | --- | --- |
 | Periodetoekenning toepassen | Rekent verwachte abonnementsomzet toe aan een periode vóór de periodeafsluiting, ook als de factuur er nog niet is. |
-| Te factureren abonnementen omzet | Grootboekrekening waarop omzet tijdelijk staat totdat toekenning plaatsvindt. |
+| Te factureren abonnementen omzet | Grootboekrekening die tegengeboekt wordt bij het factureren. |
 
 #### Autorisatie
 
@@ -1021,7 +1044,7 @@ Geen apart recht vereist — toegang volgt Facturering/voorraad.
 | Veldlabel | Podium-type | Verplicht | Standaardwaarde | Tooltip | Conditie | Status |
 | --- | --- | --- | --- | --- | --- | --- |
 | Periodetoekenning toepassen | boolean | nee | uit | Rekent verwachte abonnementsomzet toe aan een periode vóór de periodeafsluiting, ook als de factuur er nog niet is. | veldgroep zichtbaar als module Abonnementen actief | nieuw |
-| Te factureren abonnementen omzet | text (zoekvenster grootboekrekening) | ja (als Periodetoekenning toepassen aan) | leeg | Grootboekrekening waarop omzet tijdelijk staat totdat toekenning plaatsvindt | zichtbaar als Periodetoekenning toepassen aan | nieuw |
+| Te factureren abonnementen omzet | text (zoekvenster grootboekrekening) | ja (als Periodetoekenning toepassen aan) | leeg | Grootboekrekening die tegengeboekt wordt bij het factureren. | zichtbaar als Periodetoekenning toepassen aan | nieuw |
 
 ---
 
@@ -1157,18 +1180,31 @@ Geen apart recht vereist — zichtbaar voor iedereen met toegang tot het abonnem
 | --- | --- | --- | --- |
 | Periodetoekenning toepassen | Boolean | Nee | Rekent verwachte abonnementsomzet toe aan een periode vóór de periodeafsluiting, ook als de factuur er nog niet is. Als dit vinkje uit staat, is de volledige periodetoekenningsfunctionaliteit verborgen. |
 | Te factureren abonnementen omzet | Grootboekrekening (FK) | Leeg | Te factureren abonnementen omzet — balansrekening waarop omzet tijdelijk staat. Centraal ingesteld voor alle artikelgroepen. Verplicht zodra Periodetoekenning toepassen aan staat. |
+| Factuurmoment | Keuzelijst (Aantal dagen voor begindatumcyclus, Aantal dagen na begindatumcyclus, Aantal dagen voor einddatumcyclus, Aantal dagen na einddatumcyclus, Midden van de factuurperiode) | Aantal dagen voor begindatumcyclus | Systeemstandaard factuurmoment voor nieuwe abonnementen. Geldt als het verkooprelatieprofiel geen afwijkende waarde heeft. |
+| Aantal dagen | Geheel getal | 0 | Systeemstandaard aantal dagen verschuiving voor nieuwe abonnementen. Alleen van toepassing als Factuurmoment niet Midden van de factuurperiode is. |
 
-**Traceability:** US08.
+**Traceability:** US07, US08.
 
 ### 3.3 Uitbreiding bestaande tabel: Abonnement
 
 | Instelling | Type | Default | Omschrijving |
 | --- | --- | --- | --- |
-| Factuurmoment | Keuzelijst (Aantal dagen voor begindatumcyclus, Aantal dagen na begindatumcyclus, Aantal dagen voor einddatumcyclus, Aantal dagen na einddatumcyclus, Midden van de factuurperiode) | Aantal dagen voor begindatumcyclus | Factuurmoment — bepaalt wanneer de factuur wordt aangemaakt ten opzichte van de cyclus. Bestaande abonnementen krijgen automatisch de waarde Aantal dagen voor begindatumcyclus. |
+| Factuurmoment | Keuzelijst (Aantal dagen voor begindatumcyclus, Aantal dagen na begindatumcyclus, Aantal dagen voor einddatumcyclus, Aantal dagen na einddatumcyclus, Midden van de factuurperiode) | Aantal dagen voor begindatumcyclus | Factuurmoment — bepaalt wanneer de factuur wordt aangemaakt ten opzichte van de cyclus. Bestaande abonnementen krijgen automatisch de waarde Aantal dagen voor begindatumcyclus. Bij nieuw aanmaken overgenomen van het verkooprelatieprofiel (indien gevuld), anders van de omgevingsinstelling. |
 
 **Conversie:** alle bestaande abonnementen krijgen de waarde Aantal dagen voor begindatumcyclus. Het bestaande veld Aantal dagen vooraf wordt hernoemd naar Aantal dagen. Het veld Dagen achteraf vervalt.
 
 **Traceability:** US07, US08.
+
+### 3.4a Uitbreiding bestaande tabel: Verkooprelatieprofiel
+
+| Instelling | Type | Default | Omschrijving |
+| --- | --- | --- | --- |
+| Factuurmoment | Keuzelijst (Aantal dagen voor begindatumcyclus, Aantal dagen na begindatumcyclus, Aantal dagen voor einddatumcyclus, Aantal dagen na einddatumcyclus, Midden van de factuurperiode) | Leeg | Standaard factuurmoment voor nieuwe abonnementen van debiteuren met dit profiel. Leeg = omgevingsinstelling (Facturering/voorraad). |
+| Aantal dagen | Geheel getal | Leeg | Standaard aantal dagen verschuiving voor nieuwe abonnementen. Alleen van toepassing als Factuurmoment gevuld is en niet Midden van de factuurperiode. |
+
+**Overerving:** bij het aanmaken van een nieuw abonnement bepaalt het systeem het factuurmoment in deze volgorde: (1) verkooprelatieprofiel van de debiteur, (2) omgevingsinstelling op Facturering/voorraad. Na overname is er geen koppeling meer — wijzigingen op het verkooprelatieprofiel of de omgevingsinstelling werken niet door naar bestaande abonnementen.
+
+**Traceability:** US07.
 
 ### 3.4 Bestaande tabellen (geen wijziging)
 
@@ -1180,6 +1216,11 @@ Geen apart recht vereist — zichtbaar voor iedereen met toegang tot het abonnem
 
 ```mermaid
 erDiagram
+    Verkooprelatieprofiel {
+        int Id PK
+        string Factuurmoment "Factuurmoment (default, nullable)"
+        int AantalDagen "Aantal dagen (default, nullable)"
+    }
     Abonnement {
         int Id PK
         string Factuurmoment "Factuurmoment (5 waarden)"
@@ -1199,6 +1240,8 @@ erDiagram
     }
     InstellingenFactureringVoorraad["Instellingen Facturering/voorraad"] {
         int TeFacturerenAbonnementenOmzet FK "Te factureren abonnementen omzet"
+        string Factuurmoment "Factuurmoment (systeemstandaard)"
+        int AantalDagen "Aantal dagen (systeemstandaard)"
     }
     Toekenningsregel {
         int Id PK
@@ -1214,6 +1257,8 @@ erDiagram
     Abonnementsregel ||--o{ Toekenningsregel : "heeft toekenningsregels"
     Factuurregel ||--o{ Toekenningsregel : "gekoppeld na facturatie"
     Artikelgroep ||--o{ Abonnementsregel : "artikelgroep van regel"
+    Verkooprelatieprofiel ||--o{ Abonnement : "default factuurmoment"
+    InstellingenFactureringVoorraad ||--|| Abonnement : "systeemstandaard factuurmoment"
 ```
 
 ### 3.6 Boekingsstromen
@@ -1397,6 +1442,11 @@ De levenscyclus is beschreven in de SOLL-tabel hierboven. Samengevat:
 | T29 | Bestaand abonnement na conversie | Factuurmoment is Aantal dagen voor begindatumcyclus; gedrag ongewijzigd | US07 |
 | T35 | Aantal dagen na begindatumcyclus met waarde groter dan cyclusdagen | Foutmelding: waarde mag niet groter zijn dan cyclus | US07 |
 | T36 | Aantal dagen voor einddatumcyclus met waarde groter dan cyclusdagen | Foutmelding: waarde mag niet groter zijn dan cyclus | US07 |
+| T40 | Nieuw abonnement bij debiteur met factuurmoment op verkooprelatieprofiel | Factuurmoment en Aantal dagen overgenomen van verkooprelatieprofiel | US07, B46 |
+| T41 | Nieuw abonnement bij debiteur zonder factuurmoment op verkooprelatieprofiel | Factuurmoment en Aantal dagen overgenomen van omgevingsinstelling | US07, B46 |
+| T42 | Wijzig factuurmoment op verkooprelatieprofiel na aanmaken abonnement | Bestaand abonnement ongewijzigd | US07, B46 |
+| T43 | Nieuw abonnement: overerfd factuurmoment handmatig wijzigen | Gewijzigde waarde opgeslagen, niet meer gekoppeld aan verkooprelatieprofiel of omgevingsinstelling | US07, B46 |
+| T44 | Wijzig factuurmoment op omgevingsinstelling na aanmaken abonnement | Bestaand abonnement ongewijzigd; nieuw abonnement zonder profielinstelling krijgt nieuwe systeemstandaard | US07, B46 |
 | T18 | Jaaroverschrijding (Q4 + Q1) | Aparte toekenningsregels per boekjaar/periode | US01 |
 | T19 | Terugdraaien één periode bij jaaroverschrijding | Alleen die periode teruggedraaid, andere ongewijzigd | US02 |
 | T20 | Saldoverklaring: alle componenten opgeteld | Som (gefactureerd − toegerekend + teruggedraaid + handmatig) = grootboeksaldo | US06 |
@@ -1458,7 +1508,8 @@ Geen open punten.
 | B22 | Volgorde in het maandafsluitingsproces: (1) Facturatieverwerking, (2) Periodetoekenning genereren (inclusief journaliseren), (3) Periode afsluiten. |
 | B23 | RPT00692 en RPT00702 werken onafhankelijk. 692 boekt omzet, 702 verschuift de balansboeking. Geen samenlooprisico. |
 | B24 | Periodetoekenning vereist het Periodeafsluitingsplan. Zonder Periodeafsluitingsplan is periodetoekenning niet beschikbaar. |
-| B27 | Factuurmoment is een nieuw veld op het abonnement met vijf waarden: Aantal dagen voor begindatumcyclus, Aantal dagen na begindatumcyclus, Aantal dagen voor einddatumcyclus, Aantal dagen na einddatumcyclus, Midden van de factuurperiode. Standaard: Aantal dagen voor begindatumcyclus. Bestaande abonnementen krijgen deze waarde via conversie. Het veld is altijd zichtbaar op het abonnement. |
+| B27 | Factuurmoment is een nieuw veld op het abonnement met vijf waarden: Aantal dagen voor begindatumcyclus, Aantal dagen na begindatumcyclus, Aantal dagen voor einddatumcyclus, Aantal dagen na einddatumcyclus, Midden van de factuurperiode. Standaard: Aantal dagen voor begindatumcyclus. Bestaande abonnementen krijgen deze waarde via conversie. Het veld is altijd zichtbaar op het abonnement. Bij het aanmaken van een nieuw abonnement wordt de waarde overgenomen van het verkooprelatieprofiel (indien gevuld), anders van de omgevingsinstelling (Facturering/voorraad). |
+| B46 | Factuurmoment en Aantal dagen zijn instelbaar op drie niveaus: omgevingsinstelling (Facturering/voorraad, systeemstandaard), verkooprelatieprofiel (default per profiel, nullable) en abonnement (definitieve waarde). Bij het aanmaken van een nieuw abonnement neemt het systeem het factuurmoment over van het verkooprelatieprofiel als dat gevuld is, anders van de omgevingsinstelling. Na overname is er geen koppeling meer: wijzigingen op het verkooprelatieprofiel of de omgevingsinstelling werken niet door naar bestaande abonnementen. |
 | B28 | Het bestaande veld Aantal dagen vooraf wordt hernoemd naar Aantal dagen. Dit veld is altijd zichtbaar in de boekingslay-out. |
 | B29 | Het veld DaysAfter (Aantal dagen achteraf) vervalt. De richting en referentiedatum zitten nu in het factuurmoment. |
 | B31 | Bij factuurmoment Aantal dagen na begindatumcyclus mag het veld Aantal dagen niet groter zijn dan het aantal dagen van de cyclus. Dit voorkomt dat het factuurmoment na de einddatum van de cyclus valt. |
@@ -1595,6 +1646,9 @@ Deze bijlage bevat alle taken die de developer moet uitvoeren. De taken zijn geg
 | D11 | Valideer: grootboekrekening alleen type Activa of Passiva | B13 | Foutmelding bij ander type |
 | D12 | Valideer: Aantal dagen ≤ cyclusdagen bij factuurmoment Aantal dagen na begindatumcyclus | B31, T35 | Foutmelding bij opslaan |
 | D13 | Valideer: Aantal dagen ≤ cyclusdagen bij factuurmoment Aantal dagen voor einddatumcyclus | B32, T36 | Foutmelding bij opslaan |
+| D56 | Voeg velden Factuurmoment en Aantal dagen toe op verkooprelatieprofiel | §3.4a, B46 | Keuzelijst (nullable) en geheel getal (nullable). Zichtbaar op het verkooprelatieprofiel. |
+| D57 | Bouw overervingslogica: bepaal Factuurmoment bij nieuw abonnement | B46, T40–T44 | Volgorde: (1) verkooprelatieprofiel van de debiteur, (2) omgevingsinstelling Facturering/voorraad. Wijzigingen werken niet door naar bestaande abonnementen. |
+| D58 | Voeg velden Factuurmoment en Aantal dagen toe op omgevingsinstelling Facturering/voorraad | §3.2, B46 | Systeemstandaard. Default: Aantal dagen voor begindatumcyclus. Toon op tabblad Abonnementen, veldgroep Factuurmoment. |
 
 ### F3 – Genereer-logica (US01)
 

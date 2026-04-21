@@ -68,21 +68,19 @@ export default function (services: BlueprintFactories): DetailPage {
                 itemNamePlural: 'toekenningsregels'
               },
               columns: [
-                { key: 'verkooprelatie', header: 'Verkooprelatie', dataType: dataType.text(), sortable: true },
-                { key: 'verkooprelatienr', header: 'Verkooprelatienr.', dataType: dataType.number({ digitGrouping: false }), sortable: true },
-                { key: 'abonnementsnr', header: 'Abonnementsnr.', dataType: dataType.number({ digitGrouping: false }), sortable: true },
-                { key: 'soort', header: 'Soort', dataType: dataType.text(), sortable: true },
+                { key: 'abonnementsregel', header: 'Abonnementsregel', dataType: dataType.text(), sortable: true },
                 { key: 'item', header: 'Item', dataType: dataType.text(), sortable: true },
-                { key: 'begin', header: 'Begin', dataType: dataType.date(), sortable: true },
-                { key: 'eind', header: 'Eind', dataType: dataType.date(), sortable: true },
-                { key: 'cyclus', header: 'Cyclus', dataType: dataType.text(), sortable: true },
-                { key: 'aantal', header: 'Aantal', dataType: dataType.number({ digitGrouping: false }), sortable: true },
-                { key: 'orgPrijs', header: 'Bedrag', dataType: dataType.currencyAmount(), sortable: true },
+                { key: 'boekjaar', header: 'Boekjaar', dataType: dataType.number({ digitGrouping: false }), sortable: true },
+                { key: 'periode', header: 'Periode', dataType: dataType.number({ digitGrouping: false }), sortable: true },
+                { key: 'bedrag', header: 'Bedrag', dataType: dataType.currencyAmount(), sortable: true },
+                { key: 'status', header: 'Status', dataType: dataType.text(), sortable: true },
+                { key: 'aangemaakt', header: 'Aangemaakt op', dataType: dataType.date(), sortable: true },
+                { key: 'aanmakerNaam', header: 'Aangemaakt door', dataType: dataType.text(), sortable: true },
               ],
               actions: [],
               itemsLoader: rest.createItemsLoader({
                 url: '/api/rpt00692-abonnement-eigenschappen/toekenningsregels',
-                idFieldKeys: ['abonnementsnr']
+                idFieldKeys: ['abonnementsregel', 'boekjaar', 'periode']
               })
             } as any
           ]

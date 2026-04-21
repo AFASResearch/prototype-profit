@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": [
+      "ES2022",
+      "DOM"
+    ],
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "rootDir": "./pages",
+    "paths": {
+      "@afas/*": [
+        "./node_modules/@afassoftware/podium-js/dist/types/*"
+      ]
+    },
+    "declaration": false,
+    "sourceMap": false,
+    "outDir": "./wwwroot/pages",
+    "noEmitHelpers": true,
+    "noEmitOnError": false,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "strictFunctionTypes": false,
+    "skipLibCheck": true
+  },
+  "include": [
+    "pages/**/*.ts"
+  ]
+}

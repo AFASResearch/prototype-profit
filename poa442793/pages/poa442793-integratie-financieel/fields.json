@@ -1,0 +1,34 @@
+{
+  "page": "poa442793-integratie-financieel",
+  "type": "detail",
+  "title": "Integratie financieel",
+  "sections": [
+    {
+      "id": "integratie",
+      "name": "Integratie",
+      "fieldGroups": [
+        {
+          "title": "Onderhanden werk",
+          "fields": [
+            { "property": "OhwIntegratieGebruiken", "label": "OHW-integratie gebruiken", "dataType": "yesNo", "status": "bestaand" },
+            { "property": "OhwSplitsen", "label": "OHW splitsen", "dataType": "yesNo", "status": "bestaand" },
+            { "property": "DekkingOpbrengstSplitsen", "label": "Dekking opbrengst splitsen", "dataType": "yesNo", "status": "bestaand" },
+            { "property": "DekkingInhuurDerdenSplitsen", "label": "Dekking inhuur derden splitsen", "dataType": "yesNo", "status": "nieuw" },
+            { "property": "ResultaatSplitsen", "label": "Resultaat splitsen", "dataType": "yesNo", "status": "bestaand" },
+            { "property": "MethodeAfmelding", "label": "Methode afmelding", "dataType": "keuzelijst", "status": "bestaand" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "grondslagen-1",
+      "name": "Grondslagen 1",
+      "type": "view"
+    },
+    {
+      "id": "grondslagen-2",
+      "name": "Grondslagen 2",
+      "type": "view"
+    }
+  ]
+}
