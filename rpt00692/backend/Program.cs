@@ -183,6 +183,7 @@ app.MapGet("/api/rpt00692-boekingslayout-abonnement", () => new {
     AfwVerkoopprijs = (decimal?)null,
     Verkoopbedrag = 312.00m
 });
+
 app.MapPatch("/api/rpt00692-boekingslayout-abonnement", () => Results.Ok());
 
 app.MapGet("/api/rpt00692-boekingslayout-abonnement/regels", () => new[] {
