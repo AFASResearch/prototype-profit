@@ -1,0 +1,100 @@
+{
+  "page": "rpt00751-integratiegroep",
+  "type": "detail",
+  "title": "Integratiegroep",
+  "projectFolder": "Lopende/rpt00751-integratierekening-inhuur-derden",
+  "sections": [
+    {
+      "id": "algemeen",
+      "name": "Algemeen",
+      "fieldGroups": [
+        {
+          "title": "Algemeen",
+          "fields": [
+            { "property": "Omschrijving", "label": "Omschrijving", "dataType": "text", "status": "bestaand" },
+            { "property": "Opslagpercentage", "label": "Opslagpercentage", "dataType": "text", "status": "bestaand" },
+            { "property": "Factuursjabloon", "label": "Factuursjabloon", "dataType": "text", "status": "bestaand" },
+            { "property": "Confrontatie", "label": "Confrontatie", "dataType": "text", "status": "bestaand" }
+          ]
+        },
+        {
+          "title": "Integratie",
+          "fields": [
+            { "property": "RekKostprijs", "label": "Rek. kostprijs", "dataType": "text", "status": "bestaand" },
+            { "property": "RekDekkingKp", "label": "Rek. dekking kp", "dataType": "text", "status": "bestaand" },
+            { "property": "RekInkoop", "label": "Rek. inkoop", "dataType": "text", "status": "bestaand" },
+            { "property": "RekVerkoop", "label": "Rek. verkoop", "dataType": "text", "status": "bestaand" },
+            { "property": "RekConfrontatie", "label": "Rek. confrontatie", "dataType": "text", "status": "bestaand" },
+            { "property": "RekDekkingKpInkopen", "label": "Rek. dekking kp inkopen", "dataType": "text", "mandatory": false, "locked": false, "active": "DekkingInhuurDerdenSplitsen = Ja", "tooltip": "Rekening voor dekking kostprijs bij nacalculatieregels met \"inkopen\" (inhuur derden)", "status": "nieuw", "defaultValue": null }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "integratie-btw-plicht",
+      "name": "Integratie BTW-plicht",
+      "fieldGroups": [
+        {
+          "title": "Verlegd binnenland",
+          "fields": [
+            { "property": "BtwVerlegdBinnRekInkoop", "label": "Rek. inkoop", "dataType": "text", "status": "bestaand" },
+            { "property": "BtwVerlegdBinnRekDekkingKp", "label": "Rek. dekking kp", "dataType": "text", "status": "bestaand" }
+          ]
+        },
+        {
+          "title": "Verlegd binnen EU",
+          "fields": [
+            { "property": "BtwVerlegdEuRekInkoop", "label": "Rek. inkoop", "dataType": "text", "status": "bestaand" },
+            { "property": "BtwVerlegdEuRekDekkingKp", "label": "Rek. dekking kp", "dataType": "text", "status": "bestaand" }
+          ]
+        },
+        {
+          "title": "Buiten EU",
+          "fields": [
+            { "property": "BtwBuitenEuRekInkoop", "label": "Rek. inkoop", "dataType": "text", "status": "bestaand" },
+            { "property": "BtwBuitenEuRekDekkingKp", "label": "Rek. dekking kp", "dataType": "text", "status": "bestaand" }
+          ]
+        },
+        {
+          "title": "BTW plichtig binnen EU",
+          "fields": [
+            { "property": "BtwPlichtigEuRekInkoop", "label": "Rek. inkoop", "dataType": "text", "status": "bestaand" },
+            { "property": "BtwPlichtigEuRekDekkingKp", "label": "Rek. dekking kp", "dataType": "text", "status": "bestaand" }
+          ]
+        },
+        {
+          "title": "Overig",
+          "fields": [
+            { "property": "BtwOverigRekInkoop", "label": "Rek. inkoop", "dataType": "text", "status": "bestaand" },
+            { "property": "BtwOverigRekDekkingKp", "label": "Rek. dekking kp", "dataType": "text", "status": "bestaand" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "werksoort",
+      "name": "Werksoort",
+      "type": "view"
+    },
+    {
+      "id": "kosten",
+      "name": "Kosten",
+      "type": "view"
+    },
+    {
+      "id": "integratie-intercompany",
+      "name": "Integratie intercompany",
+      "fieldGroups": [
+        {
+          "title": "Integratie intercompany",
+          "fields": [
+            { "property": "RekKostprijsIC", "label": "Rek. kostprijs IC", "dataType": "text", "status": "bestaand" },
+            { "property": "RekDekkingKpIC", "label": "Rek. dekking kp IC", "dataType": "text", "status": "bestaand" },
+            { "property": "RekVerkoopIC", "label": "Rek. verkoop IC", "dataType": "text", "status": "bestaand" },
+            { "property": "RekDekkingKpInkopenIC", "label": "Rek. dekking kp inkopen IC", "dataType": "text", "mandatory": false, "locked": false, "active": "DekkingInhuurDerdenSplitsen = Ja", "tooltip": "Rekening voor dekking kostprijs bij intercompany nacalculatieregels met \"inkopen\"", "status": "nieuw", "defaultValue": null }
+          ]
+        }
+      ]
+    }
+  ]
+}
