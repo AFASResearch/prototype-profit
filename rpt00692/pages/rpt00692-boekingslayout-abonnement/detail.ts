@@ -3,13 +3,15 @@ import type { DetailPage } from '@afas/blueprint/interfaces/detail-page';
 
 export default function (services: BlueprintFactories): DetailPage {
   let {
-    data: { dataType, createModel, createProperty, constant },
+    data: { dataType, createModel, createProperty, constant, createExpression },
     rest
   } = services;
 
   let mainModel = createModel({
     properties: {
       Id: createProperty(dataType.text()),
+
+      // --- Boekingslay-out ---
       Verkooprelatie: createProperty(dataType.text()),
       FactuurNaarAfwijkende: createProperty(dataType.yesNo()),
       Contactpersoon: createProperty(dataType.text()),
@@ -21,16 +23,8 @@ export default function (services: BlueprintFactories): DetailPage {
       Administratie: createProperty(dataType.text()),
       BegindatumCyclus: createProperty(dataType.date()),
       EinddatumCyclus: createProperty(dataType.date()),
-      Factuurmoment: createProperty(dataType.enumeration({
-        options: [
-          { key: '1', name: 'Aantal dagen voor begindatumcyclus' },
-          { key: '2', name: 'Aantal dagen na begindatumcyclus' },
-          { key: '3', name: 'Aantal dagen voor einddatumcyclus' },
-          { key: '4', name: 'Aantal dagen na einddatumcyclus' },
-          { key: '5', name: 'Midden van de factuurperiode' },
-        ]
-      })),
-      AantalDagen: createProperty(dataType.number({ digitGrouping: false })),
+      Factuurmoment: createProperty(dataType.enumeration({ options: [{ key: '1', name: 'Aantal dagen voor begindatumcyclus' }, { key: '2', name: 'Aantal dagen na begindatumcyclus' }, { key: '3', name: 'Aantal dagen voor einddatumcyclus' }, { key: '4', name: 'Aantal dagen na einddatumcyclus' }, { key: '5', name: 'Midden van de factuurperiode' }] })), // nieuw
+      AantalDagen: createProperty(dataType.number({ digitGrouping: false })), // nieuw
       ItemcodeVerkoop: createProperty(dataType.text()),
       KortingPercentageVerkoop: createProperty(dataType.percentage()),
       OrgVerkoopprijs: createProperty(dataType.currencyAmount()),
@@ -44,7 +38,9 @@ export default function (services: BlueprintFactories): DetailPage {
   mainModel.properties.BegindatumAbonnement.config.makeMandatory();
   mainModel.properties.BegindatumCyclus.config.makeMandatory();
   mainModel.properties.Factuurmoment.config.makeMandatory();
-
+  mainModel.properties.AantalDagen.config.active = createExpression(
+    [mainModel.properties.Factuurmoment], (v) => v !== '5'
+  );
   mainModel.properties.ItemcodeVerkoop.config.locked = constant(true);
   mainModel.properties.KortingPercentageVerkoop.config.locked = constant(true);
   mainModel.properties.OrgVerkoopprijs.config.locked = constant(true);
@@ -55,13 +51,13 @@ export default function (services: BlueprintFactories): DetailPage {
   return {
     id: 'rpt00692-boekingslayout-abonnement',
     type: 'detail',
-    title: constant('Abonnement – Boekingslay-out'),
+    title: constant('Abonnement'),
     blueprint: ({
       hideTableOfContents: true,
       sections: [
         {
           id: 'boekingslayout',
-          sectionName: '',
+          sectionName: 'Abonnement',
           isEditable: constant(true),
           elements: [
             {
@@ -91,8 +87,10 @@ export default function (services: BlueprintFactories): DetailPage {
               type: 'fieldGroup',
               title: 'Factuurmoment',
               fields: [
-                { labelText: constant('Factuurmoment'), property: mainModel.properties.Factuurmoment, getMicroCopyText() { return 'Bepaalt wanneer de factuur wordt aangemaakt ten opzichte van de cyclus.'; } } as any,
-                { labelText: constant('Aantal dagen'), property: mainModel.properties.AantalDagen, getMicroCopyText() { return 'Aantal dagen verschuiving ten opzichte van de gekozen referentiedatum.'; } } as any,
+                { labelText: constant('Factuurmoment'), property: mainModel.properties.Factuurmoment,
+                  getMicroCopyText() { return 'Bepaalt wanneer de factuur wordt aangemaakt ten opzichte van de cyclus.'; } } as any,
+                { labelText: constant('Aantal dagen'), property: mainModel.properties.AantalDagen,
+                  getMicroCopyText() { return 'Aantal dagen verschuiving ten opzichte van de gekozen referentiedatum.'; } } as any,
               ]
             },
             ({
@@ -127,9 +125,9 @@ export default function (services: BlueprintFactories): DetailPage {
                 { labelText: constant('Afw. verkoopprijs'), property: mainModel.properties.AfwVerkoopprijs },
                 { labelText: constant('Verkoopbedrag'), property: mainModel.properties.Verkoopbedrag },
               ]
-            }
+            },
           ]
-        }
+        },
       ]
     }) as any,
     models: {
@@ -151,4 +149,3 @@ export default function (services: BlueprintFactories): DetailPage {
     }
   };
 }
-

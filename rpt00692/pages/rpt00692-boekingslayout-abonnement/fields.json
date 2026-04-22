@@ -1,0 +1,182 @@
+{
+  "page": "rpt00692-boekingslayout-abonnement",
+  "type": "detail",
+  "title": "Abonnement",
+  "sections": [
+    {
+      "id": "boekingslayout",
+      "name": "Abonnement",
+      "fieldGroups": [
+        {
+          "title": "Algemeen",
+          "fields": [
+            {
+              "property": "Verkooprelatie",
+              "label": "Verkooprelatie",
+              "dataType": "text",
+              "status": "bestaand",
+              "mandatory": true
+            },
+            {
+              "property": "FactuurNaarAfwijkende",
+              "label": "Factuur naar afwijkende",
+              "dataType": "yesNo",
+              "status": "bestaand"
+            },
+            {
+              "property": "Contactpersoon",
+              "label": "Contactpersoon",
+              "dataType": "text",
+              "status": "bestaand"
+            },
+            {
+              "property": "Betaalvoorwaarde",
+              "label": "Betaalvoorwaarde",
+              "dataType": "text",
+              "status": "bestaand"
+            },
+            {
+              "property": "BegindatumAbonnement",
+              "label": "Begindatum abonnement",
+              "dataType": "date",
+              "status": "bestaand",
+              "mandatory": true
+            },
+            {
+              "property": "Project",
+              "label": "Project",
+              "dataType": "text",
+              "status": "bestaand"
+            },
+            {
+              "property": "Projectfase",
+              "label": "Projectfase",
+              "dataType": "text",
+              "status": "bestaand"
+            },
+            {
+              "property": "UitsluitenVerzamelfactuur",
+              "label": "Uitsluiten verzamelfactuur",
+              "dataType": "yesNo",
+              "status": "bestaand"
+            },
+            {
+              "property": "Administratie",
+              "label": "Administratie",
+              "dataType": "text",
+              "status": "bestaand"
+            }
+          ]
+        },
+        {
+          "title": "Cyclus",
+          "fields": [
+            {
+              "property": "BegindatumCyclus",
+              "label": "Begindatum cyclus",
+              "dataType": "date",
+              "status": "bestaand",
+              "mandatory": true
+            },
+            {
+              "property": "EinddatumCyclus",
+              "label": "Einddatum cyclus",
+              "dataType": "date",
+              "status": "bestaand"
+            }
+          ]
+        },
+        {
+          "title": "Factuurmoment",
+          "fields": [
+            {
+              "property": "Factuurmoment",
+              "label": "Factuurmoment",
+              "dataType": "enumeration",
+              "status": "nieuw",
+              "mandatory": true,
+              "tooltip": "Bepaalt wanneer de factuur wordt aangemaakt ten opzichte van de cyclus.",
+              "choiceValues": [
+                {
+                  "key": "1",
+                  "name": "Aantal dagen voor begindatumcyclus"
+                },
+                {
+                  "key": "2",
+                  "name": "Aantal dagen na begindatumcyclus"
+                },
+                {
+                  "key": "3",
+                  "name": "Aantal dagen voor einddatumcyclus"
+                },
+                {
+                  "key": "4",
+                  "name": "Aantal dagen na einddatumcyclus"
+                },
+                {
+                  "key": "5",
+                  "name": "Midden van de factuurperiode"
+                }
+              ]
+            },
+            {
+              "property": "AantalDagen",
+              "label": "Aantal dagen",
+              "dataType": "number",
+              "status": "nieuw",
+              "tooltip": "Aantal dagen verschuiving ten opzichte van de gekozen referentiedatum.",
+              "active": "Factuurmoment !== Midden van de factuurperiode"
+            }
+          ]
+        },
+        {
+          "title": "Verkoop",
+          "fields": [
+            {
+              "property": "ItemcodeVerkoop",
+              "label": "Itemcode verkoop",
+              "dataType": "text",
+              "status": "bestaand",
+              "locked": true
+            },
+            {
+              "property": "KortingPercentageVerkoop",
+              "label": "Korting %",
+              "dataType": "percentage",
+              "status": "bestaand",
+              "locked": true
+            },
+            {
+              "property": "OrgVerkoopprijs",
+              "label": "Org. verkoopprijs",
+              "dataType": "currencyAmount",
+              "status": "bestaand",
+              "locked": true
+            },
+            {
+              "property": "KortingsbedragVerkoop",
+              "label": "Kortingsbedrag",
+              "dataType": "currencyAmount",
+              "status": "bestaand",
+              "locked": true
+            },
+            {
+              "property": "AfwVerkoopprijs",
+              "label": "Afw. verkoopprijs",
+              "dataType": "currencyAmount",
+              "status": "bestaand",
+              "locked": true
+            },
+            {
+              "property": "Verkoopbedrag",
+              "label": "Verkoopbedrag",
+              "dataType": "currencyAmount",
+              "status": "bestaand",
+              "locked": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

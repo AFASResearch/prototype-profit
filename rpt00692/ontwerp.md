@@ -3,8 +3,8 @@
 | <br> | <br> |
 | --- | --- |
 | **Project** | RPT00692 |
-| **Versie** | 0029 |
-| **Datum** | 21-04-2026 |
+| **Versie** | 0031 |
+| **Datum** | 22-04-2026 |
 | **Status** | Concept |
 | **Module** | Financial Basic – Abonnementen |
 | **Gepland voor** | P08/09 |
@@ -17,6 +17,8 @@
 
 | Versie | Datum | Auteur | Wijziging |
 | --- | --- | --- | --- |
+| 0031 | 22-04-2026 | Eric Zaal | Brainstorm Facilicom 22-04 verwerkt: US10 geplande taak periodetoekenning genereren toegevoegd. Open punten O1 (handmatig boeken verbieden) en O2 (startsaldo bij live-gang) genoteerd. Afbakening, testscenario's T51–T53, work items D59–D60 en Definition of Done bijgewerkt. |
+| 0030 | 22-04-2026 | Eric Zaal | US04 herschreven: onderscheid beëindigen en crediteren. Crediteren is optioneel na einddatum, vereist verstuurde facturen en moet binnen de laatst gefactureerde periode vallen. Bij creditering met periodetoekenning draait US04 toekenningen niet terug (B49); de credit + Genereer handelen de correctie af. Vier voorbeelden (A–D) voor alle combinaties. B47–B50 en T45–T50 toegevoegd. |
 | 0029 | 21-04-2026 | Eric Zaal | Factuurmoment instelbaar op omgevingsinstelling (Facturering/voorraad) als systeemstandaard en op verkooprelatieprofiel als default per profiel. Overerving: omgevingsinstelling → verkooprelatieprofiel → abonnement. §3.2, §3.4a, US07, B27, B46, T40–T43, D56–D57 en Definition of Done bijgewerkt. |
 | 0028 | 21-04-2026 | Eric Zaal | Activering Periodetoekenning toepassen toegevoegd op Facturering/voorraad (tabblad Abonnementen, veldgroep Periodetoekenning). Vinkje is alleen zichtbaar als de module Abonnementen actief is. Staat het vinkje uit, dan is de volledige periodetoekenningsfunctionaliteit verborgen: tabblad op Periodeafsluitingsplan, menu-items, KPI's en tabbladen op Eigenschappen abonnement. US08, §3.2, B1, B44, T37–T39, D55 en Definition of Done bijgewerkt. |
 | 0027 | 21-04-2026 | Eric Zaal | US06 herschreven: rapport verklaart het volledige saldo op de tussenrekening, inclusief handmatige boekingen. User story, Podium-specificatie, §4.2 en testscenario's T20/T21 bijgewerkt. |
@@ -184,6 +186,10 @@ Bij de facturatieverwerking bepaalt het bestaan van een toekenningsregel de groo
 - Facturatielogica: bestaan van een toekenningsrecord bepaalt tussenrekening vs. omzetrekening
 - Nieuw tabblad Periodetoekenningsregels op Eigenschappen abonnement — weergave met toekenningsregels per abonnement
 
+**Geplande taak**
+
+- Geplande taak die Genereer automatisch uitvoert voor alle toekenbare regels van de gekozen periode. Geschikt voor organisaties die periodetoekenning elke periode willen automatiseren.
+
 ### 1.5 Begrippen
 
 | Term | Betekenis |
@@ -198,6 +204,7 @@ Bij de facturatieverwerking bepaalt het bestaan van een toekenningsregel de groo
 | Te factureren abonnementen omzet | Balansrekening waarop omzet tijdelijk staat totdat toekenning plaatsvindt. Wordt ingesteld op Facturering/voorraad (tabblad Abonnementen, veldgroep Periodetoekenning). |
 | Netto-saldo | Som van alle toekenningsregels per abonnementsregel (gejournaliseerd + tegengeboekt) |
 | Geparkeerd abonnement | Abonnement dat tijdelijk niet gefactureerd wordt, bijvoorbeeld omdat een indexering nog niet vaststaat. Omzet over deze perioden kan via periodetoekenning worden toegerekend met het laatst bekende bedrag. |
+| Crediteren | Optioneel vinkje op de abonnementsregel na het invullen van een einddatum. Maakt creditfactuurregels aan bij de volgende facturatieverwerking. Vereist verstuurde facturen. Crediteren vanaf moet binnen de laatst gefactureerde periode vallen. |
 
 ### 1.6 Bijlagen
 
@@ -227,6 +234,7 @@ Bij de facturatieverwerking bepaalt het bestaan van een toekenningsregel de groo
 | US07 | Instelling factuurmoment op abonnement | Nieuw veld Factuurmoment op abonnement met vijf waarden. Systeemstandaard op omgevingsinstelling (Facturering/voorraad). Default per profiel op verkooprelatieprofiel. |
 | US08 | Activering periodetoekenning en instelling grootboekrekening | Activering via vinkje Periodetoekenning toepassen op Facturering/voorraad. Centrale instelling grootboekrekening, facturatielogica en samenloop transitorisch journaliseren |
 | US09 | Periodetoekenningsregels op Eigenschappen abonnement | Weergave met toekenningsregels per abonnement op een nieuw tabblad onder Facturen |
+| US10 | Geplande taak periodetoekenning genereren | Automatisch genereren van periodetoekenningsregels via een geplande taak |
 
 ---
 
@@ -303,7 +311,11 @@ Het bedrag per toekenningsregel volgt dezelfde verdelingslogica als transitorisc
 
 **Creditfacturen**
 
-Creditfacturen lopen gewoon mee. Een creditfactuurregel heeft een negatief bedrag, dus Genereer maakt een toekenningsregel met dat negatieve bedrag. De journalisering corrigeert automatisch het saldo op Te factureren abonnementen omzet — geen aparte actie nodig.
+Creditfacturen lopen mee in de periodetoekenning. Een creditfactuurregel heeft een negatief bedrag. Crediteren op een abonnementsregel is optioneel na het invullen van een einddatum en vereist verstuurde facturen (B47, B48).
+
+Bij de volgende Genereer vergelijkt het systeem het verwachte bedrag (inclusief de credit) met het netto-saldo van de toekenningsregels. Genereer maakt een negatieve toekenningsregel per gecrediteerd tijdvak. Die corrigeert het saldo op Te factureren abonnementen omzet — geen aparte actie nodig.
+
+Zonder periodetoekenning gaat de creditfactuur direct naar de omzetrekening (B33, B50). Zie US04 voor de volledige uitwerking en voorbeelden.
 
 **Foutafhandeling**
 
@@ -616,70 +628,107 @@ Geen apart recht vereist — toegang volgt het Periodeafsluitingsplan.
 
 #### Functionele uitwerking
 
-Bij de facturatieverwerking (het factuurmoment) controleert het systeem of een abonnementsregel een einddatum heeft. Zo ja, dan detecteert het gejournaliseerde toekenningsregels voor toekomstige perioden (ná de beëindigingsdatum). Per gevonden record maakt het een tegenboeking aan — zonder dat je iets hoeft te doen.
+**Context: beëindigen en crediteren**
 
-Is de toekomstige periode al gesloten? Dan boekt het systeem de tegenjournaalpost in de eerstvolgende vrije periode. Dit mechanisme is altijd actief.
+In Profit zijn beëindigen en crediteren twee aparte stappen:
+
+1. **Beëindigen** — je vult een einddatum in op de abonnementsregel. Het abonnement stopt na die datum.
+2. **Crediteren** — je vinkt optioneel Crediteren aan en vult Crediteren vanaf in. Profit maakt dan creditfactuurregels bij de volgende facturatieverwerking.
+
+Crediteren is optioneel. Niet elke beëindiging leidt tot een creditfactuur.
+
+Voorwaarden voor crediteren (B47, B48):
+- Er moeten verstuurde facturen bestaan voor de te crediteren periode.
+- Crediteren vanaf moet binnen de laatst gefactureerde periode vallen. Vul je een datum buiten die range in, dan verschijnt de foutmelding: "Je kunt alleen crediteren over de periode van [begindatum] t/m [einddatum]. Kies een andere datum."
+
+**Terugdraaien toekomstige toekenningen**
+
+Bij de facturatieverwerking controleert het systeem of een abonnementsregel een einddatum heeft. Zo ja, dan kijkt het naar gejournaliseerde toekenningsregels voor toekomstige perioden (ná de einddatum). Het systeem onderscheidt twee situaties:
+
+1. **Geen creditering voor die periode** — het systeem draait de toekenningsregel terug en boekt een tegenjournaalpost. Er komt geen creditfactuur die het saldo corrigeert.
+2. **Wel creditering voor die periode** — het systeem draait de toekenningsregel niet terug (B49). De creditfactuur en de toekenningslogica handelen de correctie af (zie hieronder).
+
+Is de toekomstige periode al gesloten en valt die niet onder creditering? Dan boekt het systeem de tegenjournaalpost in de eerstvolgende vrije periode.
+
+**Creditfactuur met periodetoekenning**
+
+Als crediteren actief is en er bestaat een toekenningsregel voor die periode:
+- De facturatielogica (B33) routeert de creditfactuur naar de tussenrekening. De toekenningsregel bestaat nog.
+- Bij de volgende Genereer vergelijkt het systeem het verwachte bedrag (nu lager door de credit) met het netto-saldo van de toekenningsregels. Het verschil is het creditbedrag.
+- Genereer maakt een negatieve toekenningsregel per gecrediteerd tijdvak. Die wordt direct gejournaliseerd.
+- De negatieve toekenningsregel corrigeert de omzet.
+
+**Creditfactuur zonder periodetoekenning**
+
+Als crediteren actief is maar er is geen toekenningsregel:
+- De facturatielogica (B33) routeert de creditfactuur naar de omzetrekening. De credit corrigeert de omzet direct.
+- Geen extra stap nodig.
 
 ```mermaid
 flowchart LR
     A["Facturatieverwerking\ndetecteert einddatum"] --> B{"Gejournaliseerde\ntoekenningen in\ntoekomstige perioden?"}
-    B -- Ja --> C["Tegenboekingen\naanmaken"]
     B -- Nee --> D["Geen actie"]
-    C --> E["Tegenjournaalposten\nboeken"]
-    E --> F["Grid toont\nresultaat"]
+    B -- Ja --> C{"Creditering\nactief voor\ndie periode?"}
+    C -- Nee --> E["Tegenboekingen\naanmaken"]
+    C -- Ja --> F["Niet terugdraaien\nCredit + Genereer\nhandelt het af"]
+    E --> G["Tegenjournaalposten\nboeken"]
 
     style A fill:#d1e7ff,stroke:#5b8cc9,color:#1f2937
-    style C fill:#f8d7da,stroke:#c95a6a,color:#1f2937
     style D fill:#e4f3ea,stroke:#4da476,color:#1f2937
+    style E fill:#f8d7da,stroke:#c95a6a,color:#1f2937
+    style F fill:#fff3cd,stroke:#c9a227,color:#1f2937
 ```
 
-#### Voorbeeld A – Creditering vanaf 1 januari (hele periode)
+#### Voorbeeld A – Beëindigen met creditering hele periode, met periodetoekenning
 
-Abonnementsregel: 100 per maand. Toekenning januari is Gejournaliseerd. Het abonnement wordt gecrediteerd vanaf 1 januari.
+Abonnementsregel: 100 per maand. De factuur voor januari is al verstuurd. Toekenning januari is Gejournaliseerd (+100). Het abonnement wordt beëindigd per 31 december. Crediteren is aangevinkt met Crediteren vanaf 1 januari.
 
-**Stap 1 — US04 draait januari terug (toekomstige periode):**
-Het systeem verwijdert de toekenningsregel voor januari en boekt een tegenjournaalpost.
+**Stap 1 — US04 bij facturatieverwerking:**
+Januari valt in de gecrediteerde periode. US04 draait de toekenning niet terug (B49). De toekenningsregel blijft staan.
 
-| Actie | Bedrag | Journaalpost |
+| Toekenningsregel | Bedrag | Status |
 | --- | --- | --- |
-| Origineel januari verwijderd | 100 | Debet Omzet / Credit Te factureren omzet |
-
-Netto-saldo toekenningsregels januari: **0** (geen toekenningsregel meer)
+| Origineel januari | 100 | Gejournaliseerd (ongewijzigd) |
 
 **Stap 2 — Profit maakt creditfactuurregel -100:**
-De creditfactuurregel van -100 corrigeert het saldo op Te factureren abonnementen omzet via de standaard facturatieflow. Het netto-saldo van de toekenningsregels is al 0. De Genereer-actie slaat deze factuurregel over omdat het netto-saldo al overeenkomt met het actuele factuurbedrag (0).
+De toekenningsregel bestaat → B33: creditfactuur naar tussenrekening.
+
+**Stap 3 — Genereer:**
+Verwacht bedrag = 0 (origineel 100 − credit 100). Netto-saldo toekenningen = 100. Delta = −100. Genereer maakt een negatieve toekenningsregel aan en journaliseert direct.
+
+| Toekenningsregel | Bedrag | Status | Journaalpost |
+| --- | --- | --- | --- |
+| Origineel januari | 100 | Gejournaliseerd | Debet Te factureren omzet / Credit Omzet |
+| Delta januari | -100 | Gejournaliseerd | Debet Omzet / Credit Te factureren omzet |
 
 **Eindsaldo januari:**
 
 | Rekening | Saldo |
 | --- | --- |
-| Te factureren abonnementen omzet | 0 |
-| Omzet | 0 |
+| Debiteuren | 0 (factuur 100 − credit 100) |
+| Te factureren abonnementen omzet | 0 (factuur 100 − credit 100 + toekenning 100 − toekenning 100) |
+| Omzet | 0 (toekenning 100 − delta 100) |
 
-> **Let op:** zonder deze uitsluiting bij Genereer zou een toekenningsregel van -100 worden aangemaakt. Het netto-saldo wordt dan -100. Dat is een dubbele correctie.
+> **Let op:** als US04 de toekenning wél zou terugdraaien, gaat de creditfactuur naar de omzetrekening (geen toekenningsregel meer, B33). De tussenrekening houdt dan een resterend saldo. Dat is een dubbele correctie.
 
 ---
 
-#### Voorbeeld B – Creditering vanaf 15 januari (halve periode)
+#### Voorbeeld B – Beëindigen met creditering halve periode, met periodetoekenning
 
-Abonnementsregel: 100 per maand. Toekenning januari is Gejournaliseerd. Het abonnement wordt beëindigd per 15 januari.
+Abonnementsregel: 100 per maand. Toekenning januari is Gejournaliseerd (+100). Het abonnement wordt beëindigd per 15 januari. Crediteren is aangevinkt met Crediteren vanaf 16 januari.
 
-**Stap 1 — US04 controleert toekomstige perioden:**
-Januari is de einddatumperiode, geen toekomstige periode. US04 draait januari niet terug. Februari en verder worden wél teruggedraaid (als daar gejournaliseerde toekenningsregels bestaan).
+**Stap 1 — US04 bij facturatieverwerking:**
+Januari is de einddatumperiode én valt in de gecrediteerde periode. US04 draait niet terug. Februari en verder worden wél teruggedraaid als daar toekenningen bestaan en die perioden niet gecrediteerd worden.
 
-| Toekenningsregel | Bedrag | Status | Journaalpost |
-| --- | --- | --- | --- |
-| Origineel januari | 100 | Gejournaliseerd | (ongewijzigd) |
+| Toekenningsregel | Bedrag | Status |
+| --- | --- | --- |
+| Origineel januari | 100 | Gejournaliseerd (ongewijzigd) |
 
 **Stap 2 — Profit maakt creditfactuurregel -50 (halve maand):**
-Bij de volgende Genereer vergelijkt het systeem het actuele factuurbedrag (100 - 50 = 50) met het netto-saldo van de toekenningsregels (100). Delta = -50.
+De toekenningsregel bestaat → B33: creditfactuur naar tussenrekening.
 
-| Toekenningsregel | Bedrag | Status | Journaalpost |
-| --- | --- | --- | --- |
-| Origineel januari | 100 | Gejournaliseerd | (ongewijzigd) |
-| Delta januari | -50 | Te journaliseren | — |
-
-Na Journaliseer:
+**Stap 3 — Genereer:**
+Verwacht bedrag = 50 (origineel 100 − credit 50). Netto-saldo toekenningen = 100. Delta = −50. Genereer maakt een negatieve toekenningsregel aan en journaliseert direct.
 
 | Toekenningsregel | Bedrag | Status | Journaalpost |
 | --- | --- | --- | --- |
@@ -690,20 +739,58 @@ Na Journaliseer:
 
 | Rekening | Saldo |
 | --- | --- |
-| Te factureren abonnementen omzet | -50 (gecorrigeerd door creditfactuur via standaard flow) |
-| Omzet | 50 (netto-toekenning: 100 - 50) |
+| Te factureren abonnementen omzet | 0 (factuur 100 − credit 50 + toekenning 100 − delta 50 = 0) |
+| Omzet | 50 (toekenning 100 − delta 50) |
 
 De netto-toekenning van 50 komt overeen met de geleverde halve maand.
 
 ---
 
+#### Voorbeeld C – Beëindigen zonder creditering, met periodetoekenning
+
+Abonnementsregel: 100 per maand. Toekenning januari is Gejournaliseerd (+100). Het abonnement wordt beëindigd per 31 december. Crediteren is **niet** aangevinkt.
+
+**Stap 1 — US04 bij facturatieverwerking:**
+Geen creditering actief. US04 draait de toekenning voor januari terug en boekt een tegenjournaalpost.
+
+| Actie | Bedrag | Journaalpost |
+| --- | --- | --- |
+| Origineel januari teruggedraaid | 100 | Debet Omzet / Credit Te factureren omzet |
+
+Netto-saldo toekenningsregels januari: **0**.
+
+**Geen creditfactuur.** Er worden geen creditfactuurregels aangemaakt.
+
+---
+
+#### Voorbeeld D – Beëindigen met creditering, zonder periodetoekenning
+
+Abonnementsregel: 100 per maand. Er is geen toekenningsregel (periodetoekenning niet toegepast). De factuur voor januari is al verstuurd. Het abonnement wordt beëindigd per 31 december. Crediteren is aangevinkt met Crediteren vanaf 1 januari.
+
+**Stap 1 — Profit maakt creditfactuurregel -100:**
+Geen toekenningsregel → B33: creditfactuur naar omzetrekening. De credit corrigeert de omzet direct.
+
+**Eindsaldo januari:**
+
+| Rekening | Saldo |
+| --- | --- |
+| Debiteuren | 0 (factuur 100 − credit 100) |
+| Omzet | 0 (factuur 100 − credit 100, beide direct op omzet) |
+
+Geen extra stap nodig.
+
+---
+
 #### Acceptatiecriteria
 
-1. Toekomstige gejournaliseerde toekenningsregels worden automatisch verwijderd bij de facturatieverwerking als de abonnementsregel is beëindigd.
-2. Tegenjournaalposten ontstaan zonder gebruikersactie, als onderdeel van de facturatieverwerking.
-3. Bij een gesloten toekomstige periode boekt het systeem in de eerstvolgende vrije periode.
-4. Creditering hele periode (einddatum vóór of op eerste dag): Genereer maakt géén extra regel als er geen toekenningsregel meer bestaat.
-5. Creditering halve periode: Genereer maakt een delta-regel voor het verschilbedrag.
+1. Toekomstige gejournaliseerde toekenningsregels worden automatisch teruggedraaid bij de facturatieverwerking als de abonnementsregel is beëindigd én er geen creditering actief is voor die periode.
+2. Bij actieve creditering voor een toekomstige periode draait US04 de toekenning niet terug (B49). De credit + Genereer handelen de correctie af.
+3. Tegenjournaalposten (bij situatie zonder creditering) ontstaan zonder gebruikersactie.
+4. Bij een gesloten toekomstige periode (zonder creditering) boekt het systeem in de eerstvolgende vrije periode.
+5. Creditering hele periode met periodetoekenning: Genereer maakt een negatieve toekenningsregel. Het netto-saldo wordt nul.
+6. Creditering halve periode met periodetoekenning: Genereer maakt een delta-regel voor het verschilbedrag.
+7. Creditering zonder periodetoekenning: de creditfactuur gaat direct naar de omzetrekening (B33).
+8. Crediteren vereist verstuurde facturen (B47). Crediteren vanaf moet binnen de laatst gefactureerde periode vallen (B48).
 
 #### Meldingstekst
 
@@ -1072,6 +1159,48 @@ Beide tabbladen zijn alleen zichtbaar als er toekenningsregels bestaan voor dit 
 
 De weergaven zijn alleen-lezen. Acties als Genereer en Verwijder zijn niet beschikbaar op dit scherm — die lopen via het Periodeafsluitingsplan (US01/US02).
 
+---
+
+### 2.10 US10 – Geplande taak periodetoekenning genereren
+
+**Als** financieel medewerker **wil ik** periodetoekenningsregels automatisch laten genereren via een geplande taak, **zodat** ik niet elke periode handmatig de wizard hoef te doorlopen.
+
+#### Functionele uitwerking
+
+Er komt een nieuwe geplande taak **Periodetoekenning genereren**. De taak voert dezelfde logica uit als de Genereer-actie in de wizard (US01), maar dan voor alle toekenbare abonnementsregels in de eerstvolgende open periode. Er is geen handmatige selectie — alle regels die in aanmerking komen worden meegenomen.
+
+De geplande taak:
+- Bepaalt automatisch het boekjaar en de eerstvolgende open periode.
+- Selecteert alle toekenbare abonnementsregels (dezelfde criteria als US01: loopt over de periode, nog niet gefactureerd, nog geen toekenningsregel).
+- Genereert toekenningsregels en journaliseert ze direct.
+- Geparkeerde abonnementen doen mee met het laatst bekende bedrag (B34).
+- Gebruikt dezelfde delta-logica als US03 bij bedragwijzigingen.
+- Werkt alles-of-niets: bij een fout worden alle wijzigingen teruggedraaid.
+
+De taak is alleen beschikbaar als Periodetoekenning toepassen aan staat (B44).
+
+**Configuratie**
+
+De geplande taak is instelbaar in het standaard scherm voor geplande taken. De gebruiker stelt het schema in (bijv. dagelijks, wekelijks of maandelijks). Er zijn geen extra parameters — de taak bepaalt zelf de juiste periode.
+
+**Verhouding tot handmatig genereren**
+
+De geplande taak en de handmatige wizard zijn complementair. De geplande taak verwerkt alle toekenbare regels. De wizard biedt controle via selectie. Beide gebruiken dezelfde onderliggende logica.
+
+#### Acceptatiecriteria
+
+1. De geplande taak genereert toekenningsregels voor alle toekenbare abonnementsregels in de eerstvolgende open periode.
+2. De taak journaliseert de regels direct — geen tussenstatus.
+3. Geparkeerde abonnementen doen mee met het laatst bekende bedrag.
+4. Bij bedragwijzigingen maakt de taak delta-regels aan (US03).
+5. De taak is alleen beschikbaar als Periodetoekenning toepassen aan staat.
+6. Bij een fout worden alle wijzigingen teruggedraaid (alles-of-niets).
+7. Een tweede uitvoering voor dezelfde periode maakt geen dubbele regels.
+
+#### Autorisatie
+
+Geen apart recht vereist — toegang volgt de bestaande autorisatie voor geplande taken.
+
 #### Acceptatiecriteria
 
 **Tabblad Periodetoekenningsregels**
@@ -1429,7 +1558,7 @@ De levenscyclus is beschreven in de SOLL-tabel hierboven. Samengevat:
 | T08 | Vervallen — geen status Tegengeboekt meer | — | — |
 | T09 | Creditfactuur met negatief bedrag | Toekenningsregel met negatief bedrag, saldo gecorrigeerd | US01 |
 | T10 | Bedragcorrectie na toekenning | Delta-toekenningsregel aangemaakt, netto-toekenning klopt | US03 |
-| T11 | Facturatieverwerking na beëindigen abonnementsregel | Toekomstige toekenningen automatisch verwijderd bij factuurmoment | US04 |
+| T11 | Facturatieverwerking na beëindigen abonnementsregel zonder creditering | Toekomstige toekenningen automatisch verwijderd bij factuurmoment | US04, B49 |
 | T12 | Beëindigen met afgesloten toekomstige periode | Melding: automatische tegenboeking niet mogelijk | US04 |
 | T12a | Verwijderen toekenningsregel bij geblokkeerde periode | Foutmelding: Periode geblokkeerd. Dit is niet toegestaan. | US02, B38 |
 | T13 | Verwijderen abonnementsregel met gejournaliseerde toekenningen | Automatisch verwijderd, verwijdering afgerond | US05 |
@@ -1464,6 +1593,15 @@ De levenscyclus is beschreven in de SOLL-tabel hierboven. Samengevat:
 | T32 | Vervallen | — | — |
 | T33 | Vervallen | — | — |
 | T34 | Vervallen | — | — |
+| T45 | Beëindigen met creditering hele periode, met periodetoekenning | US04 draait toekenning niet terug. Creditfactuur naar tussenrekening. Genereer maakt negatieve toekenningsregel. Netto-saldo = 0. | US04, B49, B50 |
+| T46 | Beëindigen met creditering halve periode, met periodetoekenning | US04 draait toekenning niet terug. Creditfactuur naar tussenrekening. Genereer maakt delta-regel. Netto-toekenning = halve maand. | US04, B49, B50 |
+| T47 | Beëindigen zonder creditering, met periodetoekenning | US04 draait toekomstige toekenningen terug. Tegenjournaalpost geboekt. | US04, B49 |
+| T48 | Beëindigen met creditering, zonder periodetoekenning | Creditfactuur direct naar omzetrekening. Geen toekenningsregel nodig. | US04, B33, B50 |
+| T49 | Crediteren zonder verstuurde facturen | Crediteren niet mogelijk, foutmelding | B47 |
+| T50 | Crediteren vanaf buiten laatst gefactureerde periode | Foutmelding: Je kunt alleen crediteren over de periode van [begin] t/m [eind]. | B48 |
+| T51 | Geplande taak genereert alle toekenbare regels | Alle toekenbare regels aangemaakt en gejournaliseerd voor de eerstvolgende open periode | US10 |
+| T52 | Geplande taak bij geen toekenbare regels | Taak draait zonder fout, geen regels aangemaakt | US10 |
+| T53 | Geplande taak bij Periodetoekenning toepassen uit | Taak is niet beschikbaar | US10, B44 |
 
 ### Standenoverzicht-scenario's
 
@@ -1483,7 +1621,10 @@ De levenscyclus is beschreven in de SOLL-tabel hierboven. Samengevat:
 
 ### Open punten
 
-Geen open punten.
+| Nr | Punt | Bron |
+| --- | --- | --- |
+| O1 | Handmatig boeken op de grootboekrekening Te factureren abonnementen omzet verbieden als Periodetoekenning toepassen aan staat. Uitzondering: de beginsituatie bij live-gang. Moet nog uitgewerkt worden als bedrijfsregel of als open punt voor de bouw. | Brainstorm 22-04-2026 |
+| O2 | Startsaldo bij live-gang concreter beschrijven: hoe bepaalt een klant het beginsaldo per administratie? Welke journaalpost hoort daarbij? Moet het rapport Saldoverklaring (US06) bruikbaar zijn voor die controle? | Brainstorm 22-04-2026 |
 
 ### Beslissingen
 
@@ -1492,7 +1633,7 @@ Geen open punten.
 | B1 | Tabblad Periodetoekenningsregels is zichtbaar op het Periodeafsluitingsplan als Periodetoekenning toepassen aan staat (B44). |
 | B2 | Bij verwijderen krijgt de toekenningsregel status Verwijderd. Het record wordt niet fysiek verwijderd (audit trail). Een verwijderde regel telt niet mee voor samenloop en facturatielogica — het tijdvak gedraagt zich alsof er geen toekenningsregel is. |
 | B3 | Genereer alleen vóór periodeafsluiting toegestaan. Genereer is alleen beschikbaar vanuit het Periodeafsluitingsplan, niet op de standalone weergave. Journalisering vindt altijd direct plaats bij genereren. |
-| B5 | Automatisch terugdraaien bij beëindigen is altijd actief en draait bij de facturatieverwerking (het factuurmoment). Er is geen instelling om dit uit te schakelen. |
+| B5 | Automatisch terugdraaien bij beëindigen is altijd actief en draait bij de facturatieverwerking (het factuurmoment). Bij actieve creditering voor een periode draait het systeem de toekenning voor die periode niet terug (B49). Zonder creditering draait het systeem de toekenning wél terug. |
 | B6 | Geen cascade-delete bij verwijdering abonnementsregel; koppeling genulled |
 | B8 | Periodetoekenning hergebruikt de bestaande verdelingslogica van transitorisch journaliseren. Geen nieuwe verdelingsmethoden. |
 | B9 | Samenloop periodetoekenning en transitorisch journaliseren: als er een toekenningsregel bestaat voor een abonnementsregel in een periode, slaat transitorisch journaliseren die regel over. Periodetoekenning wint. Bestaat er geen toekenningsregel (of alleen status Verwijderd), dan werkt transitorisch journaliseren zoals voorheen. |
@@ -1527,6 +1668,10 @@ Geen open punten.
 | B43 | De acties Genereer en Verwijder zijn apart autoriseerbaar via twee rechtenobjecten: Periodetoekenning genereren en Periodetoekenning verwijderen. Beide staan standaard aan. Heeft een gebruiker geen recht op een actie, dan is de actieknop niet zichtbaar. Toegang tot het tabblad en de weergave volgt het bestaande recht op Periodeafsluitingsplan. |
 | B44 | Periodetoekenning toepassen is een vinkje op Facturering/voorraad (tabblad Abonnementen, veldgroep Periodetoekenning). De veldgroep is alleen zichtbaar als de module Abonnementen actief is. Het vinkje staat standaard uit. Als het vinkje uit staat, is de volledige periodetoekenningsfunctionaliteit verborgen: tabblad Periodetoekenningsregels op het Periodeafsluitingsplan, submenu en menu-items Periodetoekenning, tabbladen Periodetoekenningsregels en Transitorische journaalposten op Eigenschappen abonnement, KPI's periodetoekenning en het veld Te factureren abonnementen omzet. |
 | B45 | Het vinkje Periodetoekenning toepassen kan niet worden uitgezet als er toekenningsregels bestaan met status Gejournaliseerd. Foutmelding: "Er bestaan gejournaliseerde toekenningsregels. Verwijder deze eerst." |
+| B47 | Crediteren op een abonnementsregel vereist dat er verstuurde facturen bestaan voor de te crediteren periode. Zonder verstuurde facturen is crediteren niet mogelijk. |
+| B48 | Crediteren vanaf moet binnen de laatst gefactureerde periode vallen. Vul je een datum buiten die range in, dan verschijnt de foutmelding: "Je kunt alleen crediteren over de periode van [begindatum] t/m [einddatum]. Kies een andere datum." |
+| B49 | Bij de facturatieverwerking draait US04 toekomstige toekenningsregels niet terug als er een creditering actief is voor die periode. De creditfactuur en de toekenningslogica handelen de correctie af. Zonder creditering draait US04 de toekenning wél terug. Dit voorkomt dubbele correcties op de tussenrekening. |
+| B50 | Een creditfactuurregeling volgt de standaard facturatielogica (B33): bestaat er een toekenningsregel → tussenrekening; geen toekenningsregel → omzetrekening. Met periodetoekenning maakt Genereer een negatieve toekenningsregel per gecrediteerd tijdvak. Zonder periodetoekenning corrigeert de credit de omzet direct. |
 
 ### Vervallen beslissingen
 
@@ -1555,6 +1700,7 @@ Geen open punten.
 | Menu-items | Afgedekt | Nieuw submenu Periodetoekenning onder Abonnementen &rarr; Facturering met twee menu-items: Alle periodetoekenningsregels en Saldoverklaring (US02/US06). |
 | Regels en validaties | Afgedekt | Unieke constraint, statusvalidaties en foutmeldingen beschreven per user story. |
 | Testscenario's en acceptatiecriteria | Afgedekt | 22 functionele testscenario's en 7 standenoverzicht-scenario's in Bijlage C. |
+| Geplande taak | Afgedekt | US10: geplande taak Periodetoekenning genereren. Hergebruikt Genereer-logica. T51–T53 en D59–D60 beschreven. |
 | Documentatie | Afgedekt | Helpteksten, tooltips en stappenplan in Bijlage E. |
 
 ---
@@ -1721,6 +1867,13 @@ Deze bijlage bevat alle taken die de developer moet uitvoeren. De taken zijn geg
 | D43 | Voeg submenu Periodetoekenning toe | US02, B44 | Abonnementen &rarr; Facturering &rarr; Periodetoekenning. Zichtbaar als Periodetoekenning toepassen aan staat. Sneltoets P. |
 | D44 | Voeg menu-item Alle periodetoekenningsregels toe | US02 | Onder submenu Periodetoekenning. Sneltoets A. Actie: Verwijder toekenningsregels. |
 | D45 | Voeg menu-item Saldoverklaring toe | US06 | Onder submenu Periodetoekenning. Sneltoets S. Alleen-lezen overzicht. |
+
+### F10a – Geplande taak (US10)
+
+| Nr | Taak | Referentie | Toelichting |
+| --- | --- | --- | --- |
+| D59 | Bouw geplande taak Periodetoekenning genereren | US10 | Hergebruikt Genereer-logica (US01). Bepaalt automatisch eerstvolgende open periode. Selecteert alle toekenbare regels. Inclusief geparkeerde abonnementen en delta-logica. Alleen beschikbaar als Periodetoekenning toepassen aan staat. |
+| D60 | Registreer geplande taak in het standaard scherm voor geplande taken | US10 | Geen extra parameters. Schema instelbaar door gebruiker. |
 
 ### F11 – Gegevensverzameling
 
