@@ -52,6 +52,8 @@ De beheerder hoeft geen aparte werksoorten meer aan te maken voor eigen en exter
 
 **Gekoppelde POA's**: 442793, RPT00751
 
+**Interactief prototype**: [https://afasresearch.github.io/prototype-profit/rpt00751/menu](https://afasresearch.github.io/prototype-profit/rpt00751/menu)
+
 
 
 ### Afbakening
@@ -114,7 +116,7 @@ Als **financieel beheerder** wil ik dat nacalculatieregels met het kenmerk "inko
 
 #### Mockups
 
-![Instelling 'Dekking inhuur derden splitsen' op het scherm Integratie financieel](afbeeldingen/integratie-financieel.png)
+<img src="./afbeeldingen/integratie-financieel.png" alt="Instelling 'Dekking inhuur derden splitsen' op het scherm Integratie financieel" width="100%">
 
 #### Functionele uitwerking
 
@@ -264,9 +266,9 @@ Op het scherm **Integratiegroep** (onderdeel van werksoort-onderhoud) komen twee
 
 De velden staan in het bestaande integratiegroep-onderhoud, direct onder de bestaande rekening "dekking kostprijs" en "dekking kostprijs intercompany".
 
-![Tabblad Algemeen — nieuw veld 'Rek. dekking kp inkopen'](afbeeldingen/integratiegroep-algemeen.png)
+<img src="./afbeeldingen/integratiegroep-algemeen.png" alt="Tabblad Algemeen — nieuw veld 'Rek. dekking kp inkopen'" width="100%">
 
-![Tabblad Integratie intercompany — nieuw veld 'Rek. dekking kp inkopen IC'](afbeeldingen/integratiegroep-intercompany.png)
+<img src="./afbeeldingen/integratiegroep-intercompany.png" alt="Tabblad Integratie intercompany — nieuw veld 'Rek. dekking kp inkopen IC'" width="100%">
 
 #### Acceptatiecriteria
 

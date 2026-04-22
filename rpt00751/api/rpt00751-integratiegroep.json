@@ -9,7 +9,7 @@
   <body>
     <div id="loading">Loading...</div>
     <a id="editor-btn" href="/editor.html" target="_blank" style="position:fixed;bottom:16px;right:16px;z-index:9999;background:#0078d4;color:#fff;border:none;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:20px;box-shadow:0 2px 8px rgba(0,0,0,0.3);cursor:pointer" title="Mockup Editor" onclick="var p=location.pathname.split('/').filter(Boolean)[0];if(p)this.href='/editor.html?page='+encodeURIComponent(p)">&#9998;</a>
-    <style nonce="vBS48mofRdzsUV4UtMrVXg2hhczHzfl5tNtdjKHbC30=">
+    <style nonce="AoqDWqUWRLfS/Xz4L4ZXn7/3oic+AMeDldHpiPQsiTE=">
       .delete-page-btn {
         display: inline-block !important;
         margin-left: 8px;
@@ -33,7 +33,7 @@
         opacity: 1;
       }
     </style>
-    <script module="true" nonce="vBS48mofRdzsUV4UtMrVXg2hhczHzfl5tNtdjKHbC30=">
+    <script module="true" nonce="AoqDWqUWRLfS/Xz4L4ZXn7/3oic+AMeDldHpiPQsiTE=">
       // Update editor link with current page
       setTimeout(() => {
         const path = location.pathname.replace(/^\//, '').replace(/\/\d+$/, '');
