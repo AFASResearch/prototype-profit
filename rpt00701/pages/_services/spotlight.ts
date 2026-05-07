@@ -1,7 +1,8 @@
 import { SpotlightEntry, SpotlightService } from '@afas/blueprint/interfaces/interfaces';
-import { groups } from './menu.js';
+import { loadMenuConfig } from './menu.js';
 
 export default async function (): Promise<SpotlightService> {
+  const groups = await loadMenuConfig();
   let siteEntries: SpotlightEntry[] = groups.flatMap(group =>
     group.entries.map(entry => ({
       title: entry.description,

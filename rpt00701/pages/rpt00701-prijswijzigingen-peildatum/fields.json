@@ -1,0 +1,20 @@
+{
+  "page": "rpt00701-prijswijzigingen-peildatum",
+  "type": "wizard",
+  "title": "Prijzen abonnementsregels",
+  "sections": [
+    {
+      "id": "peildatum",
+      "name": "Peildatum",
+      "fieldGroups": [
+        {
+          "title": "Peildatum",
+          "fields": [
+            { "property": "PeildatumToepassen", "label": "Peildatum toepassen", "dataType": "yesNo", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": "Ja", "status": "nieuw" },
+            { "property": "Peildatum", "label": "Peildatum", "dataType": "date", "mandatory": true, "locked": false, "active": "PeildatumToepassen", "placeholder": null, "choiceValues": null, "defaultValue": "vandaag", "status": "nieuw" }
+          ]
+        }
+      ]
+    }
+  ]
+}

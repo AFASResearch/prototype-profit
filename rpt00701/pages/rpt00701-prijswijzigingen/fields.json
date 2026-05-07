@@ -1,0 +1,31 @@
+{
+  "page": "rpt00701-prijswijzigingen",
+  "type": "list",
+  "title": "Prijswijzigingen abonnementsregels",
+  "sections": [
+    {
+      "id": "prijswijzigingen",
+      "name": "Prijswijzigingen abonnementsregels",
+      "fieldGroups": [
+        {
+          "title": null,
+          "fields": [
+            { "property": "peildatum", "label": "Peildatum", "dataType": "date", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "abonr", "label": "Abo.nr.", "dataType": "number", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "bestaand" },
+            { "property": "naam", "label": "Naam", "dataType": "text", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "bestaand" },
+            { "property": "vrkrel", "label": "Vrk.rel.", "dataType": "number", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "bestaand" },
+            { "property": "item", "label": "Item", "dataType": "text", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "bestaand" },
+            { "property": "code", "label": "Code", "dataType": "number", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "bestaand" },
+            { "property": "aantal", "label": "Aant.", "dataType": "number", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "bestaand" },
+            { "property": "waardeBV", "label": "Waarde BV", "dataType": "currencyAmount", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "bestaand" },
+            { "property": "afwPrijs", "label": "Afw. prijs", "dataType": "currencyAmount", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "bestaand" },
+            { "property": "begin", "label": "Begin", "dataType": "date", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "bestaand" },
+            { "property": "eind", "label": "Eind", "dataType": "date", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "bestaand" },
+            { "property": "begindatumTarief", "label": "Begindatum tarief", "dataType": "date", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "einddatumTarief", "label": "Einddatum tarief", "dataType": "date", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" }
+          ]
+        }
+      ]
+    }
+  ]
+}

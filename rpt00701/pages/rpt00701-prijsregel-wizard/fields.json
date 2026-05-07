@@ -1,0 +1,20 @@
+{
+  "page": "rpt00701-prijsregel-wizard",
+  "type": "wizard",
+  "title": "Prijsregel kiezen",
+  "sections": [
+    {
+      "id": "keuze",
+      "name": "Prijsregel kiezen",
+      "fieldGroups": [
+        {
+          "title": "Prijsregel kiezen",
+          "fields": [
+            { "property": "Prijsregel", "label": "Prijsregel", "dataType": "enumeration", "mandatory": true, "locked": false, "active": null, "placeholder": null, "choiceValues": [{ "key": "1", "name": "01-01-2026 (€ 132,50)" }, { "key": "2", "name": "01-07-2026 (€ 135,00)" }], "defaultValue": null, "status": "nieuw" },
+            { "property": "NieuwePrijs", "label": "Nieuwe prijs", "dataType": "currencyAmount", "mandatory": true, "locked": true, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" }
+          ]
+        }
+      ]
+    }
+  ]
+}

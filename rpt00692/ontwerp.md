@@ -3,7 +3,7 @@
 | <br> | <br> |
 | --- | --- |
 | **Project** | RPT00692 |
-| **Versie** | 0031 |
+| **Versie** | 0032 |
 | **Datum** | 22-04-2026 |
 | **Status** | Concept |
 | **Module** | Financial Basic – Abonnementen |
@@ -17,6 +17,7 @@
 
 | Versie | Datum | Auteur | Wijziging |
 | --- | --- | --- | --- |
+| 0032 | 22-04-2026 | Eric Zaal | Brainstorm Facilicom 22-04 II verwerkt: US10 (geplande taak) vervallen — T51–T53, D59–D60 en afbakening verwijderd. Tussenrekening niet wijzigbaar bij gejournaliseerde toekenningsregels (B51, T54, D61). Beginstanden verduidelijkt: reeds gebruikte rekening mag worden gekoppeld. O2 bijgewerkt. |
 | 0031 | 22-04-2026 | Eric Zaal | Brainstorm Facilicom 22-04 verwerkt: US10 geplande taak periodetoekenning genereren toegevoegd. Open punten O1 (handmatig boeken verbieden) en O2 (startsaldo bij live-gang) genoteerd. Afbakening, testscenario's T51–T53, work items D59–D60 en Definition of Done bijgewerkt. |
 | 0030 | 22-04-2026 | Eric Zaal | US04 herschreven: onderscheid beëindigen en crediteren. Crediteren is optioneel na einddatum, vereist verstuurde facturen en moet binnen de laatst gefactureerde periode vallen. Bij creditering met periodetoekenning draait US04 toekenningen niet terug (B49); de credit + Genereer handelen de correctie af. Vier voorbeelden (A–D) voor alle combinaties. B47–B50 en T45–T50 toegevoegd. |
 | 0029 | 21-04-2026 | Eric Zaal | Factuurmoment instelbaar op omgevingsinstelling (Facturering/voorraad) als systeemstandaard en op verkooprelatieprofiel als default per profiel. Overerving: omgevingsinstelling → verkooprelatieprofiel → abonnement. §3.2, §3.4a, US07, B27, B46, T40–T43, D56–D57 en Definition of Done bijgewerkt. |
@@ -186,10 +187,6 @@ Bij de facturatieverwerking bepaalt het bestaan van een toekenningsregel de groo
 - Facturatielogica: bestaan van een toekenningsrecord bepaalt tussenrekening vs. omzetrekening
 - Nieuw tabblad Periodetoekenningsregels op Eigenschappen abonnement — weergave met toekenningsregels per abonnement
 
-**Geplande taak**
-
-- Geplande taak die Genereer automatisch uitvoert voor alle toekenbare regels van de gekozen periode. Geschikt voor organisaties die periodetoekenning elke periode willen automatiseren.
-
 ### 1.5 Begrippen
 
 | Term | Betekenis |
@@ -234,7 +231,6 @@ Bij de facturatieverwerking bepaalt het bestaan van een toekenningsregel de groo
 | US07 | Instelling factuurmoment op abonnement | Nieuw veld Factuurmoment op abonnement met vijf waarden. Systeemstandaard op omgevingsinstelling (Facturering/voorraad). Default per profiel op verkooprelatieprofiel. |
 | US08 | Activering periodetoekenning en instelling grootboekrekening | Activering via vinkje Periodetoekenning toepassen op Facturering/voorraad. Centrale instelling grootboekrekening, facturatielogica en samenloop transitorisch journaliseren |
 | US09 | Periodetoekenningsregels op Eigenschappen abonnement | Weergave met toekenningsregels per abonnement op een nieuw tabblad onder Facturen |
-| US10 | Geplande taak periodetoekenning genereren | Automatisch genereren van periodetoekenningsregels via een geplande taak |
 
 ---
 
@@ -253,7 +249,7 @@ Bij de facturatieverwerking bepaalt het bestaan van een toekenningsregel de groo
 *Genereer-wizard (1 stap, multi-select) — mockup: *`pages/rpt00692-genereer-wizard/detail.ts`
 
 ```mermaid
-flowchart LR
+flowchart TD
     A["Open tabblad\nPeriodetoekenningsregels abonnementen"] --> B["Genereer\n(wizard 1 stap met multi-select)"]
     B --> C["Regels aangemaakt\nén gejournaliseerd"]
     C --> D["Periodeafsluiting\nmogelijk"]
@@ -1099,6 +1095,8 @@ Bestaat er een toekenningsregel voor een abonnementsregel in een periode? Dan sl
 **Grootboekrekening**
 
 1. De grootboekrekening Te factureren abonnementen omzet op Facturering/voorraad accepteert alleen rekeningen van het type Activa of Passiva (B13).
+2. Bij de start van de inrichting mag een reeds gebruikte grootboekrekening worden gekoppeld.
+3. De grootboekrekening Te factureren abonnementen omzet is niet wijzigbaar als er toekenningsregels bestaan met status Gejournaliseerd. Foutmelding: "Er bestaan gejournaliseerde toekenningsregels. Wijzig eerst de rekening niet." (B51).
 
 **Facturatielogica**
 
@@ -1131,7 +1129,7 @@ Geen apart recht vereist — toegang volgt Facturering/voorraad.
 | Veldlabel | Podium-type | Verplicht | Standaardwaarde | Tooltip | Conditie | Status |
 | --- | --- | --- | --- | --- | --- | --- |
 | Periodetoekenning toepassen | boolean | nee | uit | Rekent verwachte abonnementsomzet toe aan een periode vóór de periodeafsluiting, ook als de factuur er nog niet is. | veldgroep zichtbaar als module Abonnementen actief | nieuw |
-| Te factureren abonnementen omzet | text (zoekvenster grootboekrekening) | ja (als Periodetoekenning toepassen aan) | leeg | Grootboekrekening die tegengeboekt wordt bij het factureren. | zichtbaar als Periodetoekenning toepassen aan | nieuw |
+| Te factureren abonnementen omzet | text (zoekvenster grootboekrekening) | ja (als Periodetoekenning toepassen aan) | leeg | Grootboekrekening die tegengeboekt wordt bij het factureren. | zichtbaar als Periodetoekenning toepassen aan; niet wijzigbaar als er gejournaliseerde toekenningsregels bestaan (B51) | nieuw |
 
 ---
 
@@ -1160,46 +1158,6 @@ Beide tabbladen zijn alleen zichtbaar als er toekenningsregels bestaan voor dit 
 De weergaven zijn alleen-lezen. Acties als Genereer en Verwijder zijn niet beschikbaar op dit scherm — die lopen via het Periodeafsluitingsplan (US01/US02).
 
 ---
-
-### 2.10 US10 – Geplande taak periodetoekenning genereren
-
-**Als** financieel medewerker **wil ik** periodetoekenningsregels automatisch laten genereren via een geplande taak, **zodat** ik niet elke periode handmatig de wizard hoef te doorlopen.
-
-#### Functionele uitwerking
-
-Er komt een nieuwe geplande taak **Periodetoekenning genereren**. De taak voert dezelfde logica uit als de Genereer-actie in de wizard (US01), maar dan voor alle toekenbare abonnementsregels in de eerstvolgende open periode. Er is geen handmatige selectie — alle regels die in aanmerking komen worden meegenomen.
-
-De geplande taak:
-- Bepaalt automatisch het boekjaar en de eerstvolgende open periode.
-- Selecteert alle toekenbare abonnementsregels (dezelfde criteria als US01: loopt over de periode, nog niet gefactureerd, nog geen toekenningsregel).
-- Genereert toekenningsregels en journaliseert ze direct.
-- Geparkeerde abonnementen doen mee met het laatst bekende bedrag (B34).
-- Gebruikt dezelfde delta-logica als US03 bij bedragwijzigingen.
-- Werkt alles-of-niets: bij een fout worden alle wijzigingen teruggedraaid.
-
-De taak is alleen beschikbaar als Periodetoekenning toepassen aan staat (B44).
-
-**Configuratie**
-
-De geplande taak is instelbaar in het standaard scherm voor geplande taken. De gebruiker stelt het schema in (bijv. dagelijks, wekelijks of maandelijks). Er zijn geen extra parameters — de taak bepaalt zelf de juiste periode.
-
-**Verhouding tot handmatig genereren**
-
-De geplande taak en de handmatige wizard zijn complementair. De geplande taak verwerkt alle toekenbare regels. De wizard biedt controle via selectie. Beide gebruiken dezelfde onderliggende logica.
-
-#### Acceptatiecriteria
-
-1. De geplande taak genereert toekenningsregels voor alle toekenbare abonnementsregels in de eerstvolgende open periode.
-2. De taak journaliseert de regels direct — geen tussenstatus.
-3. Geparkeerde abonnementen doen mee met het laatst bekende bedrag.
-4. Bij bedragwijzigingen maakt de taak delta-regels aan (US03).
-5. De taak is alleen beschikbaar als Periodetoekenning toepassen aan staat.
-6. Bij een fout worden alle wijzigingen teruggedraaid (alles-of-niets).
-7. Een tweede uitvoering voor dezelfde periode maakt geen dubbele regels.
-
-#### Autorisatie
-
-Geen apart recht vereist — toegang volgt de bestaande autorisatie voor geplande taken.
 
 #### Acceptatiecriteria
 
@@ -1590,6 +1548,7 @@ De levenscyclus is beschreven in de SOLL-tabel hierboven. Samengevat:
 | T39 | Veldgroep Periodetoekenning bij inactieve module Abonnementen | Veldgroep niet zichtbaar op Facturering/voorraad | US08, B44 |
 | T40 | Periodetoekenning toepassen uitzetten met gejournaliseerde toekenningsregels | Foutmelding: Er bestaan gejournaliseerde toekenningsregels. Verwijder deze eerst. | US08, B45 |
 | T41 | Periodetoekenning toepassen uitzetten zonder gejournaliseerde toekenningsregels | Vinkje gaat uit, functionaliteit verborgen | US08, B44, B45 |
+| T54 | Wijzigen grootboekrekening Te factureren abonnementen omzet met gejournaliseerde toekenningsregels | Foutmelding: Er bestaan gejournaliseerde toekenningsregels. Wijzig eerst de rekening niet. Veld blijft ongewijzigd. | US08, B51 |
 | T32 | Vervallen | — | — |
 | T33 | Vervallen | — | — |
 | T34 | Vervallen | — | — |
@@ -1599,9 +1558,6 @@ De levenscyclus is beschreven in de SOLL-tabel hierboven. Samengevat:
 | T48 | Beëindigen met creditering, zonder periodetoekenning | Creditfactuur direct naar omzetrekening. Geen toekenningsregel nodig. | US04, B33, B50 |
 | T49 | Crediteren zonder verstuurde facturen | Crediteren niet mogelijk, foutmelding | B47 |
 | T50 | Crediteren vanaf buiten laatst gefactureerde periode | Foutmelding: Je kunt alleen crediteren over de periode van [begin] t/m [eind]. | B48 |
-| T51 | Geplande taak genereert alle toekenbare regels | Alle toekenbare regels aangemaakt en gejournaliseerd voor de eerstvolgende open periode | US10 |
-| T52 | Geplande taak bij geen toekenbare regels | Taak draait zonder fout, geen regels aangemaakt | US10 |
-| T53 | Geplande taak bij Periodetoekenning toepassen uit | Taak is niet beschikbaar | US10, B44 |
 
 ### Standenoverzicht-scenario's
 
@@ -1624,7 +1580,7 @@ De levenscyclus is beschreven in de SOLL-tabel hierboven. Samengevat:
 | Nr | Punt | Bron |
 | --- | --- | --- |
 | O1 | Handmatig boeken op de grootboekrekening Te factureren abonnementen omzet verbieden als Periodetoekenning toepassen aan staat. Uitzondering: de beginsituatie bij live-gang. Moet nog uitgewerkt worden als bedrijfsregel of als open punt voor de bouw. | Brainstorm 22-04-2026 |
-| O2 | Startsaldo bij live-gang concreter beschrijven: hoe bepaalt een klant het beginsaldo per administratie? Welke journaalpost hoort daarbij? Moet het rapport Saldoverklaring (US06) bruikbaar zijn voor die controle? | Brainstorm 22-04-2026 |
+| O2 | Startsaldo bij live-gang concreter beschrijven: hoe bepaalt een klant het beginsaldo per administratie? Welke journaalpost hoort daarbij? Moet het rapport Saldoverklaring (US06) bruikbaar zijn voor die controle? Klanten mogen op de tussenrekening boeken en bij de start een reeds gebruikte rekening koppelen (brainstorm 22-04 II). Het saldo wordt apart vermeld op het rapport. | Brainstorm 22-04-2026 |
 
 ### Beslissingen
 
@@ -1672,6 +1628,7 @@ De levenscyclus is beschreven in de SOLL-tabel hierboven. Samengevat:
 | B48 | Crediteren vanaf moet binnen de laatst gefactureerde periode vallen. Vul je een datum buiten die range in, dan verschijnt de foutmelding: "Je kunt alleen crediteren over de periode van [begindatum] t/m [einddatum]. Kies een andere datum." |
 | B49 | Bij de facturatieverwerking draait US04 toekomstige toekenningsregels niet terug als er een creditering actief is voor die periode. De creditfactuur en de toekenningslogica handelen de correctie af. Zonder creditering draait US04 de toekenning wél terug. Dit voorkomt dubbele correcties op de tussenrekening. |
 | B50 | Een creditfactuurregeling volgt de standaard facturatielogica (B33): bestaat er een toekenningsregel → tussenrekening; geen toekenningsregel → omzetrekening. Met periodetoekenning maakt Genereer een negatieve toekenningsregel per gecrediteerd tijdvak. Zonder periodetoekenning corrigeert de credit de omzet direct. |
+| B51 | De grootboekrekening Te factureren abonnementen omzet is niet wijzigbaar als er toekenningsregels bestaan met status Gejournaliseerd. Foutmelding: "Er bestaan gejournaliseerde toekenningsregels. Wijzig eerst de rekening niet." Dit voorkomt dat lopende boekingen op een verkeerde rekening terechtkomen. |
 
 ### Vervallen beslissingen
 
@@ -1700,7 +1657,7 @@ De levenscyclus is beschreven in de SOLL-tabel hierboven. Samengevat:
 | Menu-items | Afgedekt | Nieuw submenu Periodetoekenning onder Abonnementen &rarr; Facturering met twee menu-items: Alle periodetoekenningsregels en Saldoverklaring (US02/US06). |
 | Regels en validaties | Afgedekt | Unieke constraint, statusvalidaties en foutmeldingen beschreven per user story. |
 | Testscenario's en acceptatiecriteria | Afgedekt | 22 functionele testscenario's en 7 standenoverzicht-scenario's in Bijlage C. |
-| Geplande taak | Afgedekt | US10: geplande taak Periodetoekenning genereren. Hergebruikt Genereer-logica. T51–T53 en D59–D60 beschreven. |
+| Geplande taak | N.v.t. | Geplande taak is vervallen na brainstorm 22-04-2026 II. |
 | Documentatie | Afgedekt | Helpteksten, tooltips en stappenplan in Bijlage E. |
 
 ---
@@ -1762,6 +1719,8 @@ Let op: je kunt een periode pas afsluiten als alle voorgaande perioden zijn afge
 ### Beginsaldo tussenrekening
 
 Als er al niet-gefactureerde omzet loopt op het moment dat je periodetoekenning gaat gebruiken, boek je zelf het beginsaldo op Te factureren abonnementen omzet. Doe dit via een memoriaalpost. Het systeem doet dit niet automatisch.
+
+Bij de start van de inrichting is het toegestaan om een reeds gebruikte grootboekrekening te koppelen als tussenrekening. Het rapport Saldoverklaring (US06) toont dit saldo apart.
 
 ---
 
@@ -1868,13 +1827,6 @@ Deze bijlage bevat alle taken die de developer moet uitvoeren. De taken zijn geg
 | D44 | Voeg menu-item Alle periodetoekenningsregels toe | US02 | Onder submenu Periodetoekenning. Sneltoets A. Actie: Verwijder toekenningsregels. |
 | D45 | Voeg menu-item Saldoverklaring toe | US06 | Onder submenu Periodetoekenning. Sneltoets S. Alleen-lezen overzicht. |
 
-### F10a – Geplande taak (US10)
-
-| Nr | Taak | Referentie | Toelichting |
-| --- | --- | --- | --- |
-| D59 | Bouw geplande taak Periodetoekenning genereren | US10 | Hergebruikt Genereer-logica (US01). Bepaalt automatisch eerstvolgende open periode. Selecteert alle toekenbare regels. Inclusief geparkeerde abonnementen en delta-logica. Alleen beschikbaar als Periodetoekenning toepassen aan staat. |
-| D60 | Registreer geplande taak in het standaard scherm voor geplande taken | US10 | Geen extra parameters. Schema instelbaar door gebruiker. |
-
 ### F11 – Gegevensverzameling
 
 | Nr | Taak | Referentie | Toelichting |
@@ -1888,6 +1840,12 @@ Deze bijlage bevat alle taken die de developer moet uitvoeren. De taken zijn geg
 | --- | --- | --- | --- |
 | D52 | Voeg alle meldingsteksten toe | US01, US02 | Zie meldingstabellen per user story |
 | D53 | Voeg alle tooltipteksten toe | US01, US02, US07, US08 | Zie tooltiptabellen per user story |
+
+### F13 – Validatie grootboekrekening
+
+| Nr | Taak | Referentie | Toelichting |
+| --- | --- | --- | --- |
+| D61 | Bouw validatie: Te factureren abonnementen omzet niet wijzigbaar bij gejournaliseerde toekenningsregels | US08, B51 | Blokkeer wijziging als er toekenningsregels bestaan met status Gejournaliseerd. Foutmelding tonen. |
 
 ### Volgorde van uitvoering
 

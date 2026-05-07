@@ -1,0 +1,25 @@
+{
+  "page": "rpt00701-abonnementstarieven",
+  "type": "list",
+  "title": "Abonnementstarieven",
+  "sections": [
+    {
+      "id": "abonnementstarieven",
+      "name": "Abonnementstarieven",
+      "columns": [
+        { "key": "abonr", "header": "Abo.nr.", "dataType": "text", "sortable": true, "filter": true, "width": 100, "status": "nieuw" },
+        { "key": "regelnr", "header": "Regelnr.", "dataType": "number", "sortable": true, "filter": true, "width": 80, "status": "nieuw" },
+        { "key": "naam", "header": "Naam", "dataType": "text", "sortable": true, "filter": true, "width": 150, "status": "nieuw" },
+        { "key": "abonregel", "header": "Abonnementsregel", "dataType": "text", "sortable": true, "filter": true, "width": 200, "status": "nieuw" },
+        { "key": "begindatum", "header": "Begindatum", "dataType": "date", "sortable": true, "filter": true, "width": 110, "status": "nieuw" },
+        { "key": "einddatum", "header": "Einddatum", "dataType": "date", "sortable": true, "filter": true, "width": 110, "status": "nieuw" },
+        { "key": "prijs", "header": "Prijs", "dataType": "currencyAmount", "sortable": false, "filter": false, "width": 100, "status": "nieuw" },
+        { "key": "huidigePrijs", "header": "Huidige prijs", "dataType": "yesNo", "sortable": false, "filter": true, "width": 110, "status": "nieuw" }
+      ],
+      "actions": [
+        { "id": "onderhouden", "label": "Onderhouden abonnementstarieven", "isPrimary": true, "isMultiselect": true, "confirm": null },
+        { "id": "verwijderen", "label": "Verwijderen", "isPrimary": false, "isMultiselect": true, "confirm": "Weet je zeker dat je de geselecteerde Abonnementstarieven wilt verwijderen?" }
+      ]
+    }
+  ]
+}

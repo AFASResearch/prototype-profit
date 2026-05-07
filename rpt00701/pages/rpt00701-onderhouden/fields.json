@@ -1,0 +1,29 @@
+{
+  "page": "rpt00701-onderhouden",
+  "type": "detail",
+  "title": "Onderhouden abonnementstarieven",
+  "sections": [
+    {
+      "id": "boekingslayout",
+      "name": "",
+      "fieldGroups": [
+        {
+          "title": "Regels",
+          "fields": [
+            { "property": "abonr", "label": "Abo.nr.", "dataType": "text", "mandatory": false, "locked": true, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "regelnr", "label": "Regelnr.", "dataType": "number", "mandatory": false, "locked": true, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "naam", "label": "Naam", "dataType": "text", "mandatory": false, "locked": true, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "itemcode", "label": "Itemcode", "dataType": "text", "mandatory": false, "locked": true, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "omschrijving", "label": "Omschrijving", "dataType": "text", "mandatory": false, "locked": true, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "prijsHdg", "label": "Prijs huidig", "dataType": "currencyAmount", "mandatory": false, "locked": true, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "begindatumHdg", "label": "Begindatum huidig", "dataType": "date", "mandatory": false, "locked": true, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "einddatumHdg", "label": "Einddatum huidig", "dataType": "date", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "begindatumNw", "label": "Begindatum nieuw", "dataType": "date", "mandatory": true, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "einddatumNw", "label": "Einddatum nieuw", "dataType": "date", "mandatory": false, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" },
+            { "property": "prijsNw", "label": "Prijs nieuw", "dataType": "currencyAmount", "mandatory": true, "locked": false, "active": null, "placeholder": null, "choiceValues": null, "defaultValue": null, "status": "nieuw" }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -17,7 +17,7 @@ export default function (services: BlueprintFactories): DetailPage {
       Boekingsperiode: createProperty(dataType.text()),
       // Nieuwe velden (RPT00701)
       IndexcorrectiesMeenemen: createProperty(dataType.yesNo()),
-      StartdatumIndexering: createProperty(dataType.text()),
+      StartdatumIndexering: createProperty(dataType.date()),
     }
   });
 
@@ -69,11 +69,13 @@ export default function (services: BlueprintFactories): DetailPage {
               fields: [
                 {
                   labelText: constant('Indexcorrecties meenemen'), // nieuw
-                  property: mainModel.properties.IndexcorrectiesMeenemen
+                  property: mainModel.properties.IndexcorrectiesMeenemen,
+                  getMicroCopyText() { return 'Neem correcties met terugwerkende kracht op in de analyse'; }
                 },
                 {
                   labelText: constant('Startdatum indexering'), // nieuw
-                  property: mainModel.properties.StartdatumIndexering
+                  property: mainModel.properties.StartdatumIndexering,
+                  getMicroCopyText() { return 'Bepaal vanaf welke datum perioden worden beoordeeld'; }
                 }
               ]
             }
